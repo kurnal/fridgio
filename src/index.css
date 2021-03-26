@@ -1,0 +1,23 @@
+
+@font-face {
+    font-family: SanFrancisco; 
+    src: url('../SanFranciscoFont-master/SanFranciscoDisplay-Regular.otf');
+ } 
+
+nav{
+    display: table;
+    text-align: center;
+    width: 100%
+   
+   }
+   nav ul{
+    display: table-row;
+   }
+   
+   nav ul li {
+    display: table-cell;
+   }
+
+.border-top { 
+    border-top: 20px 
+}
