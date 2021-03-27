@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 data =  {
 <<<<<<< HEAD
     "key": "Omg! look we can totally extract JSON from a file locally and use it to mock data. omg this is so groundbreaking. this is so crazy."
@@ -8,3 +9,5 @@ data =  {
 
 
 
+=======
+>>>>>>> 0425f6907b544a04b58bb7c968c620d2f7f06da3
