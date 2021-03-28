@@ -3,56 +3,25 @@
 <html>
   <head>
     <title> Recipes Page </title>
-    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../index.css">
+    <link href="../../fontawesome/css/all.css" rel="stylesheet">
     <style>
         body {
-            font-family:'Georgia';
-        }
-
-        button {
-            font-size: 1.2vw;
-            border-radius: 6px;
-            padding-left: 30px;
-            padding-right: 30px;
-            background-color: lightgray;
-            color: lightslategray;
-            border-color:lightslategray;
-        }
-
-        button:hover {
-            border-color: lightskyblue;
-        }
-
-        .buttons {
-            padding: 10px;
-            float:left;
-            width: 50%;
-        }
-        
-        #button-search {
-            text-align:right;
-        }
-        #button-create {
-            text-align:left;
-        }
-
-        .recipe-card {
-            float:left;
-            padding: 5%;
-            height:auto;
+            font-family:'SanFrancisco';
         }
 
         .cards {
-            margin-left:18%;
+            margin-left:23%;
         }
 
         .card {
-            width: 13vw; 
-            height:38vh;
+            width: 12vw; 
+            height:36vh;
             float:left;
             border:2px solid lightslategray;
-            margin-left:5%;
             background-color:lightslategray;
         }
         
@@ -61,17 +30,11 @@
             color:white;
         }
 
-        .btn {
+        .card .btn {
             background-color:white;
-            color:black;
             border:black;
             font-size: 0.8vw;
-        }
-
-        .btn:hover {
-            color:black;
-            border-color:white;
-        }
+        } 
 
         .carousel-control-next, 
         .carousel-control-prev{
@@ -80,63 +43,47 @@
             opacity: 1;
             top: 50%;
             transform: translateY(-50%);
-            border-radius: 50%;
             transition: all 0.3s ease;
         }
         
         .carousel-control-next{
-            right: 10%
+            right: 15%;
         }
         .carousel-control-prev{
-            left: 10%;
-        }
-
-        .carousel-item.active,
-        .carousel-item-next,
-        .carousel-item-prev {
-            display: block;
+            left: 15%;
         }
 
         .carousel-control-prev-icon,
         .carousel-control-next-icon {
             background-color:lightslategray;
-            border-radius: 30%;
         }
 
         .float-child {
-            width: 50%;
             float: left;
-            vertical-align: middle;
-            padding-top: 20px;
         }
 
     </style>
   </head>
   <body class=text-center> 
-    <h1 class=text-center style="background-color:lightslategray; padding:2%; font-size: 4vw; color:lightgray"> Recipes </h1>
-    <div class="buttons" id=button-search>
-        <a href="search-recipes.html"><button>Search Recipes</button></a>
-    </div> 
+    <h1 class="text-center p-3" style="font-size: 4vw; color:lightslategray"> Recipes </h1>
+    <a href="search-recipes.html"><button class="flex-grow-1 p-1 m-2 rounded">Search Recipes</button></a>
+    <a href="create-recipe.html"><button class="flex-grow-1 p-1 m-2 rounded">Create New Recipe</button></a>
 
-    <div class="buttons" id=button-create>
-        <a href="create-recipe.html"><button>Create New Recipe</button></a>
-    </div>
-
-    <div class="float-container new-recipes"> 
-        <div class="float-child">
+    <div class="new-recipes"> 
+        <div class="float-child w-50 pt-3">
             <h2 style="font-size:1.5vw">New Suggestions</h2>
-            <div id="carousel1" class="carousel slide col-xs-12" data-bs-touch="false" data-bs-interval="false">
-                <div class="carousel-inner col-md-3 active text-center">
+            <div id="carousel1" class="carousel slide col-lg-12" data-bs-touch="false" data-bs-interval="false">
+                <div class="carousel-inner active col-lg-3 text-center">
                     <div class="carousel-item active">
-                        <div class="cards col-xs-12 text-center">
-                            <div class="card col-xs-12">
+                        <div class="cards">
+                            <div class="card col-lg-12 ms-3">
                                 <img class="card-img-top" src="pics/mushroom-soup.jpg">
                                 <div class="card-body">
                                 <h5 class="card-title">Creamy<br>Mushroom Soup</h5>
                                 <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
                                 </div>
                             </div>
-                            <div class="card col-xs-12">
+                            <div class="card col-lg-12 ms-3">
                                 <img class="card-img-top" src="pics/honey-chicken.jpg">
                                 <div class="card-body">
                                 <h5 class="card-title">Honey<br>Garlic Chicken</h5>
@@ -146,15 +93,15 @@
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <div class="cards col-xs-12">
-                            <div class="card col-xs-12">
+                        <div class="cards">
+                            <div class="card col-lg-12 ms-3">
                                 <img class="card-img-top" src="pics/fish-tacos.jpg">
                                 <div class="card-body">
                                 <h5 class="card-title">Grilled<br>Fish Tacos</h5>
                                 <a href="shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
                                 </div>
                             </div>
-                            <div class="card col-xs-12">
+                            <div class="card col-lg-12 ms-3">
                                 <img class="card-img-top" src="pics/shrimp-scampi.jpg">
                                 <div class="card-body">
                                 <h5 class="card-title">Classic<br>Shrimp Scampi</h5>
@@ -175,21 +122,23 @@
             </div>
         </div>
 </div>
+
+
 <div class="float-container my-recipes">
-    <div class="float-child" id="Your Recipes">
+    <div class="float-child float-left w-50 pt-3" id="Your Recipes">
         <h2 style="font-size:1.5vw">Your Recipes</h2>
         <div id="carousel2" class="carousel slide col-xs-12" data-bs-touch="false" data-bs-interval="false">
-            <div class="carousel-inner col-md-3 active text-center">
+            <div class="carousel-inner active text-center">
                 <div class="carousel-item active">
-                    <div class="cards col-xs-12 text-center">
-                        <div class="card col-xs-12">
+                    <div class="cards col-lg-12 text-center">
+                        <div class="card col-lg-12 ms-3">
                             <img class="card-img-top" src="pics/mushroom-soup.jpg">
                             <div class="card-body">
                             <h5 class="card-title">Creamy<br>Mushroom Soup</h5>
                             <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
                             </div>
                         </div>
-                        <div class="card col-xs-12">
+                        <div class="card col-lg-12 ms-3">
                             <img class="card-img-top" src="pics/shrimp-scampi.jpg">
                             <div class="card-body">
                             <h5 class="card-title">Classic<br>Shrimp Scampi</h5>
@@ -199,15 +148,15 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <div class="cards col-xs-12">
-                        <div class="card col-xs-12">
+                    <div class="cards col-lg-12">
+                        <div class="card col-lg-12 ms-3">
                             <img class="card-img-top" src="pics/shrimp-scampi.jpg">
                             <div class="card-body">
                             <h5 class="card-title">Classic<br>Shrimp Scampi</h5>
                             <a href="shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
                             </div>
                         </div>
-                        <div class="card col-xs-12">
+                        <div class="card col-lg-12 ms-3">
                             <img class="card-img-top" src="pics/mushroom-soup.jpg">
                             <div class="card-body">
                             <h5 class="card-title">Creamy<br>Mushroom Soup</h5>
@@ -227,6 +176,22 @@
             </button>
         </div>
     </div>
+
+    <!-- Nav Bar -->
+    <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
+        <button class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco">
+            <i class="fas fa-home"></i> Home</button>
+        <button class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco">
+            <i class="fas fa-list-alt"></i> Grocery Lists</button>
+        <button class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco">
+            <i class="fas fa-shopping-basket"></i> Inventory</button>
+        <button class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco">
+            <i class="fas fa-book"></i> Recipes</button>
+        <button class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco">
+            <i class="fas fa-wrench"></i> Settings</button>
+    </nav>
+
+  <script type="text/javascript" src="../../bootstrap/js/popper.min.js"></script>
   <script src="../../bootstrap/js/bootstrap.bundle.js"></script>
   </body>
 </html>
