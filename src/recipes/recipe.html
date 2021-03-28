@@ -1,0 +1,232 @@
+<!-- Amanda -->
+<!doctype html>
+<html>
+  <head>
+    <title> Recipes Page </title>
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family:'Georgia';
+        }
+
+        button {
+            font-size: 1.2vw;
+            border-radius: 6px;
+            padding-left: 30px;
+            padding-right: 30px;
+            background-color: lightgray;
+            color: lightslategray;
+            border-color:lightslategray;
+        }
+
+        button:hover {
+            border-color: lightskyblue;
+        }
+
+        .buttons {
+            padding: 10px;
+            float:left;
+            width: 50%;
+        }
+        
+        #button-search {
+            text-align:right;
+        }
+        #button-create {
+            text-align:left;
+        }
+
+        .recipe-card {
+            float:left;
+            padding: 5%;
+            height:auto;
+        }
+
+        .cards {
+            margin-left:18%;
+        }
+
+        .card {
+            width: 13vw; 
+            height:38vh;
+            float:left;
+            border:2px solid lightslategray;
+            margin-left:5%;
+            background-color:lightslategray;
+        }
+        
+        .card-title {
+            font-size:1.2vw;
+            color:white;
+        }
+
+        .btn {
+            background-color:white;
+            color:black;
+            border:black;
+            font-size: 0.8vw;
+        }
+
+        .btn:hover {
+            color:black;
+            border-color:white;
+        }
+
+        .carousel-control-next, 
+        .carousel-control-prev{
+            height: 60px;
+            width: 60px;
+            opacity: 1;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-control-next{
+            right: 10%
+        }
+        .carousel-control-prev{
+            left: 10%;
+        }
+
+        .carousel-item.active,
+        .carousel-item-next,
+        .carousel-item-prev {
+            display: block;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color:lightslategray;
+            border-radius: 30%;
+        }
+
+        .float-child {
+            width: 50%;
+            float: left;
+            vertical-align: middle;
+            padding-top: 20px;
+        }
+
+    </style>
+  </head>
+  <body class=text-center> 
+    <h1 class=text-center style="background-color:lightslategray; padding:2%; font-size: 4vw; color:lightgray"> Recipes </h1>
+    <div class="buttons" id=button-search>
+        <a href="search-recipes.html"><button>Search Recipes</button></a>
+    </div> 
+
+    <div class="buttons" id=button-create>
+        <a href="create-recipe.html"><button>Create New Recipe</button></a>
+    </div>
+
+    <div class="float-container new-recipes"> 
+        <div class="float-child">
+            <h2 style="font-size:1.5vw">New Suggestions</h2>
+            <div id="carousel1" class="carousel slide col-xs-12" data-bs-touch="false" data-bs-interval="false">
+                <div class="carousel-inner col-md-3 active text-center">
+                    <div class="carousel-item active">
+                        <div class="cards col-xs-12 text-center">
+                            <div class="card col-xs-12">
+                                <img class="card-img-top" src="pics/mushroom-soup.jpg">
+                                <div class="card-body">
+                                <h5 class="card-title">Creamy<br>Mushroom Soup</h5>
+                                <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
+                                </div>
+                            </div>
+                            <div class="card col-xs-12">
+                                <img class="card-img-top" src="pics/honey-chicken.jpg">
+                                <div class="card-body">
+                                <h5 class="card-title">Honey<br>Garlic Chicken</h5>
+                                <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="cards col-xs-12">
+                            <div class="card col-xs-12">
+                                <img class="card-img-top" src="pics/fish-tacos.jpg">
+                                <div class="card-body">
+                                <h5 class="card-title">Grilled<br>Fish Tacos</h5>
+                                <a href="shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
+                                </div>
+                            </div>
+                            <div class="card col-xs-12">
+                                <img class="card-img-top" src="pics/shrimp-scampi.jpg">
+                                <div class="card-body">
+                                <h5 class="card-title">Classic<br>Shrimp Scampi</h5>
+                                <a href="shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel1" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carousel1" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+</div>
+<div class="float-container my-recipes">
+    <div class="float-child" id="Your Recipes">
+        <h2 style="font-size:1.5vw">Your Recipes</h2>
+        <div id="carousel2" class="carousel slide col-xs-12" data-bs-touch="false" data-bs-interval="false">
+            <div class="carousel-inner col-md-3 active text-center">
+                <div class="carousel-item active">
+                    <div class="cards col-xs-12 text-center">
+                        <div class="card col-xs-12">
+                            <img class="card-img-top" src="pics/mushroom-soup.jpg">
+                            <div class="card-body">
+                            <h5 class="card-title">Creamy<br>Mushroom Soup</h5>
+                            <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
+                            </div>
+                        </div>
+                        <div class="card col-xs-12">
+                            <img class="card-img-top" src="pics/shrimp-scampi.jpg">
+                            <div class="card-body">
+                            <h5 class="card-title">Classic<br>Shrimp Scampi</h5>
+                            <a href="shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="cards col-xs-12">
+                        <div class="card col-xs-12">
+                            <img class="card-img-top" src="pics/shrimp-scampi.jpg">
+                            <div class="card-body">
+                            <h5 class="card-title">Classic<br>Shrimp Scampi</h5>
+                            <a href="shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
+                            </div>
+                        </div>
+                        <div class="card col-xs-12">
+                            <img class="card-img-top" src="pics/mushroom-soup.jpg">
+                            <div class="card-body">
+                            <h5 class="card-title">Creamy<br>Mushroom Soup</h5>
+                            <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel2" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel2" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+  <script src="../../bootstrap/js/bootstrap.bundle.js"></script>
+  </body>
+</html>
