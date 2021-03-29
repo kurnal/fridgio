@@ -35,3 +35,62 @@ nav{
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
   }
+
+.home {
+    height: 100%;
+}
+.header {
+    text-align: center;
+}
+
+.containerHome {
+    font-size: 0; /*fix inline gaps*/
+    width:650px;       
+    height: 500px;
+    margin:0 auto; /* this will center the page */
+}
+
+.item {
+    font-size: 16px; /*reset font size*/
+    border: 1px solid black;
+    position: relative;
+    overflow: auto; /*for scrollbar*/
+    float: left;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    justify-content: center;
+    width: 50%;
+    background-color: #bee3db;
+}
+
+.itemRecipes {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  width: 70%;
+  height: auto;
+}
+.card {
+  display: inline-flex;
+  border: 1px solid black;
+  height: 125px;
+  width: 125px; 
+  margin: 1px;
+  white-space: pre-line;
+  text-align: center;
+  justify-content: center;
+ }
+ 
+.itemInventory {
+    font-size: 16px; /*reset font size*/
+    display: inline-block;
+    border: 1px solid black;
+    text-align: left;
+    width: 50%;
+    height: auto;
+    position: relative;
+    overflow: auto; /*for scrollbar*/
+    background-color: #faf9f9;
+}

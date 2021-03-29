@@ -1,0 +1,197 @@
+<!-- Amanda -->
+<!doctype html>
+<html>
+  <head>
+    <title> Recipes Page </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../index.css">
+    <link href="../../fontawesome/css/all.css" rel="stylesheet">
+    <style>
+        body {
+            font-family:'SanFrancisco';
+        }
+
+        .cards {
+            margin-left:23%;
+        }
+
+        .card {
+            width: 12vw; 
+            height:36vh;
+            float:left;
+            border:2px solid lightslategray;
+            background-color:lightslategray;
+        }
+        
+        .card-title {
+            font-size:1.2vw;
+            color:white;
+        }
+
+        .card .btn {
+            background-color:white;
+            border:black;
+            font-size: 0.8vw;
+        } 
+
+        .carousel-control-next, 
+        .carousel-control-prev{
+            height: 60px;
+            width: 60px;
+            opacity: 1;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-control-next{
+            right: 15%;
+        }
+        .carousel-control-prev{
+            left: 15%;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color:lightslategray;
+        }
+
+        .float-child {
+            float: left;
+        }
+
+    </style>
+  </head>
+  <body class=text-center> 
+    <h1 class="text-center p-3" style="font-size: 4vw; color:lightslategray"> Recipes </h1>
+    <a href="search-recipes.html"><button class="flex-grow-1 p-1 m-2 rounded">Search Recipes</button></a>
+    <a href="create-recipe.html"><button class="flex-grow-1 p-1 m-2 rounded">Create New Recipe</button></a>
+
+    <div class="new-recipes"> 
+        <div class="float-child w-50 pt-3">
+            <h2 style="font-size:1.5vw">New Suggestions</h2>
+            <div id="carousel1" class="carousel slide col-lg-12" data-bs-touch="false" data-bs-interval="false">
+                <div class="carousel-inner active col-lg-3 text-center">
+                    <div class="carousel-item active">
+                        <div class="cards">
+                            <div class="card col-lg-12 ms-3">
+                                <img class="card-img-top" src="pics/mushroom-soup.jpg">
+                                <div class="card-body">
+                                <h5 class="card-title">Creamy<br>Mushroom Soup</h5>
+                                <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
+                                </div>
+                            </div>
+                            <div class="card col-lg-12 ms-3">
+                                <img class="card-img-top" src="pics/honey-chicken.jpg">
+                                <div class="card-body">
+                                <h5 class="card-title">Honey<br>Garlic Chicken</h5>
+                                <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="cards">
+                            <div class="card col-lg-12 ms-3">
+                                <img class="card-img-top" src="pics/fish-tacos.jpg">
+                                <div class="card-body">
+                                <h5 class="card-title">Grilled<br>Fish Tacos</h5>
+                                <a href="shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
+                                </div>
+                            </div>
+                            <div class="card col-lg-12 ms-3">
+                                <img class="card-img-top" src="pics/shrimp-scampi.jpg">
+                                <div class="card-body">
+                                <h5 class="card-title">Classic<br>Shrimp Scampi</h5>
+                                <a href="shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel1" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carousel1" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+</div>
+
+
+<div class="float-container my-recipes">
+    <div class="float-child float-left w-50 pt-3" id="Your Recipes">
+        <h2 style="font-size:1.5vw">Your Recipes</h2>
+        <div id="carousel2" class="carousel slide col-xs-12" data-bs-touch="false" data-bs-interval="false">
+            <div class="carousel-inner active text-center">
+                <div class="carousel-item active">
+                    <div class="cards col-lg-12 text-center">
+                        <div class="card col-lg-12 ms-3">
+                            <img class="card-img-top" src="pics/mushroom-soup.jpg">
+                            <div class="card-body">
+                            <h5 class="card-title">Creamy<br>Mushroom Soup</h5>
+                            <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
+                            </div>
+                        </div>
+                        <div class="card col-lg-12 ms-3">
+                            <img class="card-img-top" src="pics/shrimp-scampi.jpg">
+                            <div class="card-body">
+                            <h5 class="card-title">Classic<br>Shrimp Scampi</h5>
+                            <a href="shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="cards col-lg-12">
+                        <div class="card col-lg-12 ms-3">
+                            <img class="card-img-top" src="pics/shrimp-scampi.jpg">
+                            <div class="card-body">
+                            <h5 class="card-title">Classic<br>Shrimp Scampi</h5>
+                            <a href="shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
+                            </div>
+                        </div>
+                        <div class="card col-lg-12 ms-3">
+                            <img class="card-img-top" src="pics/mushroom-soup.jpg">
+                            <div class="card-body">
+                            <h5 class="card-title">Creamy<br>Mushroom Soup</h5>
+                            <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel2" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel2" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Nav Bar -->
+    <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
+        <button class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco">
+            <i class="fas fa-home"></i> Home</button>
+        <button class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco">
+            <i class="fas fa-list-alt"></i> Grocery Lists</button>
+        <button class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco">
+            <i class="fas fa-shopping-basket"></i> Inventory</button>
+        <button class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco">
+            <i class="fas fa-book"></i> Recipes</button>
+        <button class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco">
+            <i class="fas fa-wrench"></i> Settings</button>
+    </nav>
+
+  <script type="text/javascript" src="../../bootstrap/js/popper.min.js"></script>
+  <script src="../../bootstrap/js/bootstrap.bundle.js"></script>
+  </body>
+</html>
