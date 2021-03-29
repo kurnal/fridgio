@@ -7,6 +7,8 @@
       <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
       <link rel="stylesheet" href="./index.css">
       <link href="../fontawesome/css/all.css" rel="stylesheet">
+      <script type = "text/javascript" src="../bootstrap/js/jquery-3.6.0.min.js"></script>
+      <script type = "text/javascript" src="../bootstrap/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
 
@@ -51,13 +53,31 @@
       <div class="col-sm-5">
         <div class="panel panel-primary">
           <div class="panel-heading">MEATS</div>
-          <div class="panel-body"><img src="../images/meat.png" class="img-fluid" style="width:60%" alt="Image"></div>
+          <div class="panel-body"><a href="inventory_list.html"><img src="../images/meat.png" class="img-fluid" style="width:60%" alt="Image"></a></div>
         </div>
       </div>
       <div class="col-sm-5"> 
         <div class="panel panel-primary">
           <div class="panel-heading">VEGETABLES</div>
-          <div class="panel-body"><img src="../images/veggie.png" class="img-fluid" style="width:60%" alt="Image"></div>
+          <div class="panel-body"><a href="inventory_list.html"><img src="../images/veggie.png" class="img-fluid" style="width:60%" alt="Image"></a></div>
+        </div>
+      </div>
+      <div class="col-sm-2 sidenav">
+        <!-- <div class="button-container">
+          <div class="button-center">
+            <button type="button" class="btn btn-secondary"><i class="fas fa-plus"></i></button>
+          </div>
+        </div> -->
+        <div class="dropdown">
+          <a class="btn btn-secondary dropdown-toggle flex-grow-1" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            Sort By
+          </a>
+          
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" href="#">Expiration Date</a></li>
+            <li><a class="dropdown-item" href="#">Quantity</a></li>
+            <li><a class="dropdown-item" href="#">A-Z</a></li>
+          </ul>
         </div>
       </div>
     </div>
@@ -68,39 +88,25 @@
       <div class="col-sm-5">
         <div class="panel panel-primary">
           <div class="panel-heading">FRUITS</div>
-          <div class="panel-body"><img src="../images/fruit.png" class="img-fluid" style="width:60%" alt="Image"></div>
+          <div class="panel-body"><a href="inventory_list.html"><img src="../images/fruit.png" class="img-fluid" style="width:60%" alt="Image"></a></div>
         </div>
       </div>
       <div class="col-sm-5"> 
         <div class="panel panel-primary">
           <div class="panel-heading">OTHER</div>
-          <div class="panel-body"><img src="../images/other.png" class="img-fluid" style="width:60%" alt="Image"></div>
-        </div>
-      </div>
-      <div class="col-sm-2 sidenav">
-        <div class="dropdown">
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown link
-          </a>
-        
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
+          <div class="panel-body"><a href="inventory_list.html"><img src="../images/other.png" class="img-fluid" style="width:60%" alt="Image"></a></div>
         </div>
       </div>
     </div>
   </div>
     
   <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
-    <button class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco"> <i class="fas fa-home"></i> Home</button>
-    <button class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco"> <i class="fas fa-list-alt"></i> Grocery Lists</button>
-    <button class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco"> <i class="fas fa-shopping-basket"></i> Inventory</button>
-    <button class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco"> <i class="fas fa-book"></i> Recipes</button>
-    <button class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco"> <i class="fas fa-wrench"></i> Settings</button>
+    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "home.html"> <i class="fas fa-home"></i> Home </a>
+    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "groceries.html"> <i class="fas fa-list-alt"></i> Grocery Lists </a>
+    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "inventory.html"> <i class="fas fa-shopping-basket"></i> Inventory </a>
+    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "recipe.html"> <i class="fas fa-book"></i> Recipes </a>
+    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "settings.html"> <i class="fas fa-wrench"></i> Settings</a>
   </nav>
 
-  <script type = "text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
-  <script type = "text/javascript" src="../bootstrap/js/popper.min.js"></script>
+  
 </html>
