@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+    <head>
+      <title>Inventory</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="./index.css">
+      <link rel="stylesheet" href="../bootstrap-table-master/dist/bootstrap-table.min.css">
+      <link href="../fontawesome/css/all.css" rel="stylesheet">
+      <script type = "text/javascript" src="../bootstrap/js/jquery-3.6.0.min.js"></script>
+      <script type = "text/javascript" src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script type = "text/javascript" src="../bootstrap-table-master/dist/bootstrap-table.min.js"></script>
+
+
+    </head>
+    <body>
+
+<html lang="en">
+<head>
+  <style>
+    
+    /* Remove the jumbotron's default bottom margin */ 
+     .jumbotron {
+      margin-bottom: 0;
+    }
+   
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+
+     .border-rad {
+      border-radius: 20px
+    }
+  </style>
+</head>
+  <body>
+  
+    
+      <div class="container">
+        <br> </br>
+        <button class="btn-primary btn" onclick="add();">Update Inventory</button>
+        <br> </br>
+        <div class="col-sm-2 sidenav">
+          <!-- <div class="button-container">
+            <div class="button-center">
+              <button type="button" class="btn btn-secondary"><i class="fas fa-plus"></i></button>
+            </div>
+          </div> -->
+          <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle flex-grow-1" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              Sort By
+            </a>
+            
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-item" href="#">Expiration Date</a></li>
+              <li><a class="dropdown-item" href="#">Quantity</a></li>
+              <li><a class="dropdown-item" href="#">A-Z</a></li>
+            </ul>
+          </div>
+        </div>
+        <br> </br>
+        <table id ="table">
+        <thead>
+          <tr>
+            <th data-field="id">ID</th>
+            <th data-field="name">Name</th>
+            <th data-field="qty">Quantity</th>
+          </tr>
+        </thead>
+      </table>
+      
+      </div>
+      
+      <script> $('#table').bootstrapTable({
+        data: [{
+          id: 1,
+          name: 'Item 1',
+          qty: '1'
+        }, {
+          id: 2,
+          name: 'Item 2',
+          qty: '8'
+        }]
+      })
+      </script>
+  </body>
+    
+  <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
+    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "home.html"> <i class="fas fa-home"></i> Home </a>
+    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "groceries.html"> <i class="fas fa-list-alt"></i> Grocery Lists </a>
+    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "inventory.html"> <i class="fas fa-shopping-basket"></i> Inventory </a>
+    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "recipe.html"> <i class="fas fa-book"></i> Recipes </a>
+    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "settings.html"> <i class="fas fa-wrench"></i> Settings</a>
+  </nav>
+
+</html>
