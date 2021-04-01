@@ -1,8 +1,114 @@
 <html>
     <head>
+        <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../index.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="../../fontawesome/css/all.css" rel="stylesheet">
+        <script type = "text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
+        <script type = "text/javascript" src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src='food.json'></script>
         <title> Create Recipe Page </title>
+        <style>
+            form .btn, .this-button .btn {
+                border: 1px solid black;
+                background-color:lightgray;
+            }
+
+            .card{
+                border-radius: 30px;
+                background-color: peachpuff;
+                width: 300px;
+                height: 300px;
+            }
+        </style>
+        <script> 
+
+            window.onload = function()
+            {
+            document.getElementById("recipeCard").style.display='none';
+            };
+
+            function getRecipeDetails() {
+                var nameField = document.getElementById('recipeName').value;
+                // var prepTime = document.getElementById('prepTime').value;
+                // var cookingTime = document.getElementById('cookingTime').value;
+                // var category = document.getElementById('recipeCategory').value;
+                // document.getElementById("result").innerHTML = nameField;
+                // document.getElementById("result2").innerHTML = "Prep Time: " + prepTime;
+                // document.getElementById("result3").innerHTML = "Cooking Time: " + cookingTime;
+                
+                var x = document.getElementById("recipeCard");
+                x.style.display = "block";
+                // if (x.style.display === "none") {
+                //     x.style.display = "block";
+                // } else {
+                //     x.style.display = "none";
+                // }
+             }
+        </script>
     </head>
     <body>
-        
+        <a href="recipe.html">
+            <div class="this-button">
+                <button class="btn float-child rounded m-2">Back to Recipes</button>
+            </div>
+        </a>
+        <h1 class="text-center">Create Recipe</h1>
+        <form id="myform">
+            <div class="form-group m-4">
+              <label for="recipeName">Recipe Name</label>
+              <input type="name" class="form-control" id="recipeName" placeholder="ex: Classic Caesar Salad">
+            </div>
+            <div class="form-group m-4">
+              <label for="prepTime">Estimated Prep Time</label>
+              <input type="number" class="form-control" id="prepTime" placeholder="in minutes">
+            </div>
+            <div class="form-group m-4">
+                <label for="cookingTime">Estimated Cooking Time</label>
+                <input type="number" class="form-control" id="cookingTime" placeholder="in minutes">
+            </div>
+            <div class="m-4">
+                <label for="recipeCategory">Recipe Category</label>
+                <select class="form-select d-flex float-child" style="width:370px" id="recipeCategory">
+                    <option selected>Select Category</option>
+                    <option value="Asian">Asian</option>
+                    <option value="2">Asian</option>
+                    <option value="Salads">Salads</option>
+                    <option value="4">Soups</option>
+                    <option value="5">Salads</option>
+                    <option value="6">Salads</option>
+                    <option value="7">Salads</option>
+                    <option value="8">Salads</option>
+                    <option value="9">Salads</option>
+                    <option value="10">Salads</option>
+                    <option value="11">Salads</option>
+                    <option value="12">Other</option>
+                </select>
+            </div>
+          </form>
+        <div class="this-button">
+            <button type="submit" class="btn m-4" id="subButton" onclick="getRecipeDetails()">Submit</button>
+        </div>
+        <div>
+            <div class="card" id="recipeCard">
+                <p id='result'></p>
+                <!-- <div class="card-body">
+                    <h5 class="card-title text-justify" id='result'></h5>
+                </div> -->
+                <!-- <p id='result'></p>
+                <p id='result2'></p>
+                <p id='result3'></p> -->
+            </div>
+        </div>
+
+         <!-- Nav Bar -->
+         <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../index.html"> <i class="fas fa-home"></i> Home </a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../groceries/groceries.html"> <i class="fas fa-list-alt"></i> Grocery Lists </a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../inventory/inventory.html"> <i class="fas fa-shopping-basket"></i> Inventory </a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../recipes/recipe.html"> <i class="fas fa-book"></i> Recipes </a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../settings.html"> <i class="fas fa-wrench"></i> Settings</a>
+        </nav>
+
     </body>
 </html>

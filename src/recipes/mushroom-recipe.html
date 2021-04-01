@@ -2,11 +2,16 @@
     <head>
         <title>Mushroom Soup Recipe</title>
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../index.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="../../fontawesome/css/all.css" rel="stylesheet">
+        <script type = "text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
+        <script type = "text/javascript" src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
-            body {
+            /* body {
                 background-color: lightslategray;
-            }
+            } */
 
             .float-child {
                 float:left;
@@ -16,6 +21,7 @@
                 padding:10px;
                 height:auto;
                 font-size:0.9vw;
+                box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             }
 
             .card-body {
@@ -34,21 +40,24 @@
             
         </style>
     </head>
-    <body class="col-xs-12" style="font-family:'Georgia';">
-                <div class="card title-card mx-auto" style="width:65%">
-                    <div class="row no-gutters">
-                      <div class="picture col-md-4">
-                        <img src="pics/mushroom-soup.jpg" class="card-img" style="width:40vh">
-                      </div>
-                        <div class="card-body text-center col-md-8">
-                            <h1 style="font-size: 2.5vw; padding-bottom: 6%;"><b>Creamy<br>Mushroom Soup</b></h1>
-                            <p><b>Prep:</b> 15 mins</p>
-                            <p><b>Cook:</b> 1 hr 20 mins</p>
-                            <p><b>Total:</b> 1 hr 35 mins</p>
-                            <p><b>Servings:</b> 6</p>
-                        </div>
-                      </div>
-                  </div>
+    <body class="col-xs-12">
+        <a href="recipe.html">
+            <div class="this-button"><button class="btn-default float-child rounded m-2">Back to Recipes</button></div>
+        </a>
+        <div class="card title-card mx-auto" style="width:65%; clear: both;">
+            <div class="row no-gutters">
+                <div class="picture col-md-4">
+                <img src="pics/mushroom-soup.jpg" class="card-img" style="width:40vh">
+                </div>
+                <div class="card-body text-center col-md-8">
+                    <h1 style="font-size: 2.5vw; padding-bottom: 6%;"><b>Creamy<br>Mushroom Soup</b></h1>
+                    <p><b>Prep:</b> 15 mins</p>
+                    <p><b>Cook:</b> 1 hr 20 mins</p>
+                    <p><b>Total:</b> 1 hr 35 mins</p>
+                    <p><b>Servings:</b> 6</p>
+                </div>
+                </div>
+            </div>
         
         <div class="row mx-auto col-md-8">
             <div class="card ingredients float-child col-md-8" style="width:30%"> 
@@ -79,7 +88,14 @@
             </div>
         </div>
         
-
+         <!-- Nav Bar -->
+         <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../index.html"> <i class="fas fa-home"></i> Home </a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../groceries/groceries.html"> <i class="fas fa-list-alt"></i> Grocery Lists </a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../inventory/inventory.html"> <i class="fas fa-shopping-basket"></i> Inventory </a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../recipes/recipe.html"> <i class="fas fa-book"></i> Recipes </a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../settings.html"> <i class="fas fa-wrench"></i> Settings</a>
+        </nav>
     </body>
     <script src="../../bootstrap/js/bootstrap.bundle.js"></script>
 </html>
