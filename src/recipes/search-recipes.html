@@ -2,13 +2,186 @@
     <head>
         <title> Search Recipes Page </title>
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../index.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="../../fontawesome/css/all.css" rel="stylesheet">
+        <script type = "text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
+        <script type = "text/javascript" src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src='food.json'></script>
         <style>
+        .card {
+            width:12vw;
+            height:25vh;
+            box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        .color1 {
+            background-color: lightsteelblue;
+        }
+        .color2 {
+            background-color: paleturquoise;
+        }
+        .color3 {
+            background-color: peachpuff;
+        }
+
+        .float-child {
+            float: left;
+        }
+
+        .this-button .btn-default {
+            background-color: peachpuff;
+            border: 1px solid black;
+        }
+
+        .new-recipes {
+            margin-top: 15%
+        }
+        
+        .carousel-control-prev, 
+        .carousel-control-next {
+            width: 30px;
+            height: 30px;
+            background-color: lightslategray;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
+            margin: 0px 50px 0px 50px;
+        }
 
         </style>
     </head>
-    <body>
-       
+    <body class="text-center">
+        <!-- Return to Recipes -->
+        <a href="recipe.html">
+        <div class="this-button"><button class="btn-default float-child rounded m-2">Back to Recipes</button></div>
+        </a>
+
+        <!-- Search Bar -->
+        <div class="jumbotron">
+            <div class="container p-3">
+              <h1>Search Recipes</h1>      
+              <div class="input-group rounded">
+                <input type="search" class="form-control rounded" placeholder="Search by Name" aria-label="Search"
+                  aria-describedby="search-addon" />
+                <span class="input-group-text border-0" id="search-addon">
+                  <i class="fas fa-search"></i>
+                </span>
+              </div>
+            </div>
+          </div><br>
+        
+        <!-- Filters -->
+        <div class="container d-flex justify-content-between">
+            <select class="form-select d-flex ms-5 float-child" style="width:650px" aria-label="Cooking Time">
+                <option selected>Cooking Time</option>
+                <option value="1">10 min or less</option>
+                <option value="2">20 min or less</option>
+                <option value="3">30 min or less</option>
+            </select>
+            <select class="form-select d-flex ms-5 float-child" style="width:650px" aria-label="Dietary Restrictions">
+                <option selected>Dietary Restrictions</option>
+                <option value="4">Vegetarian</option>
+                <option value="5">Vegan</option>
+                <option value="6">Gluten-Free</option>
+            </select>
+            <select class="form-select d-flex ms-5 float-child" style="width:650px" aria-label="Dietary Restrictions">
+                <option selected>% of Ingredients in Inventory</option>
+                <option value="1">100% of Ingredients</option>
+                <option value="2">90% of Ingredients</option>
+                <option value="3">80% of Ingredients</option>
+                <option value="4">70% of Ingredients</option>
+                <option value="5">60% of Ingredients</option>
+                <option value="6">50% of Ingredients</option>
+                <option value="7">40% of Ingredients</option>
+                <option value="8">30% of Ingredients</option>
+                <option value="9">20% of Ingredients</option>
+                <option value="10">10% of Ingredients</option>
+            </select>
+            <div class="this-button"><button class="btn-default ms-5 float-child rounded p-2" style="width: 100px">Search</button></div>
+        </div>
+        
+
+        <!-- Get Data From Json -->
+        <div id="container">
+            <div id="output"></div>
+        </div>
+        <script src="food.js"></script>
+        </div>
+
+
+        <div class="new-recipes" style="clear:both"> 
+            <div class="mt-5">
+                <h2>Categories</h2>
+                <div id="carousel1" class="carousel slide col-lg-12" data-bs-touch="false" data-bs-interval="false">
+                    <div class="carousel-inner active col-lg-3 text-center">
+                        <div class="carousel-item active">
+                            <div class="cards">
+                                <div class="card col-lg-12 m-2 color1">
+                                    <h3 class="card-title text-justify">Mexican</h3>
+                                </div>
+                                <div class="card col-lg-12 m-2 color2">
+                                    <h3 class="card-title text-justify">Asian</h3>
+                                </div>
+                                <div class="card col-lg-12 m-2 color3">
+                                    <h3 class="card-title text-justify">Breakfast</h3>
+                                </div>
+                                <div class="card col-lg-12 m-2 color1">
+                                    <h3 class="card-title text-justify">Desserts</h3>
+                                </div>
+                                <div class="card col-lg-12 m-2 color2">
+                                    <h3 class="card-title text-justify">Salads</h3>
+                                </div>
+                                <div class="card col-lg-12 m-2 color3">
+                                    <h3 class="card-title text-justify">Cocktails</h3>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item">
+                            <div class="cards">
+                                <div class="card col-lg-12 m-2 color1">
+                                    <h3 class="card-title text-justify">Italian</h3>
+                                </div>
+                                <div class="card col-lg-12 m-2 color2">
+                                    <h3 class="card-title text-justify">Pastas</h3>
+                                </div>
+                                <div class="card col-lg-12 m-2 color3">
+                                    <h3 class="card-title text-justify">Indian</h3>
+                                </div>
+                                <div class="card col-lg-12 m-2 color1">
+                                    <h3 class="card-title text-justify">Soups</h3>
+                                </div>
+                                <div class="card col-lg-12 m-2 color2">
+                                    <h3 class="card-title text-justify">Curries</h3>
+                                </div>
+                                <div class="card col-lg-12 m-2 color3">
+                                    <h3 class="card-title text-justify">Southern</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev d-flex" type="button" data-bs-target="#carousel1" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next d-flex" type="button" data-bs-target="#carousel1" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+         </div>
+        
+        <!-- Nav Bar -->
+        <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../index.html"> <i class="fas fa-home"></i> Home </a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../groceries/groceries.html"> <i class="fas fa-list-alt"></i> Grocery Lists </a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../inventory/inventory.html"> <i class="fas fa-shopping-basket"></i> Inventory </a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../recipes/recipe.html"> <i class="fas fa-book"></i> Recipes </a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../settings.html"> <i class="fas fa-wrench"></i> Settings</a>
+        </nav>
+    
     </body>
-    <script src="../../bootstrap/js/bootstrap.bundle.js"></script>
+    
 </html>

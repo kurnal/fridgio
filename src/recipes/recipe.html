@@ -18,20 +18,24 @@
         }
 
         .card {
-            width: 12vw; 
-            height:36vh;
+            width: 12vw;
+            height: 42vh;
             float:left;
-            border:2px solid lightslategray;
-            background-color:lightslategray;
+            border:2px solid lightsteelblue;
+            box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .card img {
+            border-radius: 2%;
         }
         
         .card-title {
             font-size:1.2vw;
-            color:white;
+            color:lightsteelblue;
         }
 
         .card .btn {
-            background-color:white;
+            background-color:lightsteelblue;
             border:black;
             font-size: 0.8vw;
         } 
@@ -55,7 +59,7 @@
 
         .carousel-control-prev-icon,
         .carousel-control-next-icon {
-            background-color:lightslategray;
+            background-color:lightsteelblue;
         }
 
         .float-child {
@@ -64,29 +68,29 @@
 
     </style>
   </head>
-  <body class=text-center> 
-    <h1 class="text-center p-3" style="font-size: 4vw; color:lightslategray"> Recipes </h1>
+  <body class="text-center"> 
+    <h1 class="text-center p-3" style="font-size: 4vw; color:lightsteelblue"> Recipes </h1>
     <a href="search-recipes.html"><button class="flex-grow-1 p-1 m-2 rounded">Search Recipes</button></a>
     <a href="create-recipe.html"><button class="flex-grow-1 p-1 m-2 rounded">Create New Recipe</button></a>
 
-    <div class="new-recipes"> 
+    <div class="new-recipes flex-grow-1"> 
         <div class="float-child w-50 pt-3">
             <h2 style="font-size:1.5vw">New Suggestions</h2>
             <div id="carousel1" class="carousel slide col-lg-12" data-bs-touch="false" data-bs-interval="false">
                 <div class="carousel-inner active col-lg-3 text-center">
                     <div class="carousel-item active">
                         <div class="cards">
-                            <div class="card col-lg-12 ms-3">
+                            <div class="card col-lg-12 ms-3 flex-grow-1">
                                 <img class="card-img-top" src="pics/mushroom-soup.jpg">
                                 <div class="card-body">
-                                <h5 class="card-title">Creamy<br>Mushroom Soup</h5>
-                                <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
+                                    <h5 class="card-title text-justify">Creamy Mushroom Soup</h5>
+                                    <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
                                 </div>
                             </div>
-                            <div class="card col-lg-12 ms-3">
+                            <div class="card col-lg-12 ms-3 flex-grow-1">
                                 <img class="card-img-top" src="pics/honey-chicken.jpg">
                                 <div class="card-body">
-                                <h5 class="card-title">Honey<br>Garlic Chicken</h5>
+                                <h5 class="card-title text-justify">Honey Garlic Chicken</h5>
                                 <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
                                 </div>
                             </div>
@@ -97,14 +101,14 @@
                             <div class="card col-lg-12 ms-3">
                                 <img class="card-img-top" src="pics/fish-tacos.jpg">
                                 <div class="card-body">
-                                <h5 class="card-title">Grilled<br>Fish Tacos</h5>
+                                <h5 class="card-title text-justify">Grilled Fish Tacos</h5>
                                 <a href="shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
                                 </div>
                             </div>
                             <div class="card col-lg-12 ms-3">
                                 <img class="card-img-top" src="pics/shrimp-scampi.jpg">
                                 <div class="card-body">
-                                <h5 class="card-title">Classic<br>Shrimp Scampi</h5>
+                                <h5 class="card-title text-justify">Classic Shrimp Scampi</h5>
                                 <a href="shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
                                 </div>
                             </div>
@@ -134,14 +138,14 @@
                         <div class="card col-lg-12 ms-3">
                             <img class="card-img-top" src="pics/mushroom-soup.jpg">
                             <div class="card-body">
-                            <h5 class="card-title">Creamy<br>Mushroom Soup</h5>
+                            <h5 class="card-title text-justify">Creamy Mushroom Soup</h5>
                             <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
                             </div>
                         </div>
                         <div class="card col-lg-12 ms-3">
                             <img class="card-img-top" src="pics/shrimp-scampi.jpg">
                             <div class="card-body">
-                            <h5 class="card-title">Classic<br>Shrimp Scampi</h5>
+                            <h5 class="card-title text-justify">Classic Shrimp Scampi</h5>
                             <a href="shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
                             </div>
                         </div>
@@ -152,14 +156,14 @@
                         <div class="card col-lg-12 ms-3">
                             <img class="card-img-top" src="pics/shrimp-scampi.jpg">
                             <div class="card-body">
-                            <h5 class="card-title">Classic<br>Shrimp Scampi</h5>
+                            <h5 class="card-title text-justify">Classic Shrimp Scampi</h5>
                             <a href="shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
                             </div>
                         </div>
                         <div class="card col-lg-12 ms-3">
                             <img class="card-img-top" src="pics/mushroom-soup.jpg">
                             <div class="card-body">
-                            <h5 class="card-title">Creamy<br>Mushroom Soup</h5>
+                            <h5 class="card-title text-justify">Creamy Mushroom Soup</h5>
                             <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
                             </div>
                         </div>
@@ -184,7 +188,8 @@
         <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../inventory/inventory.html"> <i class="fas fa-shopping-basket"></i> Inventory </a>
         <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../recipes/recipe.html"> <i class="fas fa-book"></i> Recipes </a>
         <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../settings.html"> <i class="fas fa-wrench"></i> Settings</a>
-    </nav>
+      </nav>
+    
 
   <script type="text/javascript" src="../../bootstrap/js/popper.min.js"></script>
   <script src="../../bootstrap/js/bootstrap.bundle.js"></script>
