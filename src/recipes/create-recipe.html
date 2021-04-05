@@ -22,7 +22,6 @@
             }
         </style>
         <script> 
-
             window.onload = function()
             {
             document.getElementById("recipeCard").style.display='none';
@@ -55,15 +54,15 @@
         </a>
         <h1 class="text-center">Create Recipe</h1>
         <form id="myform">
-            <div class="form-group m-4">
+            <div class="form-group m-4 w-50">
               <label for="recipeName">Recipe Name</label>
               <input type="name" class="form-control" id="recipeName" placeholder="ex: Classic Caesar Salad">
             </div>
-            <div class="form-group m-4">
+            <div class="form-group m-4 w-25">
               <label for="prepTime">Estimated Prep Time</label>
               <input type="number" class="form-control" id="prepTime" placeholder="in minutes">
             </div>
-            <div class="form-group m-4">
+            <div class="form-group m-4 w-25">
                 <label for="cookingTime">Estimated Cooking Time</label>
                 <input type="number" class="form-control" id="cookingTime" placeholder="in minutes">
             </div>
@@ -89,16 +88,18 @@
         <div class="this-button">
             <button type="submit" class="btn m-4" id="subButton" onclick="getRecipeDetails()">Submit</button>
         </div>
+
         <div>
-            <div class="card" id="recipeCard">
-                <p id='result'></p>
+            <h2 class="text-center" id="recipeCard">Your recipe has been added!</h2>
+            <!-- <div class="card" id="recipeCard">
+                <p id='result'></p> -->
                 <!-- <div class="card-body">
                     <h5 class="card-title text-justify" id='result'></h5>
                 </div> -->
                 <!-- <p id='result'></p>
                 <p id='result2'></p>
                 <p id='result3'></p> -->
-            </div>
+            <!-- </div> -->
         </div>
 
          <!-- Nav Bar -->

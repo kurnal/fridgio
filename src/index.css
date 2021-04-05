@@ -72,7 +72,7 @@ nav{
   width: 70%;
   height: auto;
 }
-.card {
+/* .card {
   display: inline-flex;
   border: 1px solid black;
   height: 125px;
@@ -81,7 +81,7 @@ nav{
   white-space: pre-line;
   text-align: center;
   justify-content: center;
- }
+ } */
  
 .itemInventory {
     font-size: 16px; /*reset font size*/
