@@ -4,6 +4,10 @@
     src: url('../SanFranciscoFont-master/SanFranciscoDisplay-Regular.otf');
  } 
 
+.large_icon{
+    font-size:5vw;
+ }
+
 nav{
     display: table;
     text-align: center;

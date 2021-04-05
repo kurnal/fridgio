@@ -41,7 +41,15 @@
     
       <div class="container">
         <br> </br>
-        <button class="btn-primary btn" onclick="add();">Update Inventory</button>
+        <button class="btn-primary btn" onclick="add();">Add New Item</button> <br> </br>
+        <form>
+          <label for="item">Item:</label>
+          <input type="text" id="item" name="item">
+          <label for="qty">Quantity (Include units):</label>
+          <input type="text" id="qty" name="qty">
+          <label for="expdate">Expiration Date:</label>
+          <input type="text" id="expdate" name="expdate">
+        </form>
         <br> </br>
         <div class="col-sm-2 sidenav">
           <!-- <div class="button-container">
@@ -62,31 +70,79 @@
           </div>
         </div>
         <br> </br>
-        <table id ="table">
-        <thead>
-          <tr>
-            <th data-field="id">ID</th>
-            <th data-field="name">Name</th>
-            <th data-field="qty">Quantity</th>
-          </tr>
-        </thead>
-      </table>
+        <table class="table" id="food">
+          <thead>
+            <tr>
+              <th scope="col">Item</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Expiration Date</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Chicken Breast</td>
+              <td>12oz</td>
+              <td>5/7/2021</td>
+              <td onclick="del();"> <i class="fas fa-trash"></i> </td>
+            </tr>
+            <tr>
+              <td>Oranges</td>
+              <td>2</td>
+              <td>N/A</td>
+              <td onclick="del();"> <i class="fas fa-trash"></i> </td>
+            </tr>
+            <tr>         
+              <td>Corn Chowder</td>
+              <td>28 fl oz</td>
+              <td>4/18/2021</td>
+              <td onclick="del();"> <i class="fas fa-trash"></i> </td>
+            </tr>
+          </tbody>
+        </table>
       
       </div>
       
-      <script> $('#table').bootstrapTable({
-        data: [{
-          id: 1,
-          name: 'Item 1',
-          qty: '1'
-        }, {
-          id: 2,
-          name: 'Item 2',
-          qty: '8'
-        }]
-      })
-      </script>
   </body>
+
+  <script>
+    // Add products to <table>
+    function add() {
+        // First check if a <tbody> tag exists, add one if not
+        if ($("#food tbody").length == 0) {
+            $("#food").append("<tbody></tbody>");
+        }
+        
+        // Append product to the table
+        $("#food tbody").append("<tr>" +
+            "<td>Extending Bootstrap with CSS, JavaScript and jQuery</td>" +
+            "<td>6/11/2015</td>" +
+            "<td>http://bit.ly/1SNzc0i</td>" +
+            "</tr>");
+            
+   }
+
+  function del(){
+        // First check if a <tbody> tag exists, add one if not
+        if ($("#food tbody").length == 0) {
+            $("#food").append("<tbody></tbody>");
+        }
+        
+        // Append product to the table
+        $("#food tbody").append("<tr>" +
+            "<td>Extending Bootstrap with CSS, JavaScript and jQuery</td>" +
+            "<td>6/11/2015</td>" +
+            "<td>http://bit.ly/1SNzc0i</td>" +
+            "</tr>");
+            
+    }
+  </script>
+
+  <script>
+    const data = require('./employees.json');
+    console.log(data);  
+  </script>
+
     
   <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
     <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../index.html"> <i class="fas fa-home"></i> Home </a>
