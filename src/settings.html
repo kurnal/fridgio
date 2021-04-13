@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Bootstrap Modals</title>
+        <link rel="stylesheet" href="./index.css">
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+        <link href="../fontawesome/css/all.css" rel="stylesheet">
+        <script type = "text/javascript" src="../bootstrap/js/jquery-3.6.0.min.js"></script>
+        <script type = "text/javascript" src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+    </head>
+
+  <body class = "text-center">
+
+    <div class="jumbotron">
+        <div class="container text-center">
+        <h1 class="text-center p-3" style="font-size: 4vw; color:lightsteelblue"> Inventory </h1>   
+        <div class="input-group rounded">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+            aria-describedby="search-addon" />
+            <span class="input-group-text border-0" id="search-addon">
+            <i class="fas fa-search"></i>
+            </span>
+        </div>
+        </div>
+    </div><br>
+
+    <div class="d-flex justify-content-center">
+        <a href = "./inventory_list.html"><button class="flex-grow-1 p-1 m-2 rounded" style="font-size:1vw">View Full Inventory List</button></a>
+    </div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Launch demo modal
+    </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  </body>
+    
+  <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
+    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../index.html"> <i class="fas fa-home"></i> Home </a>
+    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../groceries/groceries.html"> <i class="fas fa-list-alt"></i> Grocery Lists </a>
+    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../inventory/inventory.html"> <i class="fas fa-shopping-basket"></i> Inventory </a>
+    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../recipes/recipe.html"> <i class="fas fa-book"></i> Recipes </a>
+    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../settings.html"> <i class="fas fa-wrench"></i> Settings</a>
+  </nav>
+
+  
+</html>
