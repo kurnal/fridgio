@@ -5,110 +5,163 @@
     <title>Grocery Lists</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script type="text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
+
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../bootstrap-table-master/dist/bootstrap-table.min.css">
     <link rel="stylesheet" href="../index.css">
     <link href="../../fontawesome/css/all.css" rel="stylesheet">
+    <script>
+        function loaded() {
+            // init if localStorage variable does not exist
+            let curr = window.localStorage.getItem('GROCERY_LISTS')
+            if (curr == null) {
+                window.localStorage.setItem('GROCERY_LISTS', JSON.stringify({ items: [] }))
+            } else {
+                let groceryLists = JSON.parse(curr)
+                groceryLists.items.forEach(el => {
+                    $("#groceryLists").append("<div class=\"col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
+                        "<h6 class=\"font-weight-bold mb-0\"><a id=\"2\" href=\"#\" onclick=\"openGroceryList(this.id)\">" +
+                        el.name  + "</a>" + "</h6>" +
+                        "<small class=\"text-muted\">" + "Items: 0" + "</small>" + "</div>"
+                    );
+                })
+            }
+
+        }
+    </script>
+    <script>
+        function appendGroceryList() {
+            let uuid = Math.floor(Math.random() * 9999999999);
+            let groceryLists = JSON.parse(window.localStorage.getItem('GROCERY_LISTS'))
+            groceryLists["items"].push({
+                uuid: uuid, name: "Test"
+            })
+            window.localStorage.setItem('GROCERY_LISTS', JSON.stringify(groceryLists))
+            window.localStorage.setItem(String(uuid), JSON.stringify({ items: [] }))
+
+            // Append product to the table
+            $("#groceryLists").append("<div class=\"col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
+                "<h6 class=\"font-weight-bold mb-0\"><a id=\"2\" href=\"#\" onclick=\"openGroceryList(this.id)\">" +
+                "Test Grocery List" + "</a>" + "</h6>" +
+                "<small class=\"text-muted\">" + "Items: 0" + "</small>" + "</div>"
+            );
+        }
+
+        function openGroceryList(uuid) {
+            window.location.href = "./grocery-list.html" + `?uuid=${uuid}`;
+        }
+
+    </script>
 </head>
 
-<body>
+<body onload="loaded();">
 
-    <html lang="en">
-
-    <head>
-        <style>
-            /* Remove the jumbotron's default bottom margin */
-            .jumbotron {
-                margin-bottom: 0;
-            }
-
-            /* Add a gray background color and some padding to the footer */
-            footer {
-                background-color: #f2f2f2;
-                padding: 25px;
-            }
-
-            .border-rad {
-                border-radius: 20px
-            }
-        </style>
-    </head>
-
-    <body class="">
-
-        <div class="d-inline-flex w-100">
-            <div class="col-md-4 m-3">
-                <div class="text-center">
-                    <h4 class="d-flex justify-content-between align-items-center mb-3">
-                        <class="text-muted">Members</p>
-                    </h4>
-                </div>
-                <ul class="list-group mb-3">
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Kurnal</h6>
-                            <small class="text-muted">Brief description</small>
-                        </div>
-                        <span class="text-muted">Items: 6</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Esther</h6>
-                            <small class="text-muted">Brief description</small>
-                        </div>
-                        <span class="text-muted">Items: 8</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Amanda</h6>
-                            <small class="text-muted">Brief description</small>
-                        </div>
-                        <span class="text-muted">Items: 2</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between bg-light">
-                        <div class="text-success">
-                            <h6 class="my-0">Nick</h6>
-                            <small>Brief description</small>
-                        </div>
-                        <span class="text-muted">Items: 10</span>
-                    </li>
-                </ul>
+    <div class="d-inline-flex w-100">
+        <div class="col-md-4 m-3">
+            <div class="text-center">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <class="text-muted">Members</p>
+                </h4>
             </div>
 
-            <div class="w-100 m-4">
-                <div class="text-center">
-                    <h4 class="d-flex justify-content-between align-items-center mb-3">
-                        <p class="text-muted">Grocery List</p>
-                    </h4>
-                </div>
-
-                <div class="col-lg-12 mx-auto shadow-lg p-3 mb-3">
-                    <h6 class="font-weight-bold mb-0"><a href="./grocery-list.html">Giant Groceries</a></h6>
-                    <small class="text-muted "> Items: 3 </small>
-                </div>
-
-                <div class="col-lg-12 mx-auto shadow-lg p-3 mb-3">
-                    <h6 class="font-weight-bold mb-0">Patel Groceries</h6>
-                    <small class="text-muted "> Items: 4 </small>
-                </div>
-
-                <div class="col-lg-12 mx-auto shadow-lg p-3 mb-3">
-                    <h6 class="font-weight-bold mb-0">Whole Foods Groceries</h6>
-                    <small class="text-muted "> Items: 3 </small>
-                </div>
-
-            </div>
+            <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Kurnal</h6>
+                        <small class="text-muted">Brief description</small>
+                    </div>
+                    <span class="text-muted">Items: 6</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Esther</h6>
+                        <small class="text-muted">Brief description</small>
+                    </div>
+                    <span class="text-muted">Items: 8</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Amanda</h6>
+                        <small class="text-muted">Brief description</small>
+                    </div>
+                    <span class="text-muted">Items: 2</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between bg-light">
+                    <div class="text-success">
+                        <h6 class="my-0">Nick</h6>
+                        <small>Brief description</small>
+                    </div>
+                    <span class="text-muted">Items: 10</span>
+                </li>
+            </ul>
         </div>
 
+        <div id="groceryLists" class="w-100 m-4">
+            <div class="text-center d-flex align-items-center justify-content-between">
+                <h4 class="d-flex">
+                    <p class="text-muted">Grocery List</p>
+                </h4>
+                <button type="button" class="d-flex btn btn-primary m-3" onclick="appendGroceryList();">Add Grocery
+                    List</button>
+            </div>
 
-        <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../index.html"> <i class="fas fa-home"></i> Home </a>
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../groceries/groceries.html"> <i class="fas fa-list-alt"></i> Grocery Lists </a>
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../inventory/inventory.html"> <i class="fas fa-shopping-basket"></i> Inventory </a>
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../recipes/recipe.html"> <i class="fas fa-book"></i> Recipes </a>
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../settings.html"> <i class="fas fa-wrench"></i> Settings</a>
-        </nav>
+            <!-- <div class="col-lg-12 mx-auto shadow-lg p-3 mb-3">
+                <h6 class="font-weight-bold mb-0"><a id="2" href="#" onclick="openGroceryList(this.id)">Giant
+                        Groceries</a></h6>
+                <small class="text-muted "> Items: 3 </small>
+            </div>
 
-        <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="../bootstrap/js/popper.min.js"></script>
+            <div class="col-lg-12 mx-auto shadow-lg p-3 mb-3">
+                <h6 class="font-weight-bold mb-0">Patel Groceries</h6>
+                <small class="text-muted "> Items: 4 </small>
+            </div>
 
-    </html>
+            <div class="col-lg-12 mx-auto shadow-lg p-3 mb-3">
+                <h6 class="font-weight-bold mb-0">Whole Foods Groceries</h6>
+                <small class="text-muted "> Items: 3 </small>
+            </div> -->
+
+        </div>
+    </div>
+
+
+    <!-- <div class="modal fade" id="addGroceryList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+
+    <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
+            href="../index.html"> <i class="fas fa-home"></i> Home </a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
+            href="../groceries/groceries.html"> <i class="fas fa-list-alt"></i> Grocery Lists </a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
+            href="../inventory/inventory.html"> <i class="fas fa-shopping-basket"></i> Inventory </a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
+            href="../recipes/recipe.html"> <i class="fas fa-book"></i> Recipes </a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
+            href="../settings.html"> <i class="fas fa-wrench"></i> Settings</a>
+    </nav>
+
+</body>
+
+</html>

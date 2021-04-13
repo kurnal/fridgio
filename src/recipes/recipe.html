@@ -8,62 +8,71 @@
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../index.css">
     <link href="../../fontawesome/css/all.css" rel="stylesheet">
+    <script type="text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
+    <script> 
+        window.onload = function()
+        {   
+            let curr = window.localStorage.getItem('RECIPE_CARDS')
+            if (curr != null) {
+                let recipeCards = JSON.parse(curr)
+                recipeCards.items.forEach(el => {
+                    $("#recipeCards").append("<div class=\"card col-lg-12 m-2\">" + 
+                        "<img class=\"card-img-top\" src=\"pics/food-background.jpeg\">" + 
+                        "<div class=\"card-body\">" +
+                            "<h5 class=\"card-title text-wrap\">" + el.name + "</h5>" +     
+                        "</div></div>"
+                    );
+                })
+            }
+
+            recipeNames = ["Classic Shrimp Scampi", "Creamy Mushroom Soup", "Honey Garlic Chicken", "Grilled Fish Tacos", "Thai Curry"]
+            recipeLink = ["pics/shrimp-scampi.jpg", "pics/mushroom-soup.jpg", "pics/honey-chicken.jpg", "pics/fish-tacos.jpg", "pics/curry.jpg"]
+            for (var i = 0; i < recipeNames.length; i++) {
+                $("#suggestions").append("<div class=\"card col-lg-12 m-2\">" + 
+                    "<img class=\"card-img-top\" src=" + recipeLink[i] + ">" + 
+                    "<div class=\"card-body\">" +
+                        "<h5 class=\"card-title text-wrap\">" + recipeNames[i] + "</h5>" +     
+                    "</div> </div>"
+            );
+            }
+        };
+
+    </script>
     <style>
-        body {
-            font-family:'SanFrancisco';
-        }
-
-        .cards {
-            margin-left:23%;
-        }
-
         .card {
-            width: 12vw;
-            height: 38vh;
-            float:left;
-            border:2px solid lightsteelblue;
+            width: 200px;
+            height: 280px;
             box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        }
-
-        .card img {
-            border-radius: 2%;
+            display: inline-flex;
+            margin: 1px;
+            justify-content: center;
+            border:2px solid lightsteelblue;
         }
         
+        a { text-decoration: none; }
+
         .card-title {
-            font-size:1.2vw;
+            font-size: 18px;
             color:lightsteelblue;
+            margin-top: auto;
+            margin-bottom: auto;
         }
 
-        .card .btn {
-            background-color:lightsteelblue;
-            border:black;
-            font-size: 0.8vw;
-        } 
-
-        .carousel-control-next, 
-        .carousel-control-prev{
-            height: 60px;
-            width: 60px;
-            opacity: 1;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: all 0.3s ease;
-        }
+        .float-child { float: left; }
         
-        .carousel-control-next{
-            right: 15%;
-        }
-        .carousel-control-prev{
-            left: 15%;
+        .scrollmenu {
+            overflow: auto;
+            white-space: nowrap;
         }
 
-        .carousel-control-prev-icon,
-        .carousel-control-next-icon {
-            background-color:lightsteelblue;
-        }
+        ::-webkit-scrollbar { height: 10px; }
 
-        .float-child {
-            float: left;
+        .scrollmenu::-webkit-scrollbar { background-color: #F5F5F5; }
+
+        .scrollmenu::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        border: 1px solid lightgray;
+        background-color: #f8f8f8;
         }
 
     </style>
@@ -74,113 +83,26 @@
     <a href="create-recipe.html"><button class="flex-grow-1 p-1 m-2 rounded">Create New Recipe</button></a>
 
     <div class="new-recipes flex-grow-1"> 
-        <div class="float-child w-50 pt-3">
-            <h2 style="font-size:1.5vw">New Suggestions</h2>
-            <div id="carousel1" class="carousel slide col-lg-12" data-bs-touch="false" data-bs-interval="false">
-                <div class="carousel-inner active col-lg-3 text-center">
-                    <div class="carousel-item active">
-                        <div class="cards">
-                            <div class="card col-lg-12 ms-3 flex-grow-1">
-                                <img class="card-img-top" src="pics/mushroom-soup.jpg">
-                                <div class="card-body">
-                                    <h5 class="card-title text-justify">Creamy Mushroom Soup</h5>
-                                    <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
-                                </div>
-                            </div>
-                            <div class="card col-lg-12 ms-3 flex-grow-1">
-                                <img class="card-img-top" src="pics/honey-chicken.jpg">
-                                <div class="card-body">
-                                <h5 class="card-title text-justify">Honey Garlic Chicken</h5>
-                                <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="cards">
-                            <div class="card col-lg-12 ms-3">
-                                <img class="card-img-top" src="pics/fish-tacos.jpg">
-                                <div class="card-body">
-                                <h5 class="card-title text-justify">Grilled Fish Tacos</h5>
-                                <a href="shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
-                                </div>
-                            </div>
-                            <div class="card col-lg-12 ms-3">
-                                <img class="card-img-top" src="pics/shrimp-scampi.jpg">
-                                <div class="card-body">
-                                <h5 class="card-title text-justify">Classic Shrimp Scampi</h5>
-                                <a href="shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carousel1" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carousel1" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>
-</div>
-
-
-<div class="float-container my-recipes">
-    <div class="float-child float-left w-50 pt-3" id="Your Recipes">
-        <h2 style="font-size:1.5vw">Your Recipes</h2>
-        <div id="carousel2" class="carousel slide col-xs-12" data-bs-touch="false" data-bs-interval="false">
-            <div class="carousel-inner active text-center">
-                <div class="carousel-item active">
-                    <div class="cards col-lg-12 text-center">
-                        <div class="card col-lg-12 ms-3">
-                            <img class="card-img-top" src="pics/mushroom-soup.jpg">
-                            <div class="card-body">
-                            <h5 class="card-title text-justify">Creamy Mushroom Soup</h5>
-                            <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
-                            </div>
-                        </div>
-                        <div class="card col-lg-12 ms-3">
-                            <img class="card-img-top" src="pics/shrimp-scampi.jpg">
-                            <div class="card-body">
-                            <h5 class="card-title text-justify">Classic Shrimp Scampi</h5>
-                            <a href="shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="cards col-lg-12">
-                        <div class="card col-lg-12 ms-3">
-                            <img class="card-img-top" src="pics/shrimp-scampi.jpg">
-                            <div class="card-body">
-                            <h5 class="card-title text-justify">Classic Shrimp Scampi</h5>
-                            <a href="shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
-                            </div>
-                        </div>
-                        <div class="card col-lg-12 ms-3">
-                            <img class="card-img-top" src="pics/mushroom-soup.jpg">
-                            <div class="card-body">
-                            <h5 class="card-title text-justify">Creamy Mushroom Soup</h5>
-                            <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
-                            </div>
-                        </div>
-                    </div>
+        <div class="pt-3">
+            <h2 style="font-size:1.2vw">New Suggestions</h2>
+            <div class="scrollmenu">
+                <div class="cards" id="suggestions">
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carousel2" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carousel2" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
         </div>
     </div>
 
+    <div class="my-recipes flex-grow-1" style="clear:both"> 
+        <div class="pt-3">
+            <h2 style="font-size:1.2vw">My Recipes</h2>
+            <div class="scrollmenu">
+                <div class="cards" id="recipeCards">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Nav Bar -->
     <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
         <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../index.html"> <i class="fas fa-home"></i> Home </a>
