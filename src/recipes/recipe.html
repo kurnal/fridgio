@@ -9,14 +9,20 @@
     <link rel="stylesheet" href="../index.css">
     <link href="../../fontawesome/css/all.css" rel="stylesheet">
     <script type="text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
+    <script type = "text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
     <script> 
         window.onload = function()
         {   
+            // hide pop up full recipe cards
+            closeCard();
+            // show created recipe cards
             let curr = window.localStorage.getItem('RECIPE_CARDS')
             if (curr != null) {
                 let recipeCards = JSON.parse(curr)
                 recipeCards.items.forEach(el => {
-                    $("#recipeCards").append("<div class=\"card col-lg-12 m-2\">" + 
+                    $("#recipeCards").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" + 
+                        "onclick=\"showRecipe('" + el.name + "','" + "pics/food-background.jpeg" + "','" + el.prep + "','" + el.cooking + "','" + el.dietary + "','" + el.dietary + "','" + el.ingredients + "')\">" + 
+                        "<div class=\"card col-lg-12 m-2\">" + 
                         "<img class=\"card-img-top\" src=\"pics/food-background.jpeg\">" + 
                         "<div class=\"card-body\">" +
                             "<h5 class=\"card-title text-wrap\">" + el.name + "</h5>" +     
@@ -25,32 +31,96 @@
                 })
             }
 
-            recipeNames = ["Classic Shrimp Scampi", "Creamy Mushroom Soup", "Honey Garlic Chicken", "Grilled Fish Tacos", "Thai Curry"]
-            recipeLink = ["pics/shrimp-scampi.jpg", "pics/mushroom-soup.jpg", "pics/honey-chicken.jpg", "pics/fish-tacos.jpg", "pics/curry.jpg"]
-            for (var i = 0; i < recipeNames.length; i++) {
-                $("#suggestions").append("<div class=\"card col-lg-12 m-2\">" + 
-                    "<img class=\"card-img-top\" src=" + recipeLink[i] + ">" + 
-                    "<div class=\"card-body\">" +
-                        "<h5 class=\"card-title text-wrap\">" + recipeNames[i] + "</h5>" +     
-                    "</div> </div>"
-            );
+            // show fixed recipe cards 
+            curr = window.localStorage.getItem('FIXED_RECIPE_CARDS')
+            if (curr == null) {
+                window.localStorage.setItem('FIXED_RECIPE_CARDS', JSON.stringify({ items: [] }))
+                recipeNames = ["Classic Shrimp Scampi", "Creamy Mushroom Soup", "Honey Garlic Chicken", "Grilled Fish Tacos", "Thai Curry"]
+                recipeLink = ["pics/shrimp-scampi.jpg", "pics/mushroom-soup.jpg", "pics/honey-chicken.jpg", "pics/fish-tacos.jpg", "pics/curry.jpg"]
+                recipePrep = [5, 5, 5, 5, 5];
+                recipeCooking = [5, 5, 5, 5, 5];
+                recipeDietary = ["Vegan", "Vegetarian", "Peanut-Free", "None", "Vegetarian"]
+                recipeCategory = ["Seafood", "Soups", "Chicken", "Seafood", "Asian"]
+                recipeIngredients = [["2 tbsp butter", "2 tbsp olive oil", "4 garlic cloves", "1/2 cup dry white wine", "2 lbs shrimp", "cooked pasta"], 
+                                    ["1/4 cup unsalted butter", "2 lbs slice mushrooms", "1 pinch of salt", "1 yellow onion", "1.5 tbsp flour", "2 garlic clobes", "4 cups chicken broth"],
+                                    ["1 lb chicken breast", "salt and pepper", "1/4 cup of flour", "3.5 tbsp butter", "2 garlic cloves", "1.5 tbsp apple cider vinegar", "1/3 cup of honey"],
+                                    ["1 lb white fish fillets", "2 tbsp oil", "1 garlic clove", "1 small lime", "salt and pepper", "1.5 tsp chili powder", "8 white corn tortillas"],
+                                    ["2 tbsp Thai red curry paste", "1.5 cups jasmine rice", "1 tbsp oil", "1 tbsp ginger", "1 bell pepper", "2 tbsp rice vinegar", "2 garlic cloves"]];
+                for (var i = 0; i < recipeNames.length; i++) {
+                    let uuid = Math.floor(Math.random() * 9999999999);
+                    let recipeCards = JSON.parse(window.localStorage.getItem('FIXED_RECIPE_CARDS'))
+                    recipeCards["items"].push({
+                            uuid: uuid, name: recipeNames[i], recipeImage: recipeLink[i], prep: recipePrep[i], 
+                            cooking: recipeCooking[i], category: recipeCategory[i], dietary: recipeDietary[i], ingredients: recipeIngredients[i]
+                        })
+                    window.localStorage.setItem('FIXED_RECIPE_CARDS', JSON.stringify(recipeCards))
+                    window.localStorage.setItem(String(uuid), JSON.stringify({ items: ["Recipe"] }))
+                }
+                curr = window.localStorage.getItem('FIXED_RECIPE_CARDS')
+            }
+
+            if (curr != null) {
+                let recipeCards = JSON.parse(curr)
+                    recipeCards.items.forEach(el => {
+                    $("#suggestions").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" + 
+                        "onclick=\"showRecipe('" + el.name + "','" + el.recipeImage + "','" + el.prep + "','" + el.cooking + "','" + el.category + "','" + el.dietary + "','" + el.ingredients + "')\">" + 
+                        "<div class=\"card col-lg-12 m-2\">" + 
+                        "<img class=\"card-img-top\" src=" + el.recipeImage + ">" + 
+                        "<div class=\"card-body\">" +
+                            "<h5 class=\"card-title text-wrap\">" + el.name + "</h5>" +     
+                        "</div> </div></button>"
+                );
+                })
             }
         };
+
+        // show recipe card pop up 
+        function showRecipe(name, image, prep, cooking, category, dietary, ingred) {
+            closeCard();
+            document.getElementById("recipeTitle").innerHTML = name;
+            var img = document.createElement("img");
+            img.src = image;
+            var src = document.getElementById("recipeImg");
+            src.appendChild(img);
+            document.getElementById("dietary").innerHTML = "Dietary Restriction: " + dietary;
+
+            thisList = ["<b> Ingredients </b>"];
+            var list = document.getElementById("ingredients");
+            var ingredients = ingred.split(",")
+            for (var i = 0; i < ingredients.length; i++) {
+                thisList.push("<li>" + ingredients[i] + "</li>");
+            }
+            list.innerHTML = thisList.join('');
+            
+            total = parseInt(prep) + parseInt(cooking);
+            document.getElementById("time").innerHTML = 
+                "<b> Prep Time: </b>" + prep + " mins" + "<br>" + "<b> Cooking Time: </b> " + 
+                cooking + " mins" + "<br>" + "<b> Total Time: </b>" + total + " mins";
+
+            var x = document.getElementById("fullCard");
+            x.style.display = "block";
+        };
+
+        function closeCard() {
+            var x = document.getElementById("fullCard");
+            x.style.display = "none";
+            document.getElementById("recipeImg").innerHTML = "";
+        }
+        
 
     </script>
     <style>
         .card {
-            width: 200px;
-            height: 280px;
+            width: 180px;
+            height: 260px;
             box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             display: inline-flex;
             margin: 1px;
             justify-content: center;
             border:2px solid lightsteelblue;
         }
-        
-        a { text-decoration: none; }
 
+        #fullCard img { width: 18vw; }
         .card-title {
             font-size: 18px;
             color:lightsteelblue;
@@ -60,13 +130,19 @@
 
         .float-child { float: left; }
         
+        .close-button {
+            clear:both; 
+            float:right; 
+            background-color:lightsteelblue;
+            border: 1px solid gray;
+        }
+        
         .scrollmenu {
             overflow: auto;
             white-space: nowrap;
         }
 
         ::-webkit-scrollbar { height: 10px; }
-
         .scrollmenu::-webkit-scrollbar { background-color: #F5F5F5; }
 
         .scrollmenu::-webkit-scrollbar-thumb {
@@ -74,11 +150,10 @@
         border: 1px solid lightgray;
         background-color: #f8f8f8;
         }
-
     </style>
   </head>
   <body class="text-center"> 
-    <h1 class="text-center p-3" style="font-size: 4vw; color:lightsteelblue"> Recipes </h1>
+    <h1 class="text-center p-2" style="font-size: 4vw; color:lightsteelblue"> Recipes </h1>
     <a href="search-recipes.html"><button class="flex-grow-1 p-1 m-2 rounded">Search Recipes</button></a>
     <a href="create-recipe.html"><button class="flex-grow-1 p-1 m-2 rounded">Create New Recipe</button></a>
 
@@ -86,7 +161,22 @@
         <div class="pt-3">
             <h2 style="font-size:1.2vw">New Suggestions</h2>
             <div class="scrollmenu">
-                <div class="cards" id="suggestions">
+                <div class="cards " id="suggestions">
+                    <!-- Full Recipe Card popup -->
+                    <div class="card text-justify pb-4" id ="fullCard" style="height:auto; left:30%; right:30%; width: 40%; background-color:white; z-index: 1; position:absolute; box-shadow: 0 3px 5px 0 darkgray, 0 6px 20px 0 darkgray;">
+                        <h2 class="card-title p-4" id="recipeTitle" style="font-size: 2vw"></h2>
+                        <div class="card-img img-fluid w-50 float-child" style="text-align:right">
+                            <div id="recipeImg" class="pt-3"></div>
+                            <div id="dietary" style="text-align:center" class="ms-4"></div>
+                        </div>
+                        
+                        <div class="card-body w-50 float-child" style="width:40%">
+                            <div class="text-justify" id ="time"></div>
+                            <br>
+                            <div class="mt-2 text-justify" id="ingredients"></div>
+                        </div>
+                        <button class= "rounded me-4 close-button" onclick="closeCard()">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -96,13 +186,12 @@
         <div class="pt-3">
             <h2 style="font-size:1.2vw">My Recipes</h2>
             <div class="scrollmenu">
-                <div class="cards" id="recipeCards">
-                    
-                </div>
+                <div class="cards" id="recipeCards"></div>
             </div>
         </div>
     </div>
-    
+
+    <div class="mb-5"></div>
     <!-- Nav Bar -->
     <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
         <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../index.html"> <i class="fas fa-home"></i> Home </a>

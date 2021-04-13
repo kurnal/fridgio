@@ -11,45 +11,169 @@
       <script type = "text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
       <script type = "text/javascript" src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
       <script type = "text/javascript" src="../../bootstrap-table-master/dist/bootstrap-table.min.js"></script>
+      
+      <script>
+        function update() {
+            // init if localStorage variable does not exist
+            let curr = window.localStorage.getItem('INVENTORY')
+            if (curr == null) {
+                window.localStorage.setItem('INVENTORY', JSON.stringify({ items: [] }))
+            } else {
+                $("#food tbody tr").remove() 
+                let inventory = JSON.parse(curr)
+                inventory.items.forEach(el => {
+                  $("#food tbody").append("<tr>" +
+                  "<td>" + el['name'] + "</td>" +
+                  "<td>" + el['qty'] + "</td>" +
+                  "<td>" + el['expdate'] + "</td>" +
+                  "<td>" + el['category'] + "</td>" +
+                  "<td onclick=\"del(this, '" + el['name'] + "');\"><i class='fas fa-trash'></i></td>" + 
+                  "</tr>");
+                  })
+            }
+        }
+    </script>
+    <script>
+
+        $(document).ready(function () {
+          $('#demolist a').on('click', function () {
+            $('#dropdownMenuLink').html($(this).text() + ' <span class="caret"></span>');
+            $('#dropdownMenuLink').val($(this).data('value'));
+          });
+        });
+
+        function add() {
+            // init if localStorage variable does not exist
+            let curr = window.localStorage.getItem('INVENTORY')
+            if (curr == null) {
+                window.localStorage.setItem('INVENTORY', JSON.stringify({ items: [] }))
+            }
+            
+            let inventory = JSON.parse(window.localStorage.getItem('INVENTORY'))
+
+            item = document.getElementById("item").value
+            qty = document.getElementById("qty").value
+            expdate = document.getElementById("expdate").value
+            category = document.getElementById("dropdownMenuLink").text
 
 
-    </head>
-    <body>
 
-<html lang="en">
-<head>
-  <style>
-    
-    /* Remove the jumbotron's default bottom margin */ 
-     .jumbotron {
-      margin-bottom: 0;
-    }
-   
-    /* Add a gray background color and some padding to the footer */
-    footer {
-      background-color: #f2f2f2;
-      padding: 25px;
-    }
+            entry = {}
+            entry["name"] = item
+            entry["qty"] = qty
+            entry["expdate"] = expdate
+            entry['category'] = category 
+            
+            console.log(inventory)
 
-     .border-rad {
-      border-radius: 20px
-    }
-  </style>
-</head>
-  <body>
+            if (!(entry in inventory['items'])) {
+              inventory['items'].push(entry)
+            }
+
+            str_inventory = JSON.stringify(inventory)
+            window.localStorage.setItem('INVENTORY', str_inventory)
+        }
+
+        function openGroceryList(uuid) {
+            window.location.href = "./grocery-list.html" + `?uuid=${uuid}`; 
+        }
+
+        function del(o, name) { 
+          let inventory = JSON.parse(window.localStorage.getItem('INVENTORY'))
+          
+          o.parentNode.remove() 
+
+          inventory['items'] = inventory.items.filter(el => {
+              return (el['name'] != name)
+          })
+          
+          str_inventory = JSON.stringify(inventory)
+          window.localStorage.setItem('INVENTORY', str_inventory)
+        }
+
   
+    </script>
+
+    <style>
+      
+      body {
+        font-family:'SanFrancisco';
+      }
+      /* Remove the jumbotron's default bottom margin */ 
+      .jumbotron {
+        margin-bottom: 0;
+      }
     
-      <div class="container">
-        <br> </br>
-        <button class="btn-primary btn" onclick="add();">Add New Item</button> <br> </br>
+      /* Add a gray background color and some padding to the footer */
+      footer {
+        background-color: #f2f2f2;
+        padding: 25px;
+      }
+
+      .border-rad {
+        border-radius: 20px
+      }
+
+      .this-button .btn-default {
+        background-color: peachpuff;
+        border: 1px solid black;
+      }
+      
+      .float-child {
+        float: left;
+        text-align: left;
+      }
+
+      .wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .btn-primary {
+        background-color:lightsteelblue;
+        color: black;
+      }
+
+    </style>
+
+  </head>
+
+  <body class ="container-fluid" onload = "update();">
+
+        <a href="inventory.html">
+          <div class="this-button"><button class="btn-default float-child rounded m-2">Back to Inventory</button></div>   
+        </a>
+        
+        <br> 
+
+        <div class ="wrapper"> <button class="btn-primary btn" onclick="add(); update()">Add New Item</button> <br></br><br></br> </div>
+
         <form>
+          
           <label for="item">Item:</label>
           <input type="text" id="item" name="item">
           <label for="qty">Quantity (Include units):</label>
           <input type="text" id="qty" name="qty">
           <label for="expdate">Expiration Date:</label>
           <input type="text" id="expdate" name="expdate">
+
+      
+          <a class="btn btn-sm dropdown-toggle flex-grow-1" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            Food Category
+          </a>
+          
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="demolist">
+            <li><a class="dropdown-item" href="#">Proteins</a></li>
+            <li><a class="dropdown-item" href="#">Vegetables</a></li>
+            <li><a class="dropdown-item" href="#">Fruits</a></li>
+            <li><a class="dropdown-item" href="#">Grains</a></li>
+            <li><a class="dropdown-item" href="#">Other</a></li>
+          </ul>
+
+          
         </form>
+
         <br> </br>
         <div class="col-sm-2 sidenav">
           <!-- <div class="button-container">
@@ -76,74 +200,17 @@
               <th scope="col">Item</th>
               <th scope="col">Quantity</th>
               <th scope="col">Expiration Date</th>
+              <th scope="col">Food Group</th>
               <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Chicken Breast</td>
-              <td>12oz</td>
-              <td>5/7/2021</td>
-              <td onclick="del();"> <i class="fas fa-trash"></i> </td>
-            </tr>
-            <tr>
-              <td>Oranges</td>
-              <td>2</td>
-              <td>N/A</td>
-              <td onclick="del();"> <i class="fas fa-trash"></i> </td>
-            </tr>
-            <tr>         
-              <td>Corn Chowder</td>
-              <td>28 fl oz</td>
-              <td>4/18/2021</td>
-              <td onclick="del();"> <i class="fas fa-trash"></i> </td>
-            </tr>
           </tbody>
         </table>
       
-      </div>
       
   </body>
 
-  <script>
-    // Add products to <table>
-    function add() {
-        // First check if a <tbody> tag exists, add one if not
-        if ($("#food tbody").length == 0) {
-            $("#food").append("<tbody></tbody>");
-        }
-        
-        // Append product to the table
-        $("#food tbody").append("<tr>" +
-            "<td>Extending Bootstrap with CSS, JavaScript and jQuery</td>" +
-            "<td>6/11/2015</td>" +
-            "<td>http://bit.ly/1SNzc0i</td>" +
-            "</tr>");
-            
-   }
-
-  function del(){
-        // First check if a <tbody> tag exists, add one if not
-        if ($("#food tbody").length == 0) {
-            $("#food").append("<tbody></tbody>");
-        }
-        
-        // Append product to the table
-        $("#food tbody").append("<tr>" +
-            "<td>Extending Bootstrap with CSS, JavaScript and jQuery</td>" +
-            "<td>6/11/2015</td>" +
-            "<td>http://bit.ly/1SNzc0i</td>" +
-            "</tr>");
-            
-    }
-  </script>
-
-  <script>
-    const data = require('./employees.json');
-    console.log(data);  
-  </script>
-
-    
   <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
     <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../index.html"> <i class="fas fa-home"></i> Home </a>
     <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../groceries/groceries.html"> <i class="fas fa-list-alt"></i> Grocery Lists </a>

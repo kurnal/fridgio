@@ -4,72 +4,123 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-        <!-- <link rel="stylesheet" href="../../bootstrap-table-master/dist/bootstrap-table.min.css"> -->
         <link rel="stylesheet" href="../index.css">
         <link href="../../fontawesome/css/all.css" rel="stylesheet">
         <script>
-            window.onload = function()
-            {
-                allCards('none');
-            }
-
-            function allCards(noneOrBlock) {
-                var recipes = ["mushroom","shrimp","fish-tacos","honey-chicken"];
-                for (var i = 0; i < recipes.length; i++) {
-                    revealOrHideCard(recipes[i], noneOrBlock)
-                }
+            window.onload = function() { 
+                var x = document.getElementById("results");
+                x.style.display = "none"; 
             }
 
             function getSearch() {
-                allCards("none");
+                document.getElementById("results").innerHTML = "";
                 var nameField = document.getElementById('recipeName').value.toLowerCase();
                 var cookingTime = document.getElementById("cookingTime").value;
                 var dietary = document.getElementById("restrictions").value;
-                revealOrHideCard('results', "block");
-                if (nameField.indexOf('mushroom') != -1 || nameField.indexOf('soup') != -1 || cookingTime == "plus" || (cookingTime == 0 && dietary.indexOf('veg') != -1)) {
-                    revealOrHideCard('mushroom', "block");
+                cards = ['FIXED_RECIPE_CARDS', 'RECIPE_CARDS'];
+                for (var i = 0; i < cards.length; i++) {
+                    curr = window.localStorage.getItem(cards[i])
+                    if (curr != null) {
+                        let recipeCards = JSON.parse(curr)
+                        recipeCards.items.forEach(
+                            function(el) {
+                                totalTime = parseInt(el.prep) + parseInt(el.cooking);
+                                if (el.name.toLowerCase().includes(nameField) || totalTime <= cookingTime || (cookingTime == "1hr" && totalTime >= 60 && totalTime <= 90) 
+                                || (cookingTime == "plus" && totalTime > 90) || el.dietary.toLowerCase() == dietary) {
+                                    $("#results").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" + 
+                                        "onclick=\"showRecipe('" + el.name + "','" + el.recipeImage + "','" + el.prep + "','" + el.cooking + "','" + el.category + "','" + el.ingredients + "')\">" + 
+                                        "<div class=\"card col-lg-12 m-2\">" + 
+                                        "<img class=\"card-img-top\" src=" + el.recipeImage + ">" + 
+                                        "<div class=\"card-body\">" +
+                                            "<h5 class=\"card-title text-wrap\">" + el.name + "</h5>" +     
+                                        "</div> </div></button>"
+                                    );      
+                                }  
+                        })
+                    } 
                 }
-                else if (nameField.indexOf('shrimp') != -1 || nameField.indexOf('scampi') != -1 || ((cookingTime > 0 && cookingTime <= 50) && dietary == 0)) {
-                    revealOrHideCard('shrimp', "block");
-                } 
-                else if (nameField.indexOf('fish') != -1 || nameField.indexOf('taco') != -1 || (cookingTime >= 20 && cookingTime <= 50) && dietary == 0) {
-                    revealOrHideCard('fish-tacos', "block");
-                }
-                else if (nameField.indexOf('chicken') != -1 || nameField.indexOf('honey') != -1 || nameField.indexOf('garlic') != -1 || 
-                    (cookingTime == "1hr" && dietary.indexOf('veg') == -1) || dietary == "gluten-free") {
-                    revealOrHideCard('honey-chicken', "block");
-                }
-                else if (nameField == '' && cookingTime == 0 && dietary == 0) {
-                    allCards("block");
-                }
-             }
+                var y = document.getElementById("results");
+                y.style.display = "block";
+            }
 
              function revealOrHideCard(card_id, state) {
                 var x = document.getElementById(card_id);
                 x.style.display = state;
              }
 
-             function showmodal()
-            {
-            $("#thisModal").modal("show");
+            function showCategory(category) {
+                document.getElementById("results").innerHTML = "";
+                cards = ['FIXED_RECIPE_CARDS', 'RECIPE_CARDS'];
+                for (var i = 0; i < cards.length; i++) {
+                    curr = window.localStorage.getItem(cards[i])
+                    if (curr != null) {
+                        let recipeCards = JSON.parse(curr)
+                        recipeCards.items.forEach(
+                            function(el) {
+                                if (el.category === category || category == "all") {
+                                $("#results").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" + 
+                                    "onclick=\"showRecipe('" + el.name + "','" + el.recipeImage + "','" + el.prep + "','" + el.cooking + "','" + el.category + "','" + el.dietary + "','" + el.ingredients + "')\">" + 
+                                    "<div class=\"card col-lg-12 m-2\">" + 
+                                    "<img class=\"card-img-top\" src=" + el.recipeImage + ">" + 
+                                    "<div class=\"card-body\">" +
+                                        "<h5 class=\"card-title text-wrap\">" + el.name + "</h5>" +     
+                                    "</div> </div></button>"
+                                );  
+                            }  
+                        })
+                    } 
+                }
+                var y = document.getElementById("results");
+                y.style.display = "block";
             }
-            
+
+            function showRecipe(name, image, prep, cooking, category, dietary, ingred) {
+                closeCard();
+                document.getElementById("recipeTitle").innerHTML = name;
+                var img = document.createElement("img");
+                img.src = image;
+                var src = document.getElementById("recipeImg");
+                src.appendChild(img);
+                document.getElementById("dietary").innerHTML = "Dietary Restriction: " + dietary;
+
+                thisList = ["<b> Ingredients </b>"];
+                var list = document.getElementById("ingredients");
+                var ingredients = ingred.split(",")
+                for (var i = 0; i < ingredients.length; i++) {
+                    thisList.push("<li>" + ingredients[i] + "</li>");
+                }
+                list.innerHTML = thisList.join('');
+                
+                total = parseInt(prep) + parseInt(cooking);
+                document.getElementById("time").innerHTML = 
+                    "<b> Prep Time: </b>" + prep + " mins" + "<br>" + "<b> Cooking Time: </b> " + 
+                    cooking + " mins" + "<br>" + "<b> Total Time: </b>" + total + " mins";
+
+                var x = document.getElementById("fullCard");
+                x.style.display = "block";
+            };
+
+            function closeCard() {
+                var x = document.getElementById("fullCard");
+                x.style.display = "none";
+                document.getElementById("recipeImg").innerHTML = "";
+            }
         </script>
         <style>
         .recipe-cards .card {
             width: 12vw;
-            height: 35vh;
+            height: 31vh;
             float:left;
-            border:2px solid lightsteelblue;
+            border:1px solid darkgray;
             box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
         .recipe-cards .card-title {
             font-size:1.2vw;
-            color:lightsteelblue;
+            color:black;
         }
         .recipe-cards .card .btn {
             background-color:lightsteelblue;
-            border:black;
+            border:1px solid darkgray;
             font-size: 0.8vw;
         } 
 
@@ -81,6 +132,7 @@
             border: 1px solid black;
             margin: 1px;
             justify-content: center;
+            color:black;
         }
 
         .color1 { background-color: lightsteelblue; }
@@ -93,25 +145,12 @@
             border: 1px solid black;
         }
 
-        .categories { margin-top: 15% }
-        
-        /* .carousel-control-prev, 
-        .carousel-control-next {
-            width: 50px;
-            height: 28vh;
-            background-color: white;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: all 0.3s ease;
-        } */
-
         .scrollmenu {
             overflow: auto;
             white-space: nowrap;
         }
 
         ::-webkit-scrollbar { height: 10px; }
-
         .scrollmenu::-webkit-scrollbar { background-color: #F5F5F5; }
 
         .scrollmenu::-webkit-scrollbar-thumb {
@@ -119,6 +158,12 @@
         border: 1px solid lightgray;
         background-color: #f8f8f8;
         }
+
+        .cards button {
+            border: 2px solid white;
+            background-color: white;
+        }
+
         </style>
     </head>
     <body class="text-center">
@@ -126,14 +171,14 @@
         <a href="recipe.html">
         <div class="this-button"><button class="btn-default float-child rounded m-2">Back to Recipes</button></div>
         </a>
-        <div class="container pb-2" style="clear:both"><h1>Search Recipes</h1></div>
+        <div class="container pb-2" style="clear:both; color:lightsteelblue"><h1>Search Recipes</h1></div>
         
         <!-- Search and Filters -->
         <div class="container d-flex justify-content-between">
             <div class="input-group rounded" style="min-width: 30vw;">
                 <input type="search" class="form-control rounded" id="recipeName"  autocomplete="off" placeholder="Search by Name" aria-label="Search"
                   aria-describedby="search-addon"/>
-                <div class="m-3 ms-5"> or </div>
+                <!-- <div class="m-3 ms-5"> or </div> -->
             </div>
             <!-- <div class="justify-content-between"> or </div> -->
             <select class="form-select d-flex ms-5 float-child" style="width:650px" id="cookingTime">
@@ -148,98 +193,68 @@
             </select>
             <select class="form-select d-flex ms-5 float-child" style="width:650px" id="restrictions">
                 <option selected value="0">Dietary Restrictions</option>
-                <option value="vegetarian">Vegetarian</option>
-                <option value="vegan">Vegan</option>
-                <option value="gluten-free">Gluten-Free</option>
+                <option value="Gluten-Free">Gluten-Free</option>
+                <option value="Peanut-Free">Peanut-Free</option>
+                <option value="Vegetarian">Vegetarian</option>
+                <option value="Vegan">Vegan</option>
             </select>
             <div class="this-button"><button class="btn-default ms-5 float-child rounded p-2" onclick="getSearch()" style="width: 100px">Search</button></div>
-            <div class="this-button"><button class="btn-default ms-5 float-child rounded p-2" onclick="allCards('block')" style= "width:100px">Show All</button></div>
+            <div class="this-button"><button class="btn-default ms-5 float-child rounded p-2" onclick="showCategory('all')" style= "width:100px">Show All</button></div>
         </div>
+
 
         <!-- Individual Recipe Card -->
         <div class="recipe-cards">
-            <div class="float-child ms-4 mt-4" id="results"><h5>Most Relevant Results</h5></div>
-            <div style="clear:both"></div>
-            <div class="card col-lg-12 m-3 flex-grow-1" id="mushroom">
-                <img class="card-img-top" src="pics/mushroom-soup.jpg">
-                <div class="card-body">
-                    <h5 class="card-title text-justify">Creamy Mushroom Soup</h5>
-                    <a href="all-recipes/mushroom-recipe.html" class="btn">Look at Recipe</a>
-                </div>
-            </div>
-            <div class="card col-lg-12 m-3 flex-grow-1" id="shrimp">
-                <img class="card-img-top" src="pics/shrimp-scampi.jpg">
-                <div class="card-body">
-                    <h5 class="card-title text-justify">Classic Shrimp Scampi</h5>
-                    <a href="all-recipes/shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
-                </div>
-            </div>
-            <div class="card col-lg-12 m-3" id="fish-tacos">
-                <img class="card-img-top" src="pics/fish-tacos.jpg">
-                <div class="card-body">
-                    <h5 class="card-title text-justify">Grilled Fish Tacos</h5>
-                    <a href="all-recipes/shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
-                </div>
-            </div>
-            <div class="card col-lg-12 m-3 flex-grow-1" id="honey-chicken">
-                <img class="card-img-top" src="pics/honey-chicken.jpg">
-                <div class="card-body">
-                    <h5 class="card-title text-justify">Honey Garlic Chicken</h5>
-                    <a href="all-recipes/mushroom-recipe.html" class="btn">Look at Recipe</a>
-                </div>
-            </div>
-        </div>
-
-            <!-- Button trigger modal -->
-        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="showmodal()">
-            Launch modal
-        </button> -->
-  
-        <!-- Modal -->
-        <!-- <div class="modal fade in" id="thisModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                ...
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-            </div>
-        </div> -->
+        <h5 class="ms-4 mt-4" style="text-align:left">Most Relevant Results</h5>
+        <div class="float-child ms-4 mt-4" id="results"></div>
 
         <!-- Recipe Category Cards -->
-        <div class="categories" style="clear:both"> 
+        <div class="categories" style="clear:both;margin-top:15%;"> 
                 <h2>Categories</h2>
-                <!-- <div id="carousel1" class="carousel slide col-lg-12" data-bs-touch="false" data-bs-interval="false"> -->
+                <div class="carousel slide col-lg-12" data-bs-touch="false" data-bs-interval="false">
                     <div class="scrollmenu carousel-inner active col-lg-3 text-center">
-                        <!-- <div class="carousel-item active"> -->
+                        <div class="carousel-item active">
                             <div class="cards">
-                                <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Mexican</h3></div>
-                                <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Asian</h3></div>
-                                <div class="card col-lg-12 m-2 color3"><h3 class="card-title text-justify">Breakfast</h3></div>
-                                <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Desserts</h3></div>
-                                <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Salads</h3></div>
-                                <div class="card col-lg-12 m-2 color3"><h3 class="card-title text-justify">Cocktails</h3></div>
-                                <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Chicken</h3></div>
-                                <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Vegan</h3></div>
-                                <div class="card col-lg-12 m-2 color3"><h3 class="card-title text-justify">Indian</h3></div>
-                                <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Soups</h3></div>
-                                <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Southern</h3></div>
-                                <div class="card col-lg-12 m-2 color3"><h3 class="card-title text-justify">Greek</h3></div>
-                                <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Seafood</h3></div>
+                                <button onclick="showCategory('Mexican')">
+                                    <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Mexican</h3></div>
+                                </button>
+                                <button onclick="showCategory('Asian')">
+                                    <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Asian</h3></div>
+                                </button>
+                                <button onclick="showCategory('Breakfast')">
+                                    <div class="card col-lg-12 m-2 color3"><h3 class="card-title text-justify">Breakfast</h3></div>
+                                </button>
+                                <button onclick="showCategory('Burgers')">
+                                    <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Burgers</h3></div>
+                                </button>
+                                <button onclick="showCategory('Chicken')">
+                                    <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Chicken</h3></div>
+                                </button>
+                                <button onclick="showCategory('Desserts')">
+                                    <div class="card col-lg-12 m-2 color3"><h3 class="card-title text-justify">Desserts</h3></div>
+                                </button>
+                                <button onclick="showCategory('Drinks')">
+                                    <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Drinks</h3></div>
+                                </button>
+                                <button onclick="showCategory('Indian')">
+                                    <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Indian</h3></div>
+                                </button>
+                                <button onclick="showCategory('Greek')">
+                                    <div class="card col-lg-12 m-2 color3"><h3 class="card-title text-justify">Greek</h3></div>
+                                </button>
+                                <button onclick="showCategory('Salads')">
+                                    <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Salads</h3></div>
+                                </button>
+                                <button onclick="showCategory('Seafood')">
+                                    <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Seafood</h3></div>
+                                </button>
+                                <button onclick="showCategory('Soups')">
+                                    <div class="card col-lg-12 m-2 color3"><h3 class="card-title text-justify">Soups</h3></div>
+                                </button>
                             </div>
-                        <!-- </div> -->
                     </div>
-                <!-- </div> -->
+                </div>
+         </div>
          </div>
         
          

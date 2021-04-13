@@ -9,34 +9,46 @@
       <link href="../../fontawesome/css/all.css" rel="stylesheet">
       <script type = "text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
       <script type = "text/javascript" src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-    </head>
-    <body>
-
-<html lang="en">
-<head>
-  <style>
-    
-    /* Remove the jumbotron's default bottom margin */ 
-     .jumbotron {
-      margin-bottom: 0;
-    }
    
-    /* Add a gray background color and some padding to the footer */
-    footer {
-      background-color: #f2f2f2;
-      padding: 25px;
-    }
 
-     .border-rad {
-      border-radius: 20px
-    }
-  </style>
-</head>
-  <body>
+    <style>
+
+      body {
+        font-family:'SanFrancisco';
+      }
+
+      .panel-heading {
+        font-size: 1.5vw
+      }
+      
+      /* Remove the jumbotron's default bottom margin */ 
+      .jumbotron {
+        margin-bottom: 0;
+      }
+    
+      /* Add a gray background color and some padding to the footer */
+      footer {
+        background-color: #f2f2f2;
+        padding: 25px;
+      }
+
+      .border-rad {
+        border-radius: 20px
+      }
+
+      .panel {
+            /* float:left; */
+            border:2px solid lightsteelblue;
+            box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+    </style>
+    </head>
+
+  <body class = "text-center">
 
   <div class="jumbotron">
     <div class="container text-center">
-      <h1>Inventory</h1>      
+      <h1 class="text-center p-3" style="font-size: 4vw; color:lightsteelblue"> Inventory </h1>   
       <div class="input-group rounded">
         <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
           aria-describedby="search-addon" />
@@ -47,28 +59,32 @@
     </div>
   </div><br>
 
+  <div class="d-flex justify-content-center">
+    <a href = "./inventory_list.html"><button class="flex-grow-1 p-1 m-2 rounded" style="font-size:1vw">View Full Inventory List</button></a>
+  </div>
+
 
   <div class="container">    
     <div class="row">
-      <div class="col-sm-5">
-        <div class="panel panel-primary">
-          <div class="panel-heading">MEATS</div>
-          <div class="panel-body"><a href="inventory_list.html"><img src="../../images/meat.png" class="img-fluid" style="width:60%" alt="Image"></a></div>
+      <div class="col">
+        <div class="panel panel-primary border-rad">
+          <div class="panel-heading">PROTEINS</div>
+          <div class="panel-body"><a href="inventory_list.html"><img src="../../images/meat.png" class="img-fluid" style="width:50%" alt="Image"></a></div>
         </div>
       </div>
-      <div class="col-sm-5"> 
-        <div class="panel panel-primary">
+      <div class="col"> 
+        <div class="panel panel-primary border-rad">
           <div class="panel-heading">VEGETABLES</div>
-          <div class="panel-body"><a href="inventory_list.html"><img src="../../images/veggie.png" class="img-fluid" style="width:60%" alt="Image"></a></div>
+          <div class="panel-body"><a href="inventory_list.html"><img src="../../images/veggie.png" class="img-fluid" style="width:50%" alt="Image"></a></div>
         </div>
       </div>
-      <div class="col-sm-2 sidenav">
+    
         <!-- <div class="button-container">
           <div class="button-center">
             <button type="button" class="btn btn-secondary"><i class="fas fa-plus"></i></button>
           </div>
         </div> -->
-        <div class="dropdown">
+        <!-- <div class="dropdown">
           <a class="btn btn-secondary dropdown-toggle flex-grow-1" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
             Sort By
           </a>
@@ -78,27 +94,29 @@
             <li><a class="dropdown-item" href="#">Quantity</a></li>
             <li><a class="dropdown-item" href="#">A-Z</a></li>
           </ul>
-        </div>
-      </div>
+        </div> -->
+      
     </div>
   </div><br>
 
   <div class="container">    
     <div class="row">
-      <div class="col-sm-5">
-        <div class="panel panel-primary">
+      <div class="col">
+        <div class="panel panel-primary border-rad">
           <div class="panel-heading">FRUITS</div>
-          <div class="panel-body"><a href="inventory_list.html"><img src="../../images/fruit.png" class="img-fluid" style="width:60%" alt="Image"></a></div>
+          <div class="panel-body"><a href="inventory_list.html"><img src="../../images/fruit.png" class="img-fluid" style="width:50%" alt="Image"></a></div>
         </div>
       </div>
-      <div class="col-sm-5"> 
-        <div class="panel panel-primary">
-          <div class="panel-heading">OTHER</div>
-          <div class="panel-body"><a href="inventory_list.html"><img src="../../images/other.png" class="img-fluid" style="width:60%" alt="Image"></a></div>
+      <div class="col"> 
+        <div class="panel panel-primary border-rad">
+          <div class="panel-heading">GRAINS</div>
+          <div class="panel-body"><a href="inventory_list.html"><img src="../../images/grain.jpg" class="img-fluid" style="width:50%" alt="Image"></a></div>
         </div>
       </div>
     </div>
   </div>
+
+  </body>
     
   <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
     <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../index.html"> <i class="fas fa-home"></i> Home </a>
