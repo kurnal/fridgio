@@ -55,7 +55,7 @@
                             cooking: recipeCooking[i], category: recipeCategory[i], dietary: recipeDietary[i], ingredients: recipeIngredients[i]
                         })
                     window.localStorage.setItem('FIXED_RECIPE_CARDS', JSON.stringify(recipeCards))
-                    window.localStorage.setItem(String(uuid), JSON.stringify({ items: ["Recipe"] }))
+                    window.localStorage.setItem(String(uuid), JSON.stringify({ items: [] }))
                 }
                 curr = window.localStorage.getItem('FIXED_RECIPE_CARDS')
             }

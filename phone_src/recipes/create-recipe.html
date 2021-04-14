@@ -62,7 +62,7 @@
                         uuid: uuid, name: recipeName, recipeImage: "../../src/recipes/pics/food-background.jpeg", prep: prepTime, cooking: cookTime, category: rCategory, dietary: dietaryRes, ingredients: ingred
                     })
                     window.localStorage.setItem('RECIPE_CARDS', JSON.stringify(recipeCards))
-                    window.localStorage.setItem(String(uuid), JSON.stringify({ items: ["Recipe"] }))
+                    window.localStorage.setItem(String(uuid), JSON.stringify({ items: [] }))
 
                     // Append product to the table
                     $("#recipeCards").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" + 

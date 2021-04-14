@@ -24,7 +24,7 @@
                     if (curr != null) {
                         let recipeCards = JSON.parse(curr)
                         recipeCards.items.forEach(
-                            function(el) {
+                            function(el) { 
                                 totalTime = parseInt(el.prep) + parseInt(el.cooking);
                                 if (el.name.toLowerCase().includes(nameField) && (cookingTime == 0 || totalTime <= cookingTime || (cookingTime == "1hr" && totalTime >= 60 && totalTime <= 90) 
                                 || (cookingTime == "plus" && totalTime > 90)) &&  (dietary == 0 || el.dietary.toLowerCase() == dietary)) {
