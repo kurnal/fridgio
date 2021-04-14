@@ -38,7 +38,7 @@
         function populate() {
           let curr = window.localStorage.getItem('INVENTORY')
             
-          window.localStorage.setItem('INVENTORY', JSON.stringify({"items":[{"name":"Banana ","qty":"5","expdate":"05-16-2021","category":"Fruits "},{"name":"Carrot","qty":"5","expdate":"05-31-2021","category":"Vegetables "},{"name":"Chicken","qty":"2 lbs","expdate":"05-12-2021","category":"Proteins "},{"name":"Potato","qty":"5 lbs","expdate":"06-24-2022","category":"Other "},{"name":"Rice","qty":"40 lbs","expdate":"05-28-2023","category":"Grains "},{"name":"Steak","qty":"3 lbs","expdate":"05-01-2021","category":"Proteins "},{"name":"Orange","qty":"4","expdate":"06-22-2021","category":"Fruits"},{"name":"Apple","qty":"7","expdate":"5-27-2021","category":"Fruits"}]}))
+          window.localStorage.setItem('INVENTORY', JSON.stringify({"items":[{"name":"Banana","qty":"5","expdate":"05-16-2021","category":"Fruits "},{"name":"Carrot","qty":"5","expdate":"05-31-2021","category":"Vegetables "},{"name":"Chicken","qty":"2 lbs","expdate":"05-12-2021","category":"Proteins "},{"name":"Potato","qty":"5 lbs","expdate":"06-24-2022","category":"Other "},{"name":"Rice","qty":"40 lbs","expdate":"05-28-2023","category":"Grains "},{"name":"Steak","qty":"3 lbs","expdate":"05-01-2021","category":"Proteins "},{"name":"Orange","qty":"4","expdate":"06-22-2021","category":"Fruits"},{"name":"Apple","qty":"7","expdate":"5-27-2021","category":"Fruits"}]}))
             
 
             update();
@@ -266,8 +266,6 @@
             b = b.qty.replace(/[^0-9]/g, '')
             return b-a
           }); 
-
-          console.log(inventory)
           
           str_inventory = JSON.stringify(inventory)
           

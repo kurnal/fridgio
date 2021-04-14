@@ -6,8 +6,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script type="text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
-
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../bootstrap-table-master/dist/bootstrap-table.min.css">
     <link rel="stylesheet" href="../index.css">
@@ -20,32 +18,36 @@
                 window.localStorage.setItem('GROCERY_LISTS', JSON.stringify({ items: [] }))
             } else {
                 let groceryLists = JSON.parse(curr)
+                let counter = 0
                 groceryLists.items.forEach(el => {
-                    $("#groceryLists").append("<div class=\"col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
-                        "<h6 class=\"font-weight-bold mb-0\"><a id=\"2\" href=\"#\" onclick=\"openGroceryList(this.id)\">" +
-                        el.name  + "</a>" + "</h6>" +
-                        "<small class=\"text-muted\">" + "Items: 0" + "</small>" + "</div>"
+                    groceryItems = JSON.parse(window.localStorage.getItem(el.uuid))
+                    console.log(groceryItems)
+                    $("#groceryLists").append("<div id=\"" + counter + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
+                        "<div><h6 class=\"font-weight-bold mb-0\"><a id=\"" + el.uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id)\">" +
+                        el.name + "</a>" + "</h6>" +
+                        "<small class=\"text-muted\">" + "Items: " + groceryItems["items"].length + "</small>" + "</div><div onclick=\"deleteGroceryList(" + counter + "," + el.uuid + ")\"><i class='fas fa-trash'></i></div></div>"
                     );
+                    counter += 1
                 })
             }
-
         }
     </script>
     <script>
-        function appendGroceryList() {
-            let uuid = Math.floor(Math.random() * 9999999999);
+        function appendGroceryList(name) {
+            if (name.trim() == "") {
+                window.alert("Please give your grocery list")
+                return
+            }
+            let uuid = Math.floor(Math.random() * 9999999999)
             let groceryLists = JSON.parse(window.localStorage.getItem('GROCERY_LISTS'))
             groceryLists["items"].push({
-                uuid: uuid, name: "Test"
+                uuid: uuid, name: name
             })
             window.localStorage.setItem('GROCERY_LISTS', JSON.stringify(groceryLists))
             window.localStorage.setItem(String(uuid), JSON.stringify({ items: [] }))
-
-            // Append product to the table
-            $("#groceryLists").append("<div class=\"col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
-                "<h6 class=\"font-weight-bold mb-0\"><a id=\"2\" href=\"#\" onclick=\"openGroceryList(this.id)\">" +
-                "Test Grocery List" + "</a>" + "</h6>" +
-                "<small class=\"text-muted\">" + "Items: 0" + "</small>" + "</div>"
+            $("#groceryLists").append("<div id=\"" + (groceryLists["items"].length - 1) + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
+                "<div><h6 class=\"font-weight-bold mb-0\"><a id=\"" + uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id)\">" + name + "</a>" + "</h6>" +
+                "<small class=\"text-muted\">" + "Items: 0" + "</small>" + "</div><div onclick=\"deleteGroceryList(" + (groceryLists["items"].length - 1) + "," + uuid + ")\"><i class='fas fa-trash'></i></div></div>"
             );
         }
 
@@ -53,15 +55,51 @@
             window.location.href = "./grocery-list.html" + `?uuid=${uuid}`;
         }
 
+        function deleteGroceryList(id, uuid) {
+            let groceryLists = JSON.parse(window.localStorage.getItem('GROCERY_LISTS'))
+            groceryLists["items"].splice(parseInt(id), 1)
+            window.localStorage.setItem('GROCERY_LISTS', JSON.stringify(groceryLists))
+            window.localStorage.removeItem(uuid)
+            let groceryItemDOM = document.getElementById(id)
+            groceryItemDOM.remove()
+        }
+
     </script>
+    <script type="text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body onload="loaded();">
+<body onload="loaded();" class="m-2">
+
+    <!-- Modal -->
+    <div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Name Grocery List</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form class="modal-body">
+                    <div class="input-group mb-3">
+                        <input id="nameGroceryList" type="text" class="form-control" placeholder="Grocery List Name"
+                            aria-label="Name" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            onclick="appendGroceryList(self.nameGroceryList.value);">Save
+                            changes</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
 
     <div class="d-inline-flex w-100">
         <div class="col-md-4 m-3">
             <div class="text-center">
-                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="d-flex justify-content-between align-items-center m-3">
                     <class="text-muted">Members</p>
                 </h4>
             </div>
@@ -72,28 +110,24 @@
                         <h6 class="my-0">Kurnal</h6>
                         <small class="text-muted">Brief description</small>
                     </div>
-                    <span class="text-muted">Items: 6</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                         <h6 class="my-0">Esther</h6>
                         <small class="text-muted">Brief description</small>
                     </div>
-                    <span class="text-muted">Items: 8</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                         <h6 class="my-0">Amanda</h6>
                         <small class="text-muted">Brief description</small>
                     </div>
-                    <span class="text-muted">Items: 2</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between bg-light">
                     <div class="text-success">
                         <h6 class="my-0">Nick</h6>
                         <small>Brief description</small>
                     </div>
-                    <span class="text-muted">Items: 10</span>
                 </li>
             </ul>
         </div>
@@ -103,50 +137,13 @@
                 <h4 class="d-flex">
                     <p class="text-muted">Grocery List</p>
                 </h4>
-                <button type="button" class="d-flex btn btn-primary m-3" onclick="appendGroceryList();">Add Grocery
-                    List</button>
+                <button type="button" class="d-flex btn btn-primary m-3" data-bs-toggle="modal"
+                    data-bs-target="#add">Add Grocery List</button>
             </div>
-
-            <!-- <div class="col-lg-12 mx-auto shadow-lg p-3 mb-3">
-                <h6 class="font-weight-bold mb-0"><a id="2" href="#" onclick="openGroceryList(this.id)">Giant
-                        Groceries</a></h6>
-                <small class="text-muted "> Items: 3 </small>
-            </div>
-
-            <div class="col-lg-12 mx-auto shadow-lg p-3 mb-3">
-                <h6 class="font-weight-bold mb-0">Patel Groceries</h6>
-                <small class="text-muted "> Items: 4 </small>
-            </div>
-
-            <div class="col-lg-12 mx-auto shadow-lg p-3 mb-3">
-                <h6 class="font-weight-bold mb-0">Whole Foods Groceries</h6>
-                <small class="text-muted "> Items: 3 </small>
-            </div> -->
 
         </div>
     </div>
 
-
-    <!-- <div class="modal fade" id="addGroceryList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
 
 
     <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
