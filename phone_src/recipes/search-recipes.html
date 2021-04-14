@@ -4,11 +4,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../index.css">
+        <link rel="stylesheet" href="../../src/index.css">
         <link href="../../fontawesome/css/all.css" rel="stylesheet">
         <link rel="stylesheet" href="recipes.css">
         <script>
-            window.onload = function() { 
+            window.onload = function() {
                 closeCard();
                 var x = document.getElementById("results").style.display = "none";
             }
@@ -24,7 +24,7 @@
                     if (curr != null) {
                         let recipeCards = JSON.parse(curr)
                         recipeCards.items.forEach(
-                            function(el) {
+                            function(el) { 
                                 totalTime = parseInt(el.prep) + parseInt(el.cooking);
                                 if (el.name.toLowerCase().includes(nameField) && (cookingTime == 0 || totalTime <= cookingTime || (cookingTime == "1hr" && totalTime >= 60 && totalTime <= 90) 
                                 || (cookingTime == "plus" && totalTime > 90)) &&  (dietary == 0 || el.dietary.toLowerCase() == dietary)) {
@@ -102,9 +102,10 @@
         </script>
         <style>
         .categories .card {
-            width:12vw;
-            height:24vh;
+            width:35vw;
+            height:15vh;
         }
+
         .color1 { background-color: lightsteelblue; }
         .color2 { background-color: paleturquoise; }
         .color3 { background-color: peachpuff; }
@@ -115,15 +116,15 @@
         <a href="recipe.html">
         <div class="this-button"><button class="btn-default float-child rounded m-2">Back to Recipes</button></div>
         </a>
-        <div class="container pb-2" style="clear:both; font-size:4vw; color:lightsteelblue"><h1>Search Recipes</h1></div>
+        <div class="container pb-2" style="clear:both; font:8vw; color:lightsteelblue"><h1>Search Recipes</h1></div>
         
         <!-- Search and Filters -->
-        <div class="container d-flex justify-content-between">
-            <div class="input-group rounded" style="min-width: 30vw;">
+        <div class="justify-content-between">
+            <div class="input-group rounded ms-2" style="width:95%">
                 <input type="search" class="form-control rounded" id="recipeName"  autocomplete="off" placeholder="Search by Name" aria-label="Search"
                   aria-describedby="search-addon"/>
             </div>
-            <select class="form-select d-flex ms-5 float-child" style="width:650px" id="cookingTime">
+            <select class="form-select d-flex m-2 float-child" id="cookingTime" style="width:48%">
                 <option selected value="0">Cooking Time</option>
                 <option value="10">10 min or less</option>
                 <option value="20">20 min or less</option>
@@ -133,40 +134,44 @@
                 <option value="1hr">1-1.5 hours</option>
                 <option value="plus">> 1.5 hours</option>
             </select>
-            <select class="form-select d-flex ms-5 float-child" style="width:650px" id="restrictions">
+        </div>
+            <select class="form-select d-flex mt-2 mb-2 float-child" id="restrictions" style="width:45%">
                 <option selected value="0">Dietary Restrictions</option>
                 <option value="Gluten-Free">Gluten-Free</option>
                 <option value="Peanut-Free">Peanut-Free</option>
                 <option value="Vegetarian">Vegetarian</option>
                 <option value="Vegan">Vegan</option>
             </select>
-            <div class="this-button"><button class="btn-default ms-5 float-child rounded p-2" onclick="getSearch()" style="width: 100px">Search</button></div>
-            <div class="this-button"><button class="btn-default ms-5 float-child rounded p-2" onclick="showCategory('all')" style= "width:100px">Show All</button></div>
-        </div>
+            <div style="margin:auto">
+                <div class="this-button"><button class="btn-default m-1 float-child rounded p-2 mb-5" onclick="getSearch()" style="width: 100px">Search</button></div>
+                <div class="this-button"><button class="btn-default m-1 float-child rounded p-2 mb-5" onclick="showCategory('all')" style= "width:100px">Show All</button></div>
+            </div>
+    </div>
 
 
-        <div class="card text-justify pb-4" id ="fullCard" style="height:auto; left:30%; right:30%; width: 40%; background-color:white; z-index: 1; position:absolute; box-shadow: 0 3px 5px 0 darkgray, 0 6px 20px 0 darkgray;">
-            <h2 class="card-title p-4" id="recipeTitle" style="font-size: 2vw"></h2>
-            <div class="card-img img-fluid w-50 float-child" style="text-align:right">
-                <div id="recipeImg" class="pt-3"></div>
-                <div id="dietary" style="text-align:center" class="ms-4, mt-2"></div>
-            </div>
-            
-            <div class="card-body w-50 float-child" style="width:40%">
-                <div class="text-justify" id ="time"></div>
-                <br>
-                <div class="mt-2 text-justify" id="ingredients"></div>
-            </div>
-            <button class= "rounded me-4 close-button" onclick="closeCard()">Close</button>
+       <!-- Full Recipe Card popup -->
+    <div class="card text-justify pb-4" id ="fullCard" style="height:auto; left:5%; right:5%; width: 90%; background-color:white; z-index: 1; position:absolute; box-shadow: 0 3px 5px 0 darkgray, 0 6px 20px 0 darkgray;">
+        <div id="delete" class="ms-4 mt-4" style="text-align:left;"></div>
+        <h2 class="card-title pb-2" id="recipeTitle" style="font-size: 5vw"></h2>
+        <div class="card-img img-fluid">
+            <div id="recipeImg"></div>
+            <div id="dietary" style="text-align:center" class="mt-2"></div>
         </div>
+        
+        <div class="card-body">
+            <div class="text-justify float-child" style="width:40%" id ="time"></div>
+            <div class="text-justify float-child" style="width:60%" id="ingredients"></div>
+        </div>
+        <button class= "rounded me-2 mt-3 close-button" onclick="closeCard()">Close</button>
+    </div>
 
         <!-- Individual Recipe Card -->
         <div class="recipe-cards">
-        <h5 class="ms-4 mt-4" style="text-align:left">Most Relevant Results</h5>
+        <h5 class="ms-2 mt-5" style="clear:both;">Most Relevant Results</h5>
         <div class="scrollmenu carousel-inner active float-child mt-4" id="results"></div>
 
         <!-- Recipe Category Cards -->
-        <div class="categories" style="clear:both;margin-top:15%;"> 
+        <div class="categories" style="clear:both;margin-top:20%;"> 
                 <h2>Categories</h2>
                     <div class="scrollmenu carousel-inner col-lg-3 text-center">
                             <div class="cards">
@@ -212,11 +217,11 @@
          
         <!-- Nav Bar -->
         <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../index.html"> <i class="fas fa-home"></i> Home </a>
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../groceries/groceries.html"> <i class="fas fa-list-alt"></i> Grocery Lists </a>
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../inventory/inventory.html"> <i class="fas fa-shopping-basket"></i> Inventory </a>
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../recipes/recipe.html"> <i class="fas fa-book"></i> Recipes </a>
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../settings.html"> <i class="fas fa-wrench"></i> Settings</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./index.html"> <i class="fas fa-home large_icon"></i> <br> Home </a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./groceries/groceries.html"> <i class="fas fa-list-alt large_icon"></i> <br> Lists</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./inventory/inventory.html"> <i class="fas fa-shopping-basket large_icon"></i> <br> Inventory</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./recipes/recipe.html"> <i class="fas fa-book large_icon"></i> <br> Recipes</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./settings.html"> <i class="fas fa-wrench large_icon"></i><br> Settings</a>
         </nav>
     
     </body>
