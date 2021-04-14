@@ -1,7 +1,7 @@
 
 @font-face {
     font-family: SanFrancisco; 
-    src: url('../SanFranciscoFont-master/SanFranciscoText-Regular.otf');
+    src: url('../../SanFranciscoFont-master/SanFranciscoText-Regular.otf');
  } 
 
 .large_icon{
@@ -76,7 +76,7 @@ nav{
   width: 70%;
   height: auto;
 }
-/* .card {
+.card {
   display: inline-flex;
   border: 1px solid black;
   height: 125px;
@@ -85,7 +85,7 @@ nav{
   white-space: pre-line;
   text-align: center;
   justify-content: center;
- } */
+ }
  
 .itemInventory {
     font-size: 16px; /*reset font size*/
