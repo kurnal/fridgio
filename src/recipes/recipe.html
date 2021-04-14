@@ -40,7 +40,7 @@
                 recipeLink = ["pics/shrimp-scampi.jpg", "pics/mushroom-soup.jpg", "pics/honey-chicken.jpg", "pics/fish-tacos.jpg", "pics/curry.jpg"]
                 recipePrep = [5, 10, 30, 5, 50];
                 recipeCooking = [15, 5, 20, 5, 20];
-                recipeDietary = ["Vegan", "Vegetarian", "Peanut-Free", "None", "Vegetarian"]
+                recipeDietary = ["Gluten-Free", "Vegetarian", "Peanut-Free", "None", "Vegetarian"]
                 recipeCategory = ["Seafood", "Soups", "Chicken", "Seafood", "Asian"]
                 recipeIngredients = [["2 tbsp butter", "2 tbsp olive oil", "4 garlic cloves", "1/2 cup dry white wine", "2 lbs shrimp", "cooked pasta"], 
                                     ["1/4 cup unsalted butter", "2 lbs slice mushrooms", "1 pinch of salt", "1 yellow onion", "1.5 tbsp flour", "2 garlic clobes", "4 cups chicken broth"],
@@ -99,6 +99,9 @@
                 "<b> Cooking Time: </b> " + cooking + " mins" + "<br>" + 
                 "<b> Total Time: </b>" + total + " mins";
 
+            if (image == "pics/food-background.jpeg") {
+                document.getElementById("delete").innerHTML = "<button onclick=\"deleteRecipe('" + name + "');\"><i class='fas fa-trash'></i></button>";
+            }
             var x = document.getElementById("fullCard");
             x.style.display = "block";
         };
@@ -107,6 +110,16 @@
             var x = document.getElementById("fullCard");
             x.style.display = "none";
             document.getElementById("recipeImg").innerHTML = "";
+        }
+
+        function deleteRecipe(name) { 
+            let recipe = JSON.parse(window.localStorage.getItem('RECIPE_CARDS'))
+                recipe['items'] = recipe.items.filter(el => {
+                    return (el['name'] != name)
+                })
+                str_recipe = JSON.stringify(recipe)
+                window.localStorage.setItem('RECIPE_CARDS', str_recipe)
+                window.location.reload();
         }
 
     </script>
@@ -123,7 +136,8 @@
                 <div class="cards " id="suggestions">
                     <!-- Full Recipe Card popup -->
                     <div class="card text-justify pb-4" id ="fullCard" style="height:auto; left:30%; right:30%; width: 40%; background-color:white; z-index: 1; position:absolute; box-shadow: 0 3px 5px 0 darkgray, 0 6px 20px 0 darkgray;">
-                        <h2 class="card-title p-4" id="recipeTitle" style="font-size: 2vw"></h2>
+                        <div id="delete" class="ms-4 mt-4" style="text-align:left;"></div>
+                        <h2 class="card-title pb-4" id="recipeTitle" style="font-size: 2vw"></h2>
                         <div class="card-img img-fluid w-50 float-child" style="text-align:right">
                             <div id="recipeImg" class="pt-3"></div>
                             <div id="dietary" style="text-align:center" class="ms-4 mt-2"></div>

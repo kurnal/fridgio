@@ -15,7 +15,7 @@
             }
         </style>
         <script> 
-            function load()
+            window.onload = function()
             {
                 closeCard();
                 let curr = window.localStorage.getItem('RECIPE_CARDS')
@@ -105,6 +105,7 @@
                     "<b> Prep Time: </b>" + prep + " mins" + "<br>" + "<b> Cooking Time: </b> " + 
                     cooking + " mins" + "<br>" + "<b> Total Time: </b>" + total + " mins";
 
+                document.getElementById("delete").innerHTML = "<button onclick=\"deleteRecipe('" + name + "');\"><i class='fas fa-trash'></i></button>";
                 var x = document.getElementById("fullCard");
                 x.style.display = "block";
             };
@@ -115,9 +116,19 @@
                 document.getElementById("recipeImg").innerHTML = "";
             }
 
+            function deleteRecipe(name) { 
+                let recipe = JSON.parse(window.localStorage.getItem('RECIPE_CARDS'))
+                    recipe['items'] = recipe.items.filter(el => {
+                        return (el['name'] != name)
+                    })
+                    
+                    str_recipe = JSON.stringify(recipe)
+                    window.localStorage.setItem('RECIPE_CARDS', str_recipe)
+            }
+
         </script>
     </head>
-    <body onload="load()">
+    <body>
         <a href="recipe.html">
             <div class="this-button">
                 <button class="btn float-child rounded m-2">Back to Recipes</button>
@@ -126,7 +137,8 @@
         <h1 class="text-center" style="clear:both;color:lightsteelblue;font-size:4vw">Create Recipe</h1>
         <form id="myform">
             <div class="card text-justify pb-4 text-center" id ="fullCard" style="height:auto; left:30%; right:30%; width: 40%; background-color:white; z-index: 1; position:absolute; box-shadow: 0 3px 5px 0 darkgray, 0 6px 20px 0 darkgray;">
-                <h2 class="card-title p-4" id="recipeTitle" style="font-size: 2vw"></h2>
+                <div id="delete" class="ms-4 mt-4" style="text-align:left;"></div>
+                <h2 class="card-title pb-4" id="recipeTitle" style="font-size: 2vw"></h2>
                 <div class="card-img img-fluid w-50 float-child" style="text-align:right">
                     <div id="recipeImg"></div>
                     <div id="dietary" style="text-align:center" class="ms-4, mt-2"></div>
@@ -135,7 +147,8 @@
                     <div class="text-justify" id ="time"></div><br>
                     <div class="mt-2 text-justify" id="ingred"></div>
                 </div>
-                <button class= "rounded me-5 close-button" onclick="closeCard()">Close</button>
+                <!-- <button class="rounded me-5 delete-button" onclick="deleteCard()">Delete Recipe</button> -->
+                <button type="button" class= "rounded me-5 close-button" onclick="closeCard()">Close</button>
             </div>
 
             <div class="container" style="margin:auto">
