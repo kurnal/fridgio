@@ -1,7 +1,7 @@
 
 @font-face {
     font-family: SanFrancisco; 
-    src: url('../SanFranciscoFont-master/SanFranciscoText-Regular.otf');
+    src: url('../../SanFranciscoFont-master/SanFranciscoText-Regular.otf');
  } 
 
 .large_icon{
