@@ -35,12 +35,14 @@
     </script>
     <script>
 
-        $(document).ready(function () {
-          $('#demolist a').on('click', function () {
-            $('#dropdownMenuLink').html($(this).text() + ' <span class="caret"></span>');
-            $('#dropdownMenuLink').val($(this).data('value'));
-          });
-        });
+        function populate() {
+          let curr = window.localStorage.getItem('INVENTORY')
+            
+          window.localStorage.setItem('INVENTORY', JSON.stringify({"items":[{"name":"Banana ","qty":"5","expdate":"05-16-2021","category":"Fruits "},{"name":"Carrot","qty":"5","expdate":"05-31-2021","category":"Vegetables "},{"name":"Chicken","qty":"2 lbs","expdate":"05-12-2021","category":"Proteins "},{"name":"Potato","qty":"5 lbs","expdate":"06-24-2022","category":"Other "},{"name":"Rice","qty":"40 lbs","expdate":"05-28-2023","category":"Grains "},{"name":"Steak","qty":"3 lbs","expdate":"05-01-2021","category":"Proteins "},{"name":"Orange","qty":"4","expdate":"06-22-2021","category":"Fruits"},{"name":"Apple","qty":"7","expdate":"5-27-2021","category":"Fruits"}]}))
+            
+
+            update();
+        }
 
         function sort_order() {
 
@@ -284,27 +286,36 @@
             
             let inventory = JSON.parse(window.localStorage.getItem('INVENTORY'))
 
+            var e = document.getElementById("demolist")
+
             item = document.getElementById("item").value
             qty = document.getElementById("qty").value
             expdate = document.getElementById("expdate").value
-            category = document.getElementById("dropdownMenuLink").text
+            category = e.options[e.selectedIndex].text
 
 
-
+            
             entry = {}
             entry["name"] = item
             entry["qty"] = qty
             entry["expdate"] = expdate
             entry['category'] = category 
             
-            console.log(inventory)
-
-            if (!(entry in inventory['items'])) {
+            
+            names = []  
+            inventory.items.forEach(el => names.push(el.name));
+            console.log(names.includes(item))
+            if ((names.includes(item))) {
+              window.alert("You have already added this item!")
+            } else {
               inventory['items'].push(entry)
             }
+        
 
             str_inventory = JSON.stringify(inventory)
             window.localStorage.setItem('INVENTORY', str_inventory)
+
+            update();
         }
 
         function openGroceryList(uuid) {
@@ -382,35 +393,51 @@
 
         <div class='container'> <h1 class="text-center" style="font-size: 4vw; color:lightsteelblue;clear:left"> Inventory List </h1> </div>
     
-
         
+        <form onsubmit="add()">
+          <div class = "form-group">
+            <button type = "submit" class="btn-primary btn">Add New Item</button> <br></br> 
+            <label for="item">Item:</label>
+            <input type="text" id="item" name="item" placeholder = "ex. Chicken" required>
+            <label for="qty">Quantity:</label>
+            <input type="text" id="qty" name="qty" placeholder = "ex. 2 lbs" required>
+            <label for="expdate">Expiration Date:</label>
+            <input type="text" id="expdate" name="expdate" placeholder = MM-DD-YYYY required>
 
-        <form class = "container" onsubmit="return add(); return update()">
-          <button type = "submit" class="btn-primary btn">Add New Item</button> <br></br> 
-          <label for="item">Item:</label>
-          <input type="text" id="item" name="item" placeholder = "ex. Chicken" required>
-          <label for="qty">Quantity:</label>
-          <input type="text" id="qty" name="qty" placeholder = "ex. 2 lbs" required>
-          <label for="expdate">Expiration Date:</label>
-          <input type="text" id="expdate" name="expdate" placeholder = MM-DD-YYYY required>
-
-      
-          <a class="btn btn-sm dropdown-toggle flex-grow-1" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            Food Group
-          </a>
-          
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="demolist">
-            <li><a class="dropdown-item" href="#">Proteins</a></li>
-            <li><a class="dropdown-item" href="#">Vegetables</a></li>
-            <li><a class="dropdown-item" href="#">Fruits</a></li>
-            <li><a class="dropdown-item" href="#">Grains</a></li>
-            <li><a class="dropdown-item" href="#">Other</a></li>
-          </ul>
-
-          
+          </div>
+            <!-- <a class="btn btn-sm dropdown-toggle flex-grow-1" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              Food Group
+            </a> -->
+            <!-- <label for="demolist">Example select</label> -->
+          <br> 
+          <div class = "container form-group">
+            <select class= "form-control" id ="demolist" required>
+              <option value = "">Please Select a Food Group:</option>
+              <option value = "0">Proteins</option>
+              <option value = "1">Vegetables</option>
+              <option value = "2">Fruits</option>
+              <option value = "3">Grains</option>
+              <option value = "4">Other</option>
+            </select>
+            
+            <!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="demolist" required>
+              <li><a class="dropdown-item" href="#" type = "option">Proteins</a></li>
+              <li><a class="dropdown-item" href="#" type = "option">Vegetables</a></li>
+              <li><a class="dropdown-item" href="#" type = "option">Fruits</a></li>
+              <li><a class="dropdown-item" href="#" type = "option">Grains</a></li>
+              <li><a class="dropdown-item" href="#" type = "option">Other</a></li>
+            </ul> -->
+          </div>
         </form>
 
         <br> </br>
+        
+        <div class = border-bottom>
+          <button class="btn-primary btn" onclick="populate();">Populate Inventory with Sample Data!</button> <br></br>
+        </div>
+
+        <br></br>
+
         <div class="col-sm-2 sidenav">
           <!-- <div class="button-container">
             <div class="button-center">
