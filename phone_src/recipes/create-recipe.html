@@ -1,7 +1,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../index.css">
+        <link rel="stylesheet" href="../../src/index.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="../../fontawesome/css/all.css" rel="stylesheet">
         <script type = "text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
@@ -27,7 +27,7 @@
                         $("#recipeCards").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" + 
                         "onclick=\"showRecipe('" + el.name + "','" + el.prep + "','" + el.cooking + "','" + el.dietary + "','" + el.ingredients + "')\">" + 
                        "<div class=\"card col-lg-12 m-2\">" + 
-                        "<img class=\"card-img-top\" src=\"pics/food-background.jpeg\">" + 
+                        "<img class=\"card-img-top\" src=\"../../src/recipes/pics/food-background.jpeg\">" + 
                         "<div class=\"card-body\">" +
                             "<h5 class=\"card-title text-wrap text-center\">" + el.name + "</h5>" +    
                         "</div></div></button>"
@@ -59,7 +59,7 @@
                     ing = document.getElementById('ingredients').value;
                     var ingred = ing.split(",");
                     recipeCards["items"].push({
-                        uuid: uuid, name: recipeName, recipeImage: "pics/food-background.jpeg", prep: prepTime, cooking: cookTime, category: rCategory, dietary: dietaryRes, ingredients: ingred
+                        uuid: uuid, name: recipeName, recipeImage: "../../src/recipes/pics/food-background.jpeg", prep: prepTime, cooking: cookTime, category: rCategory, dietary: dietaryRes, ingredients: ingred
                     })
                     window.localStorage.setItem('RECIPE_CARDS', JSON.stringify(recipeCards))
                     window.localStorage.setItem(String(uuid), JSON.stringify({ items: [] }))
@@ -68,7 +68,7 @@
                     $("#recipeCards").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" + 
                         "onclick=\"showRecipe('" + recipeName + "','" + prepTime + "','" + cookTime + "','" + dietaryRes + "','" + ingred + "')\">" + 
                         "<div class=\"card col-lg-12 m-2\">" + 
-                        "<img class=\"card-img-top\" src=\"pics/food-background.jpeg\">" + 
+                        "<img class=\"card-img-top\" src=\"../../src/recipes/pics/food-background.jpeg\">" + 
                         "<div class=\"card-body\">" +
                             "<h5 class=\"card-title text-wrap text-center\">" + recipeName + "</h5>" +     
                         "</div></div></button>" 
@@ -87,7 +87,7 @@
                 closeCard();
                 document.getElementById("recipeTitle").innerHTML = name;
                 var img = document.createElement("img");
-                img.src = "pics/food-background.jpeg";
+                img.src = "../../src/recipes/pics/food-background.jpeg";
                 var src = document.getElementById("recipeImg");
                 src.appendChild(img);
                 document.getElementById("dietary").innerHTML = "Dietary Restriction: " + dietary;
@@ -134,7 +134,7 @@
                 <button class="btn float-child rounded m-2">Back to Recipes</button>
             </div>
         </a>
-        <h1 class="text-center" style="clear:both;color:lightsteelblue;font-size:4vw">Create Recipe</h1>
+        <h1 class="text-center" style="clear:both;color:lightsteelblue;font-size:8vw">Create Recipe</h1>
         <form id="myform">
             <div class="card text-justify pb-4 text-center" id ="fullCard" style="height:auto; left:30%; right:30%; width: 40%; background-color:white; z-index: 1; position:absolute; box-shadow: 0 3px 5px 0 darkgray, 0 6px 20px 0 darkgray;">
                 <div id="delete" class="ms-4 mt-4" style="text-align:left;"></div>
@@ -152,14 +152,14 @@
             </div>
 
             <div class="container" style="margin:auto">
-                <div class="form-group float-child w-50 m-4">
+                <div class="form-group m-2">
                     <label for="recipeName">Recipe Name</label>
                     <input type="name" autocomplete="off" class="form-control mt-2" id="recipeName" placeholder="ex: Classic Caesar Salad">
                 </div>
 
-                <div class="form-group float-child m-4">
+                <div class="form-group m-2">
                     <label for="recipeCategory">Recipe Category</label>
-                    <select class="form-select d-flex mt-2" style="width:550px" id="recipeCategory">
+                    <select class="form-select d-flex mt-2 w-50"  id="recipeCategory">
                         <option selected value="N/A">N/A</option>
                         <option value="Asian">Asian</option>
                         <option value="Breakfast">Breakfast</option>
@@ -178,17 +178,17 @@
             </div>
 
             <div class="container" style="margin:auto">
-                <div class="form-group m-4 float-child">
+                <div class="form-group m-2">
                 <label for="prepTime">Estimated Prep Time</label>
                 <input type="number" class="form-control mt-2" id="prepTime" placeholder="in minutes">
                 </div>
 
-                <div class="form-group m-4 float-child">
+                <div class="form-group m-2">
                     <label for="cookingTime">Estimated Cooking Time</label>
                     <input type="number" class="form-control mt-2" id="cookingTime" placeholder="in minutes">
                 </div>
 
-                <div class="form-group float-child m-4">
+                <div class="form-group m-2">
                     <label for="recipeRestriction">Dietary Restriction</label>
                     <select class="form-select d-flex mt-2" id="dietaryRestriction">
                         <option selected value="N/A">N/A</option>
@@ -199,7 +199,7 @@
                     </select>
                 </div>
 
-                <div class="form-group ms-4 mt-4 mb-5 float-child" style="width: 45%">
+                <div class="form-group ms-2 mt-2 mb-2">
                     <label class="form-label" for="textAreaExample">Ingredients</label>
                     <textarea class="form-control" id="ingredients" placeholder="Place comma between each ingredient"></textarea>
                 </div>
@@ -211,17 +211,17 @@
                 <button type="button" class="d-flex btn ps-5 pe-5" style="margin:auto" onclick="addRecipeCard();">Add Recipe</button>
         </div> 
 
-        <div id="recipeCards" class="ms-3">
+        <div id="recipeCards" class="ms-3 mb-5 scrollmenu">
             <h5 class=m-2>My recipes</h5>
         </div>
 
          <!-- Nav Bar -->
          <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../index.html"> <i class="fas fa-home"></i> Home </a>
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../groceries/groceries.html"> <i class="fas fa-list-alt"></i> Grocery Lists </a>
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../inventory/inventory.html"> <i class="fas fa-shopping-basket"></i> Inventory </a>
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../recipes/recipe.html"> <i class="fas fa-book"></i> Recipes </a>
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../settings.html"> <i class="fas fa-wrench"></i> Settings</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./index.html"> <i class="fas fa-home large_icon"></i> <br> Home </a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./groceries/groceries.html"> <i class="fas fa-list-alt large_icon"></i> <br> Lists</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./inventory/inventory.html"> <i class="fas fa-shopping-basket large_icon"></i> <br> Inventory</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./recipes/recipe.html"> <i class="fas fa-book large_icon"></i> <br> Recipes</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./settings.html"> <i class="fas fa-wrench large_icon"></i><br> Settings</a>
         </nav>
 
     </body>

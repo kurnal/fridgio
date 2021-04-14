@@ -1,0 +1,229 @@
+<html>
+    <head>
+        <title> Search Recipes Page </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../src/index.css">
+        <link href="../../fontawesome/css/all.css" rel="stylesheet">
+        <link rel="stylesheet" href="recipes.css">
+        <script>
+            window.onload = function() {
+                closeCard();
+                var x = document.getElementById("results").style.display = "none";
+            }
+
+            function getSearch() {
+                document.getElementById("results").innerHTML = "";
+                var nameField = document.getElementById('recipeName').value.toLowerCase();
+                var cookingTime = document.getElementById("cookingTime").value;
+                var dietary = document.getElementById("restrictions").value;
+                cards = ['FIXED_RECIPE_CARDS', 'RECIPE_CARDS'];
+                for (var i = 0; i < cards.length; i++) {
+                    curr = window.localStorage.getItem(cards[i])
+                    if (curr != null) {
+                        let recipeCards = JSON.parse(curr)
+                        recipeCards.items.forEach(
+                            function(el) { 
+                                totalTime = parseInt(el.prep) + parseInt(el.cooking);
+                                if (el.name.toLowerCase().includes(nameField) && (cookingTime == 0 || totalTime <= cookingTime || (cookingTime == "1hr" && totalTime >= 60 && totalTime <= 90) 
+                                || (cookingTime == "plus" && totalTime > 90)) &&  (dietary == 0 || el.dietary.toLowerCase() == dietary)) {
+                                    $("#results").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" + 
+                                        "onclick=\"showRecipe('" + el.name + "','" + el.recipeImage + "','" + el.prep + "','" + el.cooking + "','" + el.category + "','" + el.dietary + "','" + el.ingredients + "')\">" + 
+                                        "<div class=\"card col-lg-12 m-2\">" + 
+                                        "<img class=\"card-img-top\" src=" + el.recipeImage + ">" + 
+                                        "<div class=\"card-body\">" +
+                                            "<h5 class=\"card-title text-wrap\">" + el.name + "</h5>" +     
+                                        "</div> </div></button>"
+                                    );      
+                                }  
+                        })
+                    } 
+                }
+                document.getElementById("results").style.display = "block";
+            }
+
+            function showCategory(category) {
+                document.getElementById("results").innerHTML = "";
+                cards = ['FIXED_RECIPE_CARDS', 'RECIPE_CARDS'];
+                for (var i = 0; i < cards.length; i++) {
+                    curr = window.localStorage.getItem(cards[i])
+                    if (curr != null) {
+                        let recipeCards = JSON.parse(curr)
+                        recipeCards.items.forEach(
+                            function(el) {
+                                if (el.category === category || category == "all") {
+                                $("#results").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" + 
+                                    "onclick=\"showRecipe('" + el.name + "','" + el.recipeImage + "','" + el.prep + "','" + el.cooking + "','" + el.category + "','" + el.dietary + "','" + el.ingredients + "')\">" + 
+                                    "<div class=\"card col-lg-12 m-2\">" + 
+                                    "<img class=\"card-img-top\" src=" + el.recipeImage + ">" + 
+                                    "<div class=\"card-body\">" +
+                                        "<h5 class=\"card-title text-wrap\">" + el.name + "</h5>" +     
+                                    "</div> </div></button>"
+                                );  
+                            }  
+                        })
+                    } 
+                }
+                document.getElementById("results").style.display = "block";
+            }
+
+            function showRecipe(name, image, prep, cooking, category, dietary, ingred) {
+                closeCard();
+                document.getElementById("recipeTitle").innerHTML = name;
+                var img = document.createElement("img");
+                img.src = image;
+                var src = document.getElementById("recipeImg");
+                src.appendChild(img);
+                document.getElementById("dietary").innerHTML = "Dietary Restriction: " + dietary;
+
+                thisList = ["<b> Ingredients </b>"];
+                var list = document.getElementById("ingredients");
+                var ingredients = ingred.split(",")
+                for (var i = 0; i < ingredients.length; i++) {
+                    thisList.push("<li>" + ingredients[i] + "</li>");
+                }
+                list.innerHTML = thisList.join('');
+                
+                total = parseInt(prep) + parseInt(cooking);
+                document.getElementById("time").innerHTML = 
+                    "<b> Prep Time: </b>" + prep + " mins" + "<br>" + "<b> Cooking Time: </b> " + 
+                    cooking + " mins" + "<br>" + "<b> Total Time: </b>" + total + " mins";
+
+                var x = document.getElementById("fullCard");
+                x.style.display = "block";
+            };
+
+            function closeCard() {
+                var x = document.getElementById("fullCard");
+                x.style.display = "none";
+                document.getElementById("recipeImg").innerHTML = "";
+            }
+        </script>
+        <style>
+        .categories .card {
+            width:35vw;
+            height:15vh;
+        }
+
+        .color1 { background-color: lightsteelblue; }
+        .color2 { background-color: paleturquoise; }
+        .color3 { background-color: peachpuff; }
+        </style>
+    </head>
+    <body class="text-center">
+        <!-- Return to Recipes -->
+        <a href="recipe.html">
+        <div class="this-button"><button class="btn-default float-child rounded m-2">Back to Recipes</button></div>
+        </a>
+        <div class="container pb-2" style="clear:both; font:8vw; color:lightsteelblue"><h1>Search Recipes</h1></div>
+        
+        <!-- Search and Filters -->
+        <div class="justify-content-between">
+            <div class="input-group rounded ms-2" style="width:95%">
+                <input type="search" class="form-control rounded" id="recipeName"  autocomplete="off" placeholder="Search by Name" aria-label="Search"
+                  aria-describedby="search-addon"/>
+            </div>
+            <select class="form-select d-flex m-2 float-child" id="cookingTime" style="width:48%">
+                <option selected value="0">Cooking Time</option>
+                <option value="10">10 min or less</option>
+                <option value="20">20 min or less</option>
+                <option value="30">30 min or less</option>
+                <option value="40">40 min or less</option>
+                <option value="50">50 min or less</option>
+                <option value="1hr">1-1.5 hours</option>
+                <option value="plus">> 1.5 hours</option>
+            </select>
+        </div>
+            <select class="form-select d-flex mt-2 mb-2 float-child" id="restrictions" style="width:45%">
+                <option selected value="0">Dietary Restrictions</option>
+                <option value="Gluten-Free">Gluten-Free</option>
+                <option value="Peanut-Free">Peanut-Free</option>
+                <option value="Vegetarian">Vegetarian</option>
+                <option value="Vegan">Vegan</option>
+            </select>
+            <div style="margin:auto">
+                <div class="this-button"><button class="btn-default m-1 float-child rounded p-2 mb-5" onclick="getSearch()" style="width: 100px">Search</button></div>
+                <div class="this-button"><button class="btn-default m-1 float-child rounded p-2 mb-5" onclick="showCategory('all')" style= "width:100px">Show All</button></div>
+            </div>
+    </div>
+
+
+       <!-- Full Recipe Card popup -->
+    <div class="card text-justify pb-4" id ="fullCard" style="height:auto; left:5%; right:5%; width: 90%; background-color:white; z-index: 1; position:absolute; box-shadow: 0 3px 5px 0 darkgray, 0 6px 20px 0 darkgray;">
+        <div id="delete" class="ms-4 mt-4" style="text-align:left;"></div>
+        <h2 class="card-title pb-2" id="recipeTitle" style="font-size: 5vw"></h2>
+        <div class="card-img img-fluid">
+            <div id="recipeImg"></div>
+            <div id="dietary" style="text-align:center" class="mt-2"></div>
+        </div>
+        
+        <div class="card-body">
+            <div class="text-justify float-child" style="width:40%" id ="time"></div>
+            <div class="text-justify float-child" style="width:60%" id="ingredients"></div>
+        </div>
+        <button class= "rounded me-2 mt-3 close-button" onclick="closeCard()">Close</button>
+    </div>
+
+        <!-- Individual Recipe Card -->
+        <div class="recipe-cards">
+        <h5 class="ms-2 mt-5" style="clear:both;">Most Relevant Results</h5>
+        <div class="scrollmenu carousel-inner active float-child mt-4" id="results"></div>
+
+        <!-- Recipe Category Cards -->
+        <div class="categories" style="clear:both;margin-top:20%;"> 
+                <h2>Categories</h2>
+                    <div class="scrollmenu carousel-inner col-lg-3 text-center">
+                            <div class="cards">
+                                <button onclick="showCategory('Asian')">
+                                    <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Asian</h3></div>
+                                </button>
+                                <button onclick="showCategory('Breakfast')">
+                                    <div class="card col-lg-12 m-2 color3"><h3 class="card-title text-justify">Breakfast</h3></div>
+                                </button>
+                                <button onclick="showCategory('Burgers')">
+                                    <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Burgers</h3></div>
+                                </button>
+                                <button onclick="showCategory('Chicken')">
+                                    <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Chicken</h3></div>
+                                </button>
+                                <button onclick="showCategory('Desserts')">
+                                    <div class="card col-lg-12 m-2 color3"><h3 class="card-title text-justify">Desserts</h3></div>
+                                </button>
+                                <button onclick="showCategory('Drinks')">
+                                    <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Drinks</h3></div>
+                                </button>
+                                <button onclick="showCategory('Indian')">
+                                    <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Indian</h3></div>
+                                </button>
+                                <button onclick="showCategory('Mexican')">
+                                    <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Mexican</h3></div>
+                                </button>
+                                <button onclick="showCategory('Greek')">
+                                    <div class="card col-lg-12 m-2 color3"><h3 class="card-title text-justify">Greek</h3></div>
+                                </button>
+                                <button onclick="showCategory('Salads')">
+                                    <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Salads</h3></div>
+                                </button>
+                                <button onclick="showCategory('Seafood')">
+                                    <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Seafood</h3></div>
+                                </button>
+                                <button onclick="showCategory('Soups')">
+                                    <div class="card col-lg-12 m-2 color3"><h3 class="card-title text-justify">Soups</h3></div>
+                                </button>
+                            </div>
+                </div>
+         </div>
+         
+        <!-- Nav Bar -->
+        <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./index.html"> <i class="fas fa-home large_icon"></i> <br> Home </a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./groceries/groceries.html"> <i class="fas fa-list-alt large_icon"></i> <br> Lists</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./inventory/inventory.html"> <i class="fas fa-shopping-basket large_icon"></i> <br> Inventory</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./recipes/recipe.html"> <i class="fas fa-book large_icon"></i> <br> Recipes</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./settings.html"> <i class="fas fa-wrench large_icon"></i><br> Settings</a>
+        </nav>
+    
+    </body>
+    
+</html>
