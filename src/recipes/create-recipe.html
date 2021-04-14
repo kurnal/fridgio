@@ -6,35 +6,13 @@
         <link href="../../fontawesome/css/all.css" rel="stylesheet">
         <script type = "text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
         <script type = "text/javascript" src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script type="text/javascript" src="../../bootstrap/js/popper.min.js"></script>
+        <link rel="stylesheet" href="recipes.css">
         <title> Create Recipe Page </title>
         <style>
             form .btn, .this-button .btn {
                 border: 1px solid black;
                 background-color:peachpuff;
-                background-color:lightgray;
             }
-
-            .card {
-            width: 12vw;
-            height: 30vh;
-            margin-top: auto;
-            margin-bottom:auto;
-            box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            display: inline-flex;
-            margin: 1px;
-            border:2px solid lightsteelblue;
-            }
-
-            .float-child { float: left; }
-            .recipe-card { border: 1px solid gray; }
-            #fullCard img { width: 18vw; }
-            .close-button {
-                clear:both; 
-                float:right; 
-                background-color:lightsteelblue;
-                border: 1px solid gray;
-             }
         </style>
         <script> 
             function load()
@@ -53,11 +31,12 @@
                         "<div class=\"card-body\">" +
                             "<h5 class=\"card-title text-wrap text-center\">" + el.name + "</h5>" +    
                         "</div></div></button>"
-                        // "<button onclick=\"del('" + el['name'] + "','" + el.uuid + "');\"><i class='fas fa-trash'></i></button>"
+                        // "<button onclick=\"del('" + el['name'] + "','" + el.uuid + ");\"><i class='fas fa-trash'></i></button>"
                     );
                     })
                 }
             };
+            
 
               function addRecipeCard() {
                 // check if all fields are correct
@@ -92,7 +71,8 @@
                         "<img class=\"card-img-top\" src=\"pics/food-background.jpeg\">" + 
                         "<div class=\"card-body\">" +
                             "<h5 class=\"card-title text-wrap text-center\">" + recipeName + "</h5>" +     
-                        "</div></div></button>"
+                        "</div></div></button>" 
+                        // "<button onclick=\"del('" + el['name'] + "');\"><i class='fas fa-trash'></i></button>"
                     );
                     document.getElementById('recipeName').value = "";
                     document.getElementById('prepTime').value = "";
