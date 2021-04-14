@@ -6,99 +6,200 @@
         <link href="../../fontawesome/css/all.css" rel="stylesheet">
         <script type = "text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
         <script type = "text/javascript" src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src='food.json'></script>
+        <link rel="stylesheet" href="recipes.css">
         <title> Create Recipe Page </title>
         <style>
             form .btn, .this-button .btn {
                 border: 1px solid black;
-                background-color:lightgray;
-            }
-
-            .card{
-                border-radius: 30px;
-                background-color: peachpuff;
-                width: 300px;
-                height: 300px;
+                background-color:peachpuff;
             }
         </style>
         <script> 
-
-            window.onload = function()
+            function load()
             {
-            document.getElementById("recipeCard").style.display='none';
+                closeCard();
+                let curr = window.localStorage.getItem('RECIPE_CARDS')
+                if (curr == null) {
+                    window.localStorage.setItem('RECIPE_CARDS', JSON.stringify({ items: [] }))
+                } else {
+                    let recipeCards = JSON.parse(curr)
+                    recipeCards.items.forEach(el => {
+                        $("#recipeCards").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" + 
+                        "onclick=\"showRecipe('" + el.name + "','" + el.prep + "','" + el.cooking + "','" + el.dietary + "','" + el.ingredients + "')\">" + 
+                       "<div class=\"card col-lg-12 m-2\">" + 
+                        "<img class=\"card-img-top\" src=\"pics/food-background.jpeg\">" + 
+                        "<div class=\"card-body\">" +
+                            "<h5 class=\"card-title text-wrap text-center\">" + el.name + "</h5>" +    
+                        "</div></div></button>"
+                        // "<button onclick=\"del('" + el['name'] + "','" + el.uuid + ");\"><i class='fas fa-trash'></i></button>"
+                    );
+                    })
+                }
+            };
+            
+
+              function addRecipeCard() {
+                // check if all fields are correct
+                if (document.getElementById("recipeName").value.length == 0 || 
+                    document.getElementById("cookingTime").value.length == 0 || 
+                    document.getElementById("prepTime").value.length == 0 ||
+                    document.getElementById("ingredients").value.length == 0)
+                {
+                    alert("You did not complete all fields.")
+                }
+                else 
+                {
+                    let uuid = Math.floor(Math.random() * 9999999999);
+                    let recipeCards = JSON.parse(window.localStorage.getItem('RECIPE_CARDS'))
+                    recipeName = document.getElementById('recipeName').value;
+                    prepTime = document.getElementById('prepTime').value;
+                    cookTime = document.getElementById('cookingTime').value;
+                    rCategory = document.getElementById('recipeCategory').value;
+                    dietaryRes = document.getElementById('dietaryRestriction').value;
+                    ing = document.getElementById('ingredients').value;
+                    var ingred = ing.split(",");
+                    recipeCards["items"].push({
+                        uuid: uuid, name: recipeName, recipeImage: "pics/food-background.jpeg", prep: prepTime, cooking: cookTime, category: rCategory, dietary: dietaryRes, ingredients: ingred
+                    })
+                    window.localStorage.setItem('RECIPE_CARDS', JSON.stringify(recipeCards))
+                    window.localStorage.setItem(String(uuid), JSON.stringify({ items: ["Recipe"] }))
+
+                    // Append product to the table
+                    $("#recipeCards").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" + 
+                        "onclick=\"showRecipe('" + recipeName + "','" + prepTime + "','" + cookTime + "','" + dietaryRes + "','" + ingred + "')\">" + 
+                        "<div class=\"card col-lg-12 m-2\">" + 
+                        "<img class=\"card-img-top\" src=\"pics/food-background.jpeg\">" + 
+                        "<div class=\"card-body\">" +
+                            "<h5 class=\"card-title text-wrap text-center\">" + recipeName + "</h5>" +     
+                        "</div></div></button>" 
+                        // "<button onclick=\"del('" + el['name'] + "');\"><i class='fas fa-trash'></i></button>"
+                    );
+                    document.getElementById('recipeName').value = "";
+                    document.getElementById('prepTime').value = "";
+                    document.getElementById('cookingTime').value = "";
+                    document.getElementById('dietaryRestriction').value="N/A"
+                    document.getElementById('recipeCategory').value="N/A"
+                    document.getElementById('ingredients').value = "";
+                }
+             }  
+
+             function showRecipe(name, prep, cooking, dietary, ingred) {
+                closeCard();
+                document.getElementById("recipeTitle").innerHTML = name;
+                var img = document.createElement("img");
+                img.src = "pics/food-background.jpeg";
+                var src = document.getElementById("recipeImg");
+                src.appendChild(img);
+                document.getElementById("dietary").innerHTML = "Dietary Restriction: " + dietary;
+
+                thisList = ["<b> Ingredients </b>"];
+                var list = document.getElementById("ingred");
+                var ingredients = ingred.split(",")
+                for (var i = 0; i < ingredients.length; i++) {
+                    thisList.push("<li>" + ingredients[i] + "</li>");
+                }
+                list.innerHTML = thisList.join('');
+                
+                total = parseInt(prep) + parseInt(cooking);
+                document.getElementById("time").innerHTML = 
+                    "<b> Prep Time: </b>" + prep + " mins" + "<br>" + "<b> Cooking Time: </b> " + 
+                    cooking + " mins" + "<br>" + "<b> Total Time: </b>" + total + " mins";
+
+                var x = document.getElementById("fullCard");
+                x.style.display = "block";
             };
 
-            function getRecipeDetails() {
-                var nameField = document.getElementById('recipeName').value;
-                // var prepTime = document.getElementById('prepTime').value;
-                // var cookingTime = document.getElementById('cookingTime').value;
-                // var category = document.getElementById('recipeCategory').value;
-                // document.getElementById("result").innerHTML = nameField;
-                // document.getElementById("result2").innerHTML = "Prep Time: " + prepTime;
-                // document.getElementById("result3").innerHTML = "Cooking Time: " + cookingTime;
-                
-                var x = document.getElementById("recipeCard");
-                x.style.display = "block";
-                // if (x.style.display === "none") {
-                //     x.style.display = "block";
-                // } else {
-                //     x.style.display = "none";
-                // }
-             }
+            function closeCard() {
+                var x = document.getElementById("fullCard");
+                x.style.display = "none";
+                document.getElementById("recipeImg").innerHTML = "";
+            }
+
         </script>
     </head>
-    <body>
+    <body onload="load()">
         <a href="recipe.html">
             <div class="this-button">
                 <button class="btn float-child rounded m-2">Back to Recipes</button>
             </div>
         </a>
-        <h1 class="text-center">Create Recipe</h1>
+        <h1 class="text-center" style="clear:both;color:lightsteelblue;font-size:4vw">Create Recipe</h1>
         <form id="myform">
-            <div class="form-group m-4">
-              <label for="recipeName">Recipe Name</label>
-              <input type="name" class="form-control" id="recipeName" placeholder="ex: Classic Caesar Salad">
+            <div class="card text-justify pb-4 text-center" id ="fullCard" style="height:auto; left:30%; right:30%; width: 40%; background-color:white; z-index: 1; position:absolute; box-shadow: 0 3px 5px 0 darkgray, 0 6px 20px 0 darkgray;">
+                <h2 class="card-title p-4" id="recipeTitle" style="font-size: 2vw"></h2>
+                <div class="card-img img-fluid w-50 float-child" style="text-align:right">
+                    <div id="recipeImg"></div>
+                    <div id="dietary" style="text-align:center" class="ms-4, mt-2"></div>
+                </div>
+                <div class="card-body w-50 float-child" style="margin:auto; width:40%">
+                    <div class="text-justify" id ="time"></div><br>
+                    <div class="mt-2 text-justify" id="ingred"></div>
+                </div>
+                <button class= "rounded me-5 close-button" onclick="closeCard()">Close</button>
             </div>
-            <div class="form-group m-4">
-              <label for="prepTime">Estimated Prep Time</label>
-              <input type="number" class="form-control" id="prepTime" placeholder="in minutes">
+
+            <div class="container" style="margin:auto">
+                <div class="form-group float-child w-50 m-4">
+                    <label for="recipeName">Recipe Name</label>
+                    <input type="name" autocomplete="off" class="form-control mt-2" id="recipeName" placeholder="ex: Classic Caesar Salad">
+                </div>
+
+                <div class="form-group float-child m-4">
+                    <label for="recipeCategory">Recipe Category</label>
+                    <select class="form-select d-flex mt-2" style="width:550px" id="recipeCategory">
+                        <option selected value="N/A">N/A</option>
+                        <option value="Asian">Asian</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Burgers">Burgers</option>
+                        <option value="Chicken">Chicken</option>
+                        <option value="Drinks">Drinks</option>
+                        <option value="Desserts">Desserts</option>
+                        <option value="Greek">Greek</option>
+                        <option value="Mexican">Mexican</option>
+                        <option value="Salads">Salads</option>
+                        <option value="Seafood">Seafood</option>
+                        <option value="Indian">Indian</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
             </div>
-            <div class="form-group m-4">
-                <label for="cookingTime">Estimated Cooking Time</label>
-                <input type="number" class="form-control" id="cookingTime" placeholder="in minutes">
-            </div>
-            <div class="m-4">
-                <label for="recipeCategory">Recipe Category</label>
-                <select class="form-select d-flex float-child" style="width:370px" id="recipeCategory">
-                    <option selected>Select Category</option>
-                    <option value="Asian">Asian</option>
-                    <option value="2">Asian</option>
-                    <option value="Salads">Salads</option>
-                    <option value="4">Soups</option>
-                    <option value="5">Salads</option>
-                    <option value="6">Salads</option>
-                    <option value="7">Salads</option>
-                    <option value="8">Salads</option>
-                    <option value="9">Salads</option>
-                    <option value="10">Salads</option>
-                    <option value="11">Salads</option>
-                    <option value="12">Other</option>
-                </select>
-            </div>
+
+            <div class="container" style="margin:auto">
+                <div class="form-group m-4 float-child">
+                <label for="prepTime">Estimated Prep Time</label>
+                <input type="number" class="form-control mt-2" id="prepTime" placeholder="in minutes">
+                </div>
+
+                <div class="form-group m-4 float-child">
+                    <label for="cookingTime">Estimated Cooking Time</label>
+                    <input type="number" class="form-control mt-2" id="cookingTime" placeholder="in minutes">
+                </div>
+
+                <div class="form-group float-child m-4">
+                    <label for="recipeRestriction">Dietary Restriction</label>
+                    <select class="form-select d-flex mt-2" id="dietaryRestriction">
+                        <option selected value="N/A">N/A</option>
+                        <option value="Gluten-Free">Gluten-Free</option>
+                        <option value="Peanut-Free">Peanut-Free</option>
+                        <option value="Vegan">Vegan</option>
+                        <option value="Vegetarian">Vegetarian</option>
+                    </select>
+                </div>
+
+                <div class="form-group ms-4 mt-4 mb-5 float-child" style="width: 45%">
+                    <label class="form-label" for="textAreaExample">Ingredients</label>
+                    <textarea class="form-control" id="ingredients" placeholder="Place comma between each ingredient"></textarea>
+                </div>
+            </div>                
           </form>
-        <div class="this-button">
-            <button type="submit" class="btn m-4" id="subButton" onclick="getRecipeDetails()">Submit</button>
-        </div>
-        <div>
-            <div class="card" id="recipeCard">
-                <p id='result'></p>
-                <!-- <div class="card-body">
-                    <h5 class="card-title text-justify" id='result'></h5>
-                </div> -->
-                <!-- <p id='result'></p>
-                <p id='result2'></p>
-                <p id='result3'></p> -->
-            </div>
+        
+
+        <div class="this-button" style="clear:both">
+                <button type="button" class="d-flex btn ps-5 pe-5" style="margin:auto" onclick="addRecipeCard();">Add Recipe</button>
+        </div> 
+
+        <div id="recipeCards" class="ms-3">
+            <h5 class=m-2>My recipes</h5>
         </div>
 
          <!-- Nav Bar -->

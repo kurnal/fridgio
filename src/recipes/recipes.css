@@ -1,0 +1,61 @@
+.card {
+    width: 12vw;
+    height: 31vh;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: inline-flex;
+    margin: 1px;
+    justify-content: center;
+    border:1px solid darkgray;
+}
+
+.card-title {
+    font-size: 18px;
+    color:black;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.this-button .btn-default {
+    background-color: peachpuff;
+    border: 1px solid black;
+}
+
+.float-child { float: left; }
+#fullCard img { width: 18vw; }
+
+#fullCard button {
+    background-color: lightsteelblue;
+    border: 1px solid gray;
+    padding: 10px;
+}
+
+.close-button {
+    clear:both; 
+    float:right; 
+    background-color:lightsteelblue;
+    border: 1px solid gray;
+}
+
+.scrollmenu {
+    overflow: auto;
+    white-space: nowrap;
+}
+
+::-webkit-scrollbar { height: 10px; }
+.scrollmenu::-webkit-scrollbar { background-color: #F5F5F5; }
+
+.scrollmenu::-webkit-scrollbar-thumb {
+border-radius: 10px;
+border: 1px solid lightgray;
+background-color: #f8f8f8;
+}
+
+.cards button {
+    border: 2px solid white;
+    background-color: white;
+}
+
+.recipe-cards .card-title {
+    font-size:1.2vw;
+    color:black;
+}

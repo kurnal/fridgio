@@ -1,0 +1,157 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../src/index.css">
+        <link href="../fontawesome/css/all.css" rel="stylesheet">
+        <script type = "text/javascript" src="../bootstrap/js/jquery-3.6.0.min.js"></script>
+        <script type = "text/javascript" src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="../bootstrap/js/popper.min.js"></script>
+        <title> Create Recipe Page </title>
+        <style>
+            form .btn, .this-button .btn {
+                border: 1px solid black;
+                background-color:lightgray;
+            }
+
+            .page {
+                overflow: auto;
+                white-space: nowrap;
+            }
+            /* .card{
+                border-radius: 30px;
+                background-color: peachpuff;
+                width: 300px;
+                height: 300px;
+            } */
+
+            .float-child {
+                float: left;
+            }
+
+            .recipe-card {
+                text-align: center;
+                border: 1px solid gray;
+                margin: 20px;
+            }
+        </style>
+        <script> 
+            window.onload = function()
+            {
+            // document.getElementById("recipeCard").style.display='none';
+            // init if localStorage variable does not exist
+                let curr = window.localStorage.getItem('RECIPE_CARDS')
+                if (curr == null) {
+                    window.localStorage.setItem('RECIPE_CARDS', JSON.stringify({ items: ["Recipe"] }))
+                } else {
+                    let recipeCards = JSON.parse(curr)
+                    recipeCards.items.forEach(el => {
+                        $("#recipeCards").append("<a href=\"#popupRecipe\"><div class=\"recipe-card col-lg-12 shadow-lg float-child p-3\" style=\"width: 300px\">" +
+                        "<h6 class=\"font-weight-bold mb-0\">" + el.name + "</h6>" +
+                        "<small class=\"text-muted\">" + "Prep time: " + el.prepTime + " min <br>" + "Cooking time: " + el.cookTime + " min <br>" + "Category: " + el.category + "</small>" + "</div>" + "</a>"
+                );
+                    })
+                }
+            };
+
+
+              function addRecipeCard() {
+                // check if all fields are correct
+                if (document.getElementById("recipeName").value.length == 0 || 
+                    document.getElementById("cookingTime").value.length == 0 || 
+                    document.getElementById("prepTime").value.length == 0 || 
+                    document.getElementById("ingredients").value.length == 0) 
+                {
+                    alert("You did not complete all fields.")
+                }
+                else 
+                {
+                    let uuid = Math.floor(Math.random() * 9999999999);
+                    let recipeCards = JSON.parse(window.localStorage.getItem('RECIPE_CARDS'))
+                    recipeName = document.getElementById('recipeName').value;
+                    prep = document.getElementById('prepTime').value;
+                    cook = document.getElementById('cookingTime').value;
+                    rCategory = document.getElementById('recipeCategory').value;
+                    recipeCards["items"].push({
+                        uuid: uuid, name: recipeName, prepTime: prep, cookTime: cook, category: rCategory
+                    })
+                    window.localStorage.setItem('RECIPE_CARDS', JSON.stringify(recipeCards))
+                    window.localStorage.setItem(String(uuid), JSON.stringify({ items: ["Recipe"] }))
+
+                    // Append product to the table
+                
+                    $("#recipeCards").append("<a href=\"#popupRecipe\"><div class=\"recipe-card col-lg-12 shadow-lg float-child p-3\" style=\"width: 300px\">" +
+                            "<h6 class=\"font-weight-bold mb-0\">" + recipeName + "</h6>" +
+                            "<small class=\"text-muted\">" + "Prep time: " + prep + " min <br>" + "Cooking time: " + cook + " min <br>" + "Category: " + rCategory + "</small>" + "</div>" + "</a>"
+                    );
+                }
+             }   
+        </script>
+    </head>
+    <body>
+        <a href="phone-recipes.html">
+            <div class="this-button">
+                <button class="btn float-child rounded m-2">Back to Recipes</button>
+            </div>
+        </a>
+        <br>
+        <h1 class="text-center" style="clear:both;">Create Recipe</h1>
+        
+        <div class="page">
+            <form id="myform">
+                <div class="form-group m-4">
+                <label for="recipeName">Recipe Name: </label>
+                <input type="name" class="form-control" id="recipeName" placeholder="ex: Classic Caesar Salad">
+                </div>
+                <div class="form-group m-4">
+                <label for="prepTime">Estimated Prep Time: </label>
+                <input type="number" class="form-control" id="prepTime" placeholder="in minutes">
+                </div>
+                <div class="form-group m-4">
+                    <label for="cookingTime">Estimated Cooking Time: </label>
+                    <input type="number" class="form-control" id="cookingTime" placeholder="in minutes">
+                </div>
+                <div class="form-group m-4">
+                    <label for="recipeCategory">Recipe Category: </label>
+                    <select class="form-select d-flex" id="recipeCategory">
+                        <option selected value="N/A">N/A</option>
+                        <option value="Asian">Asian</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Burgers">Burgers</option>
+                        <option value="Chicken">Chicken</option>
+                        <option value="Drinks">Drinks</option>
+                        <option value="Desserts">Desserts</option>
+                        <option value="Greek">Greek</option>
+                        <option value="Mexican">Mexican</option>
+                        <option value="Salads">Salads</option>
+                        <option value="Seafood">Seafood</option>
+                        <option value="Indian">Indian</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group m-4">
+                    <label class="form-label" for="textAreaExample">Ingredients: </label>
+                    <!-- <br> -->
+                    <!-- <input class="form-control" id="ingredients" style = "height: 100px" placeholder="ex: 2 potatoes, one clove of garlic..."> -->
+                    <textarea class="form-control" id="ingredients" placeholder="Press enter for each new ingredient"></textarea>
+                </div>
+            </form>
+            <div class="this-button">
+                <div id="recipeCards" class="w-100 m-4">
+                    <button type="button" class="d-flex btn btn-primary mb-5" onclick="addRecipeCard();">Submit</button>
+                    <div><h5>My recipes</h5></div>
+                </div>
+            </div> 
+        </div>
+
+         <!-- Nav Bar -->
+         <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./index.html"> <i class="fas fa-home large_icon"></i> <br> Home </a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./groceries/groceries.html"> <i class="fas fa-list-alt large_icon"></i> <br> Lists</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./inventory/inventory.html"> <i class="fas fa-shopping-basket large_icon"></i> <br> Inventory</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./recipes/recipe.html"> <i class="fas fa-book large_icon"></i> <br> Recipes</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./settings.html"> <i class="fas fa-wrench large_icon"></i><br> Settings</a>
+        </nav>
+
+    </body>
+</html>
