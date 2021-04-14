@@ -10,70 +10,227 @@
         <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="./index.css">
         <link href="../fontawesome/css/all.css" rel="stylesheet">
-    </head>
-    
-    <body class="home">
-        
-        </br>
-        <div class="header" onclick="window.location='index.html';">
-            <h1>FRIDGIO</h1>
-        </div>
-        </br>
-        
-        <div class="containerHome">
-            <div class="item" onclick="window.location='recipes/recipe.html';">
-                NEW RECIPES
-                </br>
-                <div class="itemRecipes">
-                    <div class="card">MUSHROOM SOUP</div>
-                    <div class="card">CLASSIC SHRIMP SCAMPI</div>
-                    <div class="card">CHICKEN PARMESAN</div>
-                    <div class="card">LOADED TATER TOTS</div>
-                </div>
-            </div>
-            <div class="item">
-                WHAT DID YOU EAT TODAY?
-            </div>
-            
-            <div class="item" onclick="window.location='groceries/groceries.html';">
-                UPDATE GROCERY LISTS
-            </div>
-            
-            <div class="item" onclick="window.location='inventory.html';">
-                YOU'RE LOW ON:
-                </br>
-                <div class="itemInventory">
-                    <ul>
-                        <li>Tomatoes</li>
-                        <li>Broccoli</li>
-                        <li>Chicken</li>
-                        <li>Milk</li>
-                        <li>Bananas</li>
-                        <li>Carrots</li>
-                        <li>Bread</li>
-                        <li>Mayo</li>
-                        <li>Cheese</li>
-                        <li>Cake</li>
-                        <li>Eggs</li>
-                        <li>Jam</li>
-                        <li>Mustard</li>
-                        <li>Chips</li>
-                        <li>Hot dogs</li>
-                        <li>Dark chocolate</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        
-        <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "./index.html"> <i class="fas fa-home"></i> Home </a>
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "./groceries/groceries.html"> <i class="fas fa-list-alt"></i> Grocery Lists </a>
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "./inventory/inventory.html"> <i class="fas fa-shopping-basket"></i> Inventory </a>
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "./recipes/recipe.html"> <i class="fas fa-book"></i> Recipes </a>
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "./settings.html"> <i class="fas fa-wrench"></i> Settings</a>
-        </nav>
-    
         <script type = "text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
         <script type = "text/javascript" src="../bootstrap/js/popper.min.js"></script>    
-    </body>
-</html lang="en">
+      
+        <style>
+         .body {
+            overflow: auto;
+         }
+         
+         .border-rad {
+           border-radius: 20px;
+         }
+         
+         .panel {
+            border:2px solid lightsteelblue;
+            box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            padding: 5%;
+            background-color: white;
+         }
+         
+         .cards {
+            margin: auto;
+         }
+         
+         .card {
+            width: 12vw;
+            height: 25vh;
+            float: left;
+            border:2px solid lightsteelblue;
+            box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+         }
+         
+         .card-title {
+            font-size: 80%;
+         }
+         
+         a:link {
+            color: black;
+            text-decoration: none;
+
+          }
+          
+          a:visited {
+            color: black;
+            text-decoration: none;
+          }
+         
+         .carousel-inner {
+            padding-left: 10%;
+            padding-right: 10%;
+         }
+         
+         .carousel-control-prev-icon,
+         .carousel-control-next-icon {
+            background-color:lightsteelblue;
+         }
+         
+         .list-group{
+            max-height: 25vh;
+            overflow:scroll;
+            border: 1px solid lightsteelblue;
+         }
+        
+        .date-time {
+            font-size: 22px;
+            float: left;
+            text-align: left;
+        }
+        
+        .text {
+            font-size: 22px;
+        }
+        
+        </style>
+    </head>
+    
+    <body class="text-center" style="background-color: lightsteelblue;">
+      <br>
+      
+      <div class="jumbotron" onload=display_ct();>
+         <h1>FRIDGIO</h1>
+      </div>
+      
+      
+      <br>
+      
+      <div class="container text-center">
+         <div class="row">
+            <div class="col" style="min-height: 36vh;">
+               <div class="panel panel-primary border-rad" style="min-height: 36vh;">
+                  <div class="panel-heading date-time" id="clock"></div>
+                  <img src="../images/weather.png" class="img-fluid" alt="Image"
+                          style="max-width: 200px; width: 50%;">
+                  <p class="text"> 74° </p>
+               </div>
+            </div>
+            
+            <div class="col">
+               <div class="panel panel-primary border-rad"  style="min-height: 36vh;">
+                  <div class="panel-heading"><a href="recipes/recipe.html">NEW RECIPES</a></div>
+                  
+                  <div id="carousel1" class="carousel slide col-lg-12" data-bs-touch="false" data-bs-interval="false">
+                     <div class="carousel-inner text-center">
+                        <div class="carousel-item active">
+                           
+                           <div class="cards">
+                              <div class="card">
+                                 <img class="card-img-top" src="recipes/pics/mushroom-soup.jpg" alt="Card image">
+                                 <div class="card-body">
+                                   <h5 class="card-title"><a href="recipes/mushroom-recipe.html">Creamy Mushroom Soup</a></h5>
+                                 </div>
+                              </div>
+                              
+                              <div class="card">
+                                 <img class="card-img-top" src="recipes/pics/honey-chicken.jpg" alt="Card image">
+                                 <div class="card-body">
+                                   <h5 class="card-title"><a href="recipes/recipe.html">Honey Garlic Chicken</a></h5>
+                                 </div>
+                              </div>
+                           </div>
+                           
+                       </div>
+                        
+                       <div class="carousel-item">
+                         <div class="cards">
+                              <div class="card">
+                                 <img class="card-img-top" src="recipes/pics/fish-tacos.jpg" alt="Card image">
+                                 <div class="card-body">
+                                   <h5 class="card-title"><a href="recipes/recipe.html">Grilled Fish Tacos</a></h5>
+                                 </div>
+                              </div>
+                              
+                              <div class="card">
+                                 <img class="card-img-top" src="recipes/pics/shrimp-scampi.jpg" alt="Card image">
+                                 <div class="card-body">
+                                   <h5 class="card-title"><a href="recipes/shrimp-scampi-recipe.html">Classic Shrimp Scampi</a></h5>
+                                 </div>
+                              </div>
+                           </div>
+                       </div>
+                       
+                       
+                     </div>
+                     <button class="carousel-control-prev" type="button" data-bs-target="#carousel1" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden"></span>
+                     </button>
+                     <button class="carousel-control-next" type="button" data-bs-target="#carousel1" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden"></span>
+                     </button>
+                  </div>
+                  
+               </div>       
+            </div>
+            
+         </div>
+      </div>
+      
+      <br>
+      
+      <div class="container">
+         <div class="row">
+            <div class="col">
+               <div class="panel panel-primary border-rad" style="min-height: 36vh;">
+                  <div class="panel-heading"><a href="groceries/groceries.html">UPDATE GROCERY LISTS</a></div>
+                  <div class="panel-body">
+                    <img src="../images/list.png" class="img-fluid" alt="Image"
+                         style="max-height: 25vh; max-width: 200px; width: 50%; padding-top: 5%;">
+                  </div>
+               </div>
+            </div>
+            
+            <div class="col">
+               <div class="panel panel-primary border-rad" style="min-height: 36vh;">
+                  <div class="panel-heading"><a href="inventory/inventory.html">YOU'RE LOW ON:</a></div>
+                  <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">Tomatoes</li>
+                        <li class="list-group-item">Broccoli</li>
+                        <li class="list-group-item">Oat milk</li>
+                        <li class="list-group-item">Grapes</li>
+                        <li class="list-group-item">Cheese</li>
+                        <li class="list-group-item">Olives</li>
+                        <li class="list-group-item">Argulua</li>
+                        <li class="list-group-item">Diet coke</li>
+
+                    </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+        
+      </body>
+    
+    <script type="text/javascript">
+        var clockElement = document.getElementById('clock');
+    
+        function clock() {
+            var date = new Date();
+            var day = date.getDay();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+        
+            // Array of days.
+            var weekday = ['Sunday', 'Monday', 'Tuesday',
+                'Wednesday', 'Thursday', 'Friday', 'Saturday'
+            ];
+            clockElement.innerHTML = weekday[day] + "<br>" + hours + ":" + minutes + ":" + seconds;
+        }
+    
+        setInterval(clock, 1000);
+    </script>
+    
+      <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
+         <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "./index.html"> <i class="fas fa-home"></i> Home </a>
+         <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "./groceries/groceries.html"> <i class="fas fa-list-alt"></i> Grocery Lists </a>
+         <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "./inventory/inventory.html"> <i class="fas fa-shopping-basket"></i> Inventory </a>
+         <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "./recipes/recipe.html"> <i class="fas fa-book"></i> Recipes </a>
+         <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "./settings.html"> <i class="fas fa-wrench"></i> Settings</a>
+      </nav>
+   
+</html>
