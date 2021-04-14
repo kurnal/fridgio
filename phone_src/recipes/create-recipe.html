@@ -1,0 +1,228 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../src/index.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="../../fontawesome/css/all.css" rel="stylesheet">
+        <script type = "text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
+        <script type = "text/javascript" src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="recipes.css">
+        <title> Create Recipe Page </title>
+        <style>
+            form .btn, .this-button .btn {
+                border: 1px solid black;
+                background-color:peachpuff;
+            }
+        </style>
+        <script> 
+            window.onload = function()
+            {
+                closeCard();
+                let curr = window.localStorage.getItem('RECIPE_CARDS')
+                if (curr == null) {
+                    window.localStorage.setItem('RECIPE_CARDS', JSON.stringify({ items: [] }))
+                } else {
+                    let recipeCards = JSON.parse(curr)
+                    recipeCards.items.forEach(el => {
+                        $("#recipeCards").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" + 
+                        "onclick=\"showRecipe('" + el.name + "','" + el.prep + "','" + el.cooking + "','" + el.dietary + "','" + el.ingredients + "')\">" + 
+                       "<div class=\"card col-lg-12 m-2\">" + 
+                        "<img class=\"card-img-top\" src=\"../../src/recipes/pics/food-background.jpeg\">" + 
+                        "<div class=\"card-body\">" +
+                            "<h5 class=\"card-title text-wrap text-center\">" + el.name + "</h5>" +    
+                        "</div></div></button>"
+                        // "<button onclick=\"del('" + el['name'] + "','" + el.uuid + ");\"><i class='fas fa-trash'></i></button>"
+                    );
+                    })
+                }
+            };
+            
+
+              function addRecipeCard() {
+                // check if all fields are correct
+                if (document.getElementById("recipeName").value.length == 0 || 
+                    document.getElementById("cookingTime").value.length == 0 || 
+                    document.getElementById("prepTime").value.length == 0 ||
+                    document.getElementById("ingredients").value.length == 0)
+                {
+                    alert("You did not complete all fields.")
+                }
+                else 
+                {
+                    let uuid = Math.floor(Math.random() * 9999999999);
+                    let recipeCards = JSON.parse(window.localStorage.getItem('RECIPE_CARDS'))
+                    recipeName = document.getElementById('recipeName').value;
+                    prepTime = document.getElementById('prepTime').value;
+                    cookTime = document.getElementById('cookingTime').value;
+                    rCategory = document.getElementById('recipeCategory').value;
+                    dietaryRes = document.getElementById('dietaryRestriction').value;
+                    ing = document.getElementById('ingredients').value;
+                    var ingred = ing.split(",");
+                    recipeCards["items"].push({
+                        uuid: uuid, name: recipeName, recipeImage: "../../src/recipes/pics/food-background.jpeg", prep: prepTime, cooking: cookTime, category: rCategory, dietary: dietaryRes, ingredients: ingred
+                    })
+                    window.localStorage.setItem('RECIPE_CARDS', JSON.stringify(recipeCards))
+                    window.localStorage.setItem(String(uuid), JSON.stringify({ items: ["Recipe"] }))
+
+                    // Append product to the table
+                    $("#recipeCards").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" + 
+                        "onclick=\"showRecipe('" + recipeName + "','" + prepTime + "','" + cookTime + "','" + dietaryRes + "','" + ingred + "')\">" + 
+                        "<div class=\"card col-lg-12 m-2\">" + 
+                        "<img class=\"card-img-top\" src=\"../../src/recipes/pics/food-background.jpeg\">" + 
+                        "<div class=\"card-body\">" +
+                            "<h5 class=\"card-title text-wrap text-center\">" + recipeName + "</h5>" +     
+                        "</div></div></button>" 
+                        // "<button onclick=\"del('" + el['name'] + "');\"><i class='fas fa-trash'></i></button>"
+                    );
+                    document.getElementById('recipeName').value = "";
+                    document.getElementById('prepTime').value = "";
+                    document.getElementById('cookingTime').value = "";
+                    document.getElementById('dietaryRestriction').value="N/A"
+                    document.getElementById('recipeCategory').value="N/A"
+                    document.getElementById('ingredients').value = "";
+                }
+             }  
+
+             function showRecipe(name, prep, cooking, dietary, ingred) {
+                closeCard();
+                document.getElementById("recipeTitle").innerHTML = name;
+                var img = document.createElement("img");
+                img.src = "../../src/recipes/pics/food-background.jpeg";
+                var src = document.getElementById("recipeImg");
+                src.appendChild(img);
+                document.getElementById("dietary").innerHTML = "Dietary Restriction: " + dietary;
+
+                thisList = ["<b> Ingredients </b>"];
+                var list = document.getElementById("ingred");
+                var ingredients = ingred.split(",")
+                for (var i = 0; i < ingredients.length; i++) {
+                    thisList.push("<li>" + ingredients[i] + "</li>");
+                }
+                list.innerHTML = thisList.join('');
+                
+                total = parseInt(prep) + parseInt(cooking);
+                document.getElementById("time").innerHTML = 
+                    "<b> Prep Time: </b>" + prep + " mins" + "<br>" + "<b> Cooking Time: </b> " + 
+                    cooking + " mins" + "<br>" + "<b> Total Time: </b>" + total + " mins";
+
+                document.getElementById("delete").innerHTML = "<button onclick=\"deleteRecipe('" + name + "');\"><i class='fas fa-trash'></i></button>";
+                var x = document.getElementById("fullCard");
+                x.style.display = "block";
+            };
+
+            function closeCard() {
+                var x = document.getElementById("fullCard");
+                x.style.display = "none";
+                document.getElementById("recipeImg").innerHTML = "";
+            }
+
+            function deleteRecipe(name) { 
+                let recipe = JSON.parse(window.localStorage.getItem('RECIPE_CARDS'))
+                    recipe['items'] = recipe.items.filter(el => {
+                        return (el['name'] != name)
+                    })
+                    
+                    str_recipe = JSON.stringify(recipe)
+                    window.localStorage.setItem('RECIPE_CARDS', str_recipe)
+            }
+
+        </script>
+    </head>
+    <body>
+        <a href="recipe.html">
+            <div class="this-button">
+                <button class="btn float-child rounded m-2">Back to Recipes</button>
+            </div>
+        </a>
+        <h1 class="text-center" style="clear:both;color:lightsteelblue;font-size:8vw">Create Recipe</h1>
+        <form id="myform">
+            <div class="card text-justify pb-4 text-center" id ="fullCard" style="height:auto; left:30%; right:30%; width: 40%; background-color:white; z-index: 1; position:absolute; box-shadow: 0 3px 5px 0 darkgray, 0 6px 20px 0 darkgray;">
+                <div id="delete" class="ms-4 mt-4" style="text-align:left;"></div>
+                <h2 class="card-title pb-4" id="recipeTitle" style="font-size: 2vw"></h2>
+                <div class="card-img img-fluid w-50 float-child" style="text-align:right">
+                    <div id="recipeImg"></div>
+                    <div id="dietary" style="text-align:center" class="ms-4, mt-2"></div>
+                </div>
+                <div class="card-body w-50 float-child" style="margin:auto; width:40%">
+                    <div class="text-justify" id ="time"></div><br>
+                    <div class="mt-2 text-justify" id="ingred"></div>
+                </div>
+                <!-- <button class="rounded me-5 delete-button" onclick="deleteCard()">Delete Recipe</button> -->
+                <button type="button" class= "rounded me-5 close-button" onclick="closeCard()">Close</button>
+            </div>
+
+            <div class="container" style="margin:auto">
+                <div class="form-group m-2">
+                    <label for="recipeName">Recipe Name</label>
+                    <input type="name" autocomplete="off" class="form-control mt-2" id="recipeName" placeholder="ex: Classic Caesar Salad">
+                </div>
+
+                <div class="form-group m-2">
+                    <label for="recipeCategory">Recipe Category</label>
+                    <select class="form-select d-flex mt-2 w-50"  id="recipeCategory">
+                        <option selected value="N/A">N/A</option>
+                        <option value="Asian">Asian</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Burgers">Burgers</option>
+                        <option value="Chicken">Chicken</option>
+                        <option value="Drinks">Drinks</option>
+                        <option value="Desserts">Desserts</option>
+                        <option value="Greek">Greek</option>
+                        <option value="Mexican">Mexican</option>
+                        <option value="Salads">Salads</option>
+                        <option value="Seafood">Seafood</option>
+                        <option value="Indian">Indian</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="container" style="margin:auto">
+                <div class="form-group m-2">
+                <label for="prepTime">Estimated Prep Time</label>
+                <input type="number" class="form-control mt-2" id="prepTime" placeholder="in minutes">
+                </div>
+
+                <div class="form-group m-2">
+                    <label for="cookingTime">Estimated Cooking Time</label>
+                    <input type="number" class="form-control mt-2" id="cookingTime" placeholder="in minutes">
+                </div>
+
+                <div class="form-group m-2">
+                    <label for="recipeRestriction">Dietary Restriction</label>
+                    <select class="form-select d-flex mt-2" id="dietaryRestriction">
+                        <option selected value="N/A">N/A</option>
+                        <option value="Gluten-Free">Gluten-Free</option>
+                        <option value="Peanut-Free">Peanut-Free</option>
+                        <option value="Vegan">Vegan</option>
+                        <option value="Vegetarian">Vegetarian</option>
+                    </select>
+                </div>
+
+                <div class="form-group ms-2 mt-2 mb-2">
+                    <label class="form-label" for="textAreaExample">Ingredients</label>
+                    <textarea class="form-control" id="ingredients" placeholder="Place comma between each ingredient"></textarea>
+                </div>
+            </div>                
+          </form>
+        
+
+        <div class="this-button" style="clear:both">
+                <button type="button" class="d-flex btn ps-5 pe-5" style="margin:auto" onclick="addRecipeCard();">Add Recipe</button>
+        </div> 
+
+        <div id="recipeCards" class="ms-3 mb-5 scrollmenu">
+            <h5 class=m-2>My recipes</h5>
+        </div>
+
+         <!-- Nav Bar -->
+         <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./index.html"> <i class="fas fa-home large_icon"></i> <br> Home </a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./groceries/groceries.html"> <i class="fas fa-list-alt large_icon"></i> <br> Lists</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./inventory/inventory.html"> <i class="fas fa-shopping-basket large_icon"></i> <br> Inventory</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./recipes/recipe.html"> <i class="fas fa-book large_icon"></i> <br> Recipes</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./settings.html"> <i class="fas fa-wrench large_icon"></i><br> Settings</a>
+        </nav>
+
+    </body>
+</html>
