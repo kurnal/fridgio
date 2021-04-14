@@ -1,7 +1,8 @@
 <!-- Amanda -->
 <!doctype html>
 <html>
-  <head>
+
+<head>
     <title> Recipes Page </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,10 +11,9 @@
     <link href="../../fontawesome/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="recipes.css">
     <script type="text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
-    <script type = "text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
-    <script> 
-        window.onload = function()
-        {   
+    <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        window.onload = function () {
             // hide pop up full recipe cards
             closeCard();
             // show created recipe cards
@@ -21,12 +21,12 @@
             if (curr != null) {
                 let recipeCards = JSON.parse(curr)
                 recipeCards.items.forEach(el => {
-                    $("#recipeCards").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" + 
-                        "onclick=\"showRecipe('" + el.name + "','" + "pics/food-background.jpeg" + "','" + el.prep + "','" + el.cooking + "','" + el.dietary + "','" + el.dietary + "','" + el.ingredients + "')\">" + 
-                        "<div class=\"card col-lg-12 m-2\">" + 
-                        "<img class=\"card-img-top\" src=\"pics/food-background.jpeg\">" + 
+                    $("#recipeCards").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" +
+                        "onclick=\"showRecipe('" + el.name + "','" + "pics/food-background.jpeg" + "','" + el.prep + "','" + el.cooking + "','" + el.dietary + "','" + el.dietary + "','" + el.ingredients + "')\">" +
+                        "<div class=\"card col-lg-12 m-2\">" +
+                        "<img class=\"card-img-top\" src=\"pics/food-background.jpeg\">" +
                         "<div class=\"card-body\">" +
-                            "<h5 class=\"card-title text-wrap\">" + el.name + "</h5>" +     
+                        "<h5 class=\"card-title text-wrap\">" + el.name + "</h5>" +
                         "</div></div>"
                     );
                 })
@@ -43,18 +43,18 @@
 
                 recipeDietary = ["Gluten-Free", "Vegetarian", "Peanut-Free", "None", "Vegetarian"]
                 recipeCategory = ["Seafood", "Soups", "Chicken", "Seafood", "Asian"]
-                recipeIngredients = [["2 tbsp butter", "2 tbsp olive oil", "4 garlic cloves", "1/2 cup dry white wine", "2 lbs shrimp", "cooked pasta"], 
-                                    ["1/4 cup unsalted butter", "2 lbs slice mushrooms", "1 pinch of salt", "1 yellow onion", "1.5 tbsp flour", "2 garlic clobes", "4 cups chicken broth"],
-                                    ["1 lb chicken breast", "salt and pepper", "1/4 cup of flour", "3.5 tbsp butter", "2 garlic cloves", "1.5 tbsp apple cider vinegar", "1/3 cup of honey"],
-                                    ["1 lb white fish fillets", "2 tbsp oil", "1 garlic clove", "1 small lime", "salt and pepper", "1.5 tsp chili powder", "8 white corn tortillas"],
-                                    ["2 tbsp Thai red curry paste", "1.5 cups jasmine rice", "1 tbsp oil", "1 tbsp ginger", "1 bell pepper", "2 tbsp rice vinegar", "2 garlic cloves"]];
+                recipeIngredients = [["2 tbsp butter", "2 tbsp olive oil", "4 garlic cloves", "1/2 cup dry white wine", "2 lbs shrimp", "cooked pasta"],
+                ["1/4 cup unsalted butter", "2 lbs slice mushrooms", "1 pinch of salt", "1 yellow onion", "1.5 tbsp flour", "2 garlic clobes", "4 cups chicken broth"],
+                ["1 lb chicken breast", "salt and pepper", "1/4 cup of flour", "3.5 tbsp butter", "2 garlic cloves", "1.5 tbsp apple cider vinegar", "1/3 cup of honey"],
+                ["1 lb white fish fillets", "2 tbsp oil", "1 garlic clove", "1 small lime", "salt and pepper", "1.5 tsp chili powder", "8 white corn tortillas"],
+                ["2 tbsp Thai red curry paste", "1.5 cups jasmine rice", "1 tbsp oil", "1 tbsp ginger", "1 bell pepper", "2 tbsp rice vinegar", "2 garlic cloves"]];
                 for (var i = 0; i < recipeNames.length; i++) {
                     let uuid = Math.floor(Math.random() * 9999999999);
                     let recipeCards = JSON.parse(window.localStorage.getItem('FIXED_RECIPE_CARDS'))
                     recipeCards["items"].push({
-                            uuid: uuid, name: recipeNames[i], recipeImage: recipeLink[i], prep: recipePrep[i], 
-                            cooking: recipeCooking[i], category: recipeCategory[i], dietary: recipeDietary[i], ingredients: recipeIngredients[i]
-                        })
+                        uuid: uuid, name: recipeNames[i], recipeImage: recipeLink[i], prep: recipePrep[i],
+                        cooking: recipeCooking[i], category: recipeCategory[i], dietary: recipeDietary[i], ingredients: recipeIngredients[i]
+                    })
                     window.localStorage.setItem('FIXED_RECIPE_CARDS', JSON.stringify(recipeCards))
 
                     window.localStorage.setItem(String(uuid), JSON.stringify({ items: [] }))
@@ -64,18 +64,30 @@
 
             if (curr != null) {
                 let recipeCards = JSON.parse(curr)
-                    recipeCards.items.forEach(el => {
-                    $("#suggestions").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" + 
-                        "onclick=\"showRecipe('" + el.name + "','" + el.recipeImage + "','" + el.prep + "','" + el.cooking + "','" + el.category + "','" + el.dietary + "','" + el.ingredients + "')\">" + 
-                        "<div class=\"card col-lg-12 m-2\">" + 
-                        "<img class=\"card-img-top\" src=" + el.recipeImage + ">" + 
+                recipeCards.items.forEach(el => {
+                    $("#suggestions").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" +
+                        "onclick=\"showRecipe('" + el.name + "','" + el.recipeImage + "','" + el.prep + "','" + el.cooking + "','" + el.category + "','" + el.dietary + "','" + el.ingredients + "')\">" +
+                        "<div class=\"card col-lg-12 m-2\">" +
+                        "<img class=\"card-img-top\" src=" + el.recipeImage + ">" +
                         "<div class=\"card-body\">" +
-                            "<h5 class=\"card-title text-wrap\">" + el.name + "</h5>" +     
+                        "<h5 class=\"card-title text-wrap\">" + el.name + "</h5>" +
                         "</div> </div></button>"
-                );
+                    );
                 })
             }
         };
+
+        function crossReferenceInventory(name, ingred) {
+            // let inventory = JSON.parse(window.localStorage.getItem('INVENTORY'))
+            // let missing = []
+            const ingredients = ingred.split(",")
+            groceryList = ingredients.map(el => { return ({ name: el, quantity: parseInt(el) ? parseInt(el) : 0, group: "other", checked: false }) })
+            let uuid = Math.floor(Math.random() * 9999999999)
+            let groceryLists = JSON.parse(window.localStorage.getItem('GROCERY_LISTS'))
+            groceryLists["items"].push({ uuid: uuid, name: ("Items for " + name) })
+            window.localStorage.setItem('GROCERY_LISTS', JSON.stringify(groceryLists))
+            window.localStorage.setItem(String(uuid), JSON.stringify({ items: groceryList }))
+        }
 
         // show recipe card pop up 
         function showRecipe(name, image, prep, cooking, category, dietary, ingred) {
@@ -94,12 +106,13 @@
                 thisList.push("<li>" + ingredients[i] + "</li>");
             }
             list.innerHTML = thisList.join('');
-            
+
             total = parseInt(prep) + parseInt(cooking);
-            document.getElementById("time").innerHTML = 
-                "<b> Prep Time: </b>" + prep + " mins" + "<br>" + 
-                "<b> Cooking Time: </b> " + cooking + " mins" + "<br>" + 
-                "<b> Total Time: </b>" + total + " mins";
+            document.getElementById("time").innerHTML =
+                "<b> Prep Time: </b>" + prep + " mins" + "<br>" +
+                "<b> Cooking Time: </b> " + cooking + " mins" + "<br>" +
+                "<b> Total Time: </b>" + total + " mins" + "<br>" + "<br>" +
+                "<button onclick=\"crossReferenceInventory('" + name + "','" + ingredients + "');\"> Make List for Missing Items </button>"
 
             if (image == "pics/food-background.jpeg") {
                 document.getElementById("delete").innerHTML = "<button onclick=\"deleteRecipe('" + name + "');\"><i class='fas fa-trash'></i></button>";
@@ -114,30 +127,32 @@
             document.getElementById("recipeImg").innerHTML = "";
         }
 
-        function deleteRecipe(name) { 
+        function deleteRecipe(name) {
             let recipe = JSON.parse(window.localStorage.getItem('RECIPE_CARDS'))
-                recipe['items'] = recipe.items.filter(el => {
-                    return (el['name'] != name)
-                })
-                str_recipe = JSON.stringify(recipe)
-                window.localStorage.setItem('RECIPE_CARDS', str_recipe)
-                window.location.reload();
+            recipe['items'] = recipe.items.filter(el => {
+                return (el['name'] != name)
+            })
+            str_recipe = JSON.stringify(recipe)
+            window.localStorage.setItem('RECIPE_CARDS', str_recipe)
+            window.location.reload();
         }
 
     </script>
-  </head>
-  <body class="text-center"> 
+</head>
+
+<body class="text-center">
     <h1 class="text-center p-2" style="font-size: 4vw; color:lightsteelblue"> Recipes </h1>
     <a href="search-recipes.html"><button class="flex-grow-1 p-1 m-2 rounded">Search Recipes</button></a>
     <a href="create-recipe.html"><button class="flex-grow-1 p-1 m-2 rounded">Create New Recipe</button></a>
 
-    <div class="new-recipes flex-grow-1"> 
+    <div class="new-recipes flex-grow-1">
         <div class="pt-3">
             <h2 style="font-size:1.2vw">New Suggestions</h2>
             <div class="scrollmenu">
                 <div class="cards " id="suggestions">
                     <!-- Full Recipe Card popup -->
-                    <div class="card text-justify pb-4" id ="fullCard" style="height:auto; left:30%; right:30%; width: 40%; background-color:white; z-index: 1; position:absolute; box-shadow: 0 3px 5px 0 darkgray, 0 6px 20px 0 darkgray;">
+                    <div class="card text-justify pb-4" id="fullCard"
+                        style="height:auto; left:30%; right:30%; width: 40%; background-color:white; z-index: 1; position:absolute; box-shadow: 0 3px 5px 0 darkgray, 0 6px 20px 0 darkgray;">
 
                         <div id="delete" class="ms-4 mt-4" style="text-align:left;"></div>
                         <h2 class="card-title pb-4" id="recipeTitle" style="font-size: 2vw"></h2>
@@ -145,20 +160,20 @@
                             <div id="recipeImg" class="pt-3"></div>
                             <div id="dietary" style="text-align:center" class="ms-4 mt-2"></div>
                         </div>
-                        
+
                         <div class="card-body w-50 float-child" style="width:40%">
-                            <div class="text-justify" id ="time"></div>
+                            <div class="text-justify" id="time"></div>
                             <br>
                             <div class="mt-2 text-justify" id="ingredients"></div>
                         </div>
-                        <button class= "rounded me-4 close-button" onclick="closeCard()">Close</button>
+                        <button class="rounded me-4 close-button" onclick="closeCard()">Close</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="my-recipes flex-grow-1" style="clear:both"> 
+    <div class="my-recipes flex-grow-1" style="clear:both">
         <div class="pt-3">
             <h2 style="font-size:1.2vw">My Recipes</h2>
             <div class="scrollmenu">
@@ -170,14 +185,20 @@
     <div class="mb-5"></div>
     <!-- Nav Bar -->
     <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
-        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../index.html"> <i class="fas fa-home"></i> Home </a>
-        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../groceries/groceries.html"> <i class="fas fa-list-alt"></i> Grocery Lists </a>
-        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../inventory/inventory.html"> <i class="fas fa-shopping-basket"></i> Inventory </a>
-        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../recipes/recipe.html"> <i class="fas fa-book"></i> Recipes </a>
-        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../settings.html"> <i class="fas fa-wrench"></i> Settings</a>
-      </nav>
-    
-  <script type="text/javascript" src="../../bootstrap/js/popper.min.js"></script>
-  <script src="../../bootstrap/js/bootstrap.bundle.js"></script>
-  </body>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
+            href="../index.html"> <i class="fas fa-home"></i> Home </a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
+            href="../groceries/groceries.html"> <i class="fas fa-list-alt"></i> Grocery Lists </a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
+            href="../inventory/inventory.html"> <i class="fas fa-shopping-basket"></i> Inventory </a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
+            href="../recipes/recipe.html"> <i class="fas fa-book"></i> Recipes </a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
+            href="../settings.html"> <i class="fas fa-wrench"></i> Settings</a>
+    </nav>
+
+    <script type="text/javascript" src="../../bootstrap/js/popper.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.bundle.js"></script>
+</body>
+
 </html>

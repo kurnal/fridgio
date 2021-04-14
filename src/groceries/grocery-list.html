@@ -38,8 +38,12 @@
             function loaded() {
                 const urlParams = new URLSearchParams(window.location.search)
                 const uuid = urlParams.get('uuid')
+                const listName = urlParams.get('name')
                 const groceryList = JSON.parse(window.localStorage.getItem(uuid))
                 let counter = 0
+                let title = document.getElementById('title');
+                title.innerHTML = listName
+                console.log(listName)
                 groceryList.items.forEach(el => {
                     $("#groceryList").append("<div class=\"p-3 d-flex justify-content-between form-check custom-control list-group-item\">" +
                         "<div><input id=\"" + counter + "\" onclick=\"toggleGroceryItem(this.id)\" class=\"form-check-input\" type=\"checkbox\" id=\"flexCheckDefault\"" + ((el.checked) ? "checked" : "") + "/>" +
@@ -160,7 +164,7 @@
 
     <body onload="loaded();" class="container align-items-center">
         <div class="text-center d-flex align-items-center justify-content-between mb-3">
-            <h1 class="text-center m-3"> Grocery List </h1>
+            <h1 id="title" class="text-center m-3"> </h1>
             <button type="button" class="d-flex btn btn-primary m-3 align-self-end" data-bs-toggle="modal"
                 data-bs-target="#add">Add Item</button>
         </div>

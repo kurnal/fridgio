@@ -21,9 +21,8 @@
                 let counter = 0
                 groceryLists.items.forEach(el => {
                     groceryItems = JSON.parse(window.localStorage.getItem(el.uuid))
-                    console.log(groceryItems)
                     $("#groceryLists").append("<div id=\"" + counter + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
-                        "<div><h6 class=\"font-weight-bold mb-0\"><a id=\"" + el.uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id)\">" +
+                        "<div><h6 class=\"font-weight-bold mb-0\"><a id=\"" + el.uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + el.name + "')\">" +
                         el.name + "</a>" + "</h6>" +
                         "<small class=\"text-muted\">" + "Items: " + groceryItems["items"].length + "</small>" + "</div><div onclick=\"deleteGroceryList(" + counter + "," + el.uuid + ")\"><i class='fas fa-trash'></i></div></div>"
                     );
@@ -46,13 +45,13 @@
             window.localStorage.setItem('GROCERY_LISTS', JSON.stringify(groceryLists))
             window.localStorage.setItem(String(uuid), JSON.stringify({ items: [] }))
             $("#groceryLists").append("<div id=\"" + (groceryLists["items"].length - 1) + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
-                "<div><h6 class=\"font-weight-bold mb-0\"><a id=\"" + uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id)\">" + name + "</a>" + "</h6>" +
+                "<div><h6 class=\"font-weight-bold mb-0\"><a id=\"" + uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + el.name + "')\">" + name + "</a>" + "</h6>" +
                 "<small class=\"text-muted\">" + "Items: 0" + "</small>" + "</div><div onclick=\"deleteGroceryList(" + (groceryLists["items"].length - 1) + "," + uuid + ")\"><i class='fas fa-trash'></i></div></div>"
             );
         }
 
-        function openGroceryList(uuid) {
-            window.location.href = "./grocery-list.html" + `?uuid=${uuid}`;
+        function openGroceryList(uuid, name) {
+            window.location.href = "./grocery-list.html" + `?uuid=${uuid}&name=${name}`;
         }
 
         function deleteGroceryList(id, uuid) {
