@@ -47,28 +47,6 @@ nav{
     text-align: center;
 }
 
-.containerHome {
-    font-size: 0; /*fix inline gaps*/
-    width:650px;       
-    height: 500px;
-    margin:0 auto; /* this will center the page */
-}
-
-.item {
-    font-size: 16px; /*reset font size*/
-    border: 1px solid black;
-    position: relative;
-    overflow: auto; /*for scrollbar*/
-    float: left;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    height: 50%;
-    justify-content: center;
-    width: 50%;
-    background-color: #bee3db;
-}
-
 .itemRecipes {
   overflow-x: scroll;
   overflow-y: hidden;
