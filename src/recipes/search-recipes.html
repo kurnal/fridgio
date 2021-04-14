@@ -6,10 +6,11 @@
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="../index.css">
         <link href="../../fontawesome/css/all.css" rel="stylesheet">
+        <link rel="stylesheet" href="recipes.css">
         <script>
             window.onload = function() { 
-                var x = document.getElementById("results");
-                x.style.display = "none"; 
+                closeCard();
+                var x = document.getElementById("results").style.display = "none";
             }
 
             function getSearch() {
@@ -25,8 +26,8 @@
                         recipeCards.items.forEach(
                             function(el) {
                                 totalTime = parseInt(el.prep) + parseInt(el.cooking);
-                                if (el.name.toLowerCase().includes(nameField) || totalTime <= cookingTime || (cookingTime == "1hr" && totalTime >= 60 && totalTime <= 90) 
-                                || (cookingTime == "plus" && totalTime > 90) || el.dietary.toLowerCase() == dietary) {
+                                if (el.name.toLowerCase().includes(nameField) && (cookingTime == 0 || totalTime <= cookingTime || (cookingTime == "1hr" && totalTime >= 60 && totalTime <= 90) 
+                                || (cookingTime == "plus" && totalTime > 90)) &&  (dietary == 0 || el.dietary.toLowerCase() == dietary)) {
                                     $("#results").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" + 
                                         "onclick=\"showRecipe('" + el.name + "','" + el.recipeImage + "','" + el.prep + "','" + el.cooking + "','" + el.category + "','" + el.dietary + "','" + el.ingredients + "')\">" + 
                                         "<div class=\"card col-lg-12 m-2\">" + 
@@ -39,14 +40,8 @@
                         })
                     } 
                 }
-                var y = document.getElementById("results");
-                y.style.display = "block";
+                document.getElementById("results").style.display = "block";
             }
-
-             function revealOrHideCard(card_id, state) {
-                var x = document.getElementById(card_id);
-                x.style.display = state;
-             }
 
             function showCategory(category) {
                 document.getElementById("results").innerHTML = "";
@@ -70,8 +65,7 @@
                         })
                     } 
                 }
-                var y = document.getElementById("results");
-                y.style.display = "block";
+                document.getElementById("results").style.display = "block";
             }
 
             function showRecipe(name, image, prep, cooking, category, dietary, ingred) {
@@ -107,63 +101,13 @@
             }
         </script>
         <style>
-        .recipe-cards .card {
-            width: 12vw;
-            height: 31vh;
-            float:left;
-            border:1px solid darkgray;
-            box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        }
-        .recipe-cards .card-title {
-            font-size:1.2vw;
-            color:black;
-        }
-        .recipe-cards .card .btn {
-            background-color:lightsteelblue;
-            border:1px solid darkgray;
-            font-size: 0.8vw;
-        } 
-
         .categories .card {
             width:12vw;
-            height:25vh;
-            box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            display: inline-flex;
-            border: 1px solid black;
-            margin: 1px;
-            justify-content: center;
-            color:black;
+            height:24vh;
         }
-
         .color1 { background-color: lightsteelblue; }
         .color2 { background-color: paleturquoise; }
         .color3 { background-color: peachpuff; }
-        .float-child { float: left; }
-
-        .this-button .btn-default {
-            background-color: peachpuff;
-            border: 1px solid black;
-        }
-
-        .scrollmenu {
-            overflow: auto;
-            white-space: nowrap;
-        }
-
-        ::-webkit-scrollbar { height: 10px; }
-        .scrollmenu::-webkit-scrollbar { background-color: #F5F5F5; }
-
-        .scrollmenu::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        border: 1px solid lightgray;
-        background-color: #f8f8f8;
-        }
-
-        .cards button {
-            border: 2px solid white;
-            background-color: white;
-        }
-
         </style>
     </head>
     <body class="text-center">
@@ -171,16 +115,14 @@
         <a href="recipe.html">
         <div class="this-button"><button class="btn-default float-child rounded m-2">Back to Recipes</button></div>
         </a>
-        <div class="container pb-2" style="clear:both; color:lightsteelblue"><h1>Search Recipes</h1></div>
+        <div class="container pb-2" style="clear:both; font-size:4vw; color:lightsteelblue"><h1>Search Recipes</h1></div>
         
         <!-- Search and Filters -->
         <div class="container d-flex justify-content-between">
             <div class="input-group rounded" style="min-width: 30vw;">
                 <input type="search" class="form-control rounded" id="recipeName"  autocomplete="off" placeholder="Search by Name" aria-label="Search"
                   aria-describedby="search-addon"/>
-                <!-- <div class="m-3 ms-5"> or </div> -->
             </div>
-            <!-- <div class="justify-content-between"> or </div> -->
             <select class="form-select d-flex ms-5 float-child" style="width:650px" id="cookingTime">
                 <option selected value="0">Cooking Time</option>
                 <option value="10">10 min or less</option>
@@ -203,21 +145,31 @@
         </div>
 
 
+        <div class="card text-justify pb-4" id ="fullCard" style="height:auto; left:30%; right:30%; width: 40%; background-color:white; z-index: 1; position:absolute; box-shadow: 0 3px 5px 0 darkgray, 0 6px 20px 0 darkgray;">
+            <h2 class="card-title p-4" id="recipeTitle" style="font-size: 2vw"></h2>
+            <div class="card-img img-fluid w-50 float-child" style="text-align:right">
+                <div id="recipeImg" class="pt-3"></div>
+                <div id="dietary" style="text-align:center" class="ms-4, mt-2"></div>
+            </div>
+            
+            <div class="card-body w-50 float-child" style="width:40%">
+                <div class="text-justify" id ="time"></div>
+                <br>
+                <div class="mt-2 text-justify" id="ingredients"></div>
+            </div>
+            <button class= "rounded me-4 close-button" onclick="closeCard()">Close</button>
+        </div>
+
         <!-- Individual Recipe Card -->
         <div class="recipe-cards">
         <h5 class="ms-4 mt-4" style="text-align:left">Most Relevant Results</h5>
-        <div class="float-child ms-4 mt-4" id="results"></div>
+        <div class="scrollmenu carousel-inner active float-child mt-4" id="results"></div>
 
         <!-- Recipe Category Cards -->
         <div class="categories" style="clear:both;margin-top:15%;"> 
                 <h2>Categories</h2>
-                <div class="carousel slide col-lg-12" data-bs-touch="false" data-bs-interval="false">
-                    <div class="scrollmenu carousel-inner active col-lg-3 text-center">
-                        <div class="carousel-item active">
+                    <div class="scrollmenu carousel-inner col-lg-3 text-center">
                             <div class="cards">
-                                <button onclick="showCategory('Mexican')">
-                                    <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Mexican</h3></div>
-                                </button>
                                 <button onclick="showCategory('Asian')">
                                     <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Asian</h3></div>
                                 </button>
@@ -239,6 +191,9 @@
                                 <button onclick="showCategory('Indian')">
                                     <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Indian</h3></div>
                                 </button>
+                                <button onclick="showCategory('Mexican')">
+                                    <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Mexican</h3></div>
+                                </button>
                                 <button onclick="showCategory('Greek')">
                                     <div class="card col-lg-12 m-2 color3"><h3 class="card-title text-justify">Greek</h3></div>
                                 </button>
@@ -252,11 +207,8 @@
                                     <div class="card col-lg-12 m-2 color3"><h3 class="card-title text-justify">Soups</h3></div>
                                 </button>
                             </div>
-                    </div>
                 </div>
          </div>
-         </div>
-        
          
         <!-- Nav Bar -->
         <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">

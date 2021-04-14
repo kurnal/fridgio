@@ -1,0 +1,261 @@
+<html>
+    <head>
+        <title> Search Recipes Page </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript" src="../bootstrap/js/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../src/index.css">
+        <link href="../fontawesome/css/all.css" rel="stylesheet">
+        <script>
+            window.onload = function()
+            {
+                allCards('none');
+            }
+
+            function allCards(noneOrBlock) {
+                var recipes = ["mushroom","shrimp","fish-tacos","honey-chicken"];
+                for (var i = 0; i < recipes.length; i++) {
+                    revealOrHideCard(recipes[i], noneOrBlock)
+                }
+            }
+
+            function getSearch() {
+                allCards("none");
+                var nameField = document.getElementById('recipeName').value.toLowerCase();
+                var cookingTime = document.getElementById("cookingTime").value;
+                var dietary = document.getElementById("restrictions").value;
+                revealOrHideCard('results', "block");
+                if (nameField.indexOf('mushroom') != -1 || nameField.indexOf('soup') != -1 || cookingTime == "plus" || (cookingTime == 0 && dietary.indexOf('veg') != -1)) {
+                    revealOrHideCard('mushroom', "block");
+                }
+                else if (nameField.indexOf('shrimp') != -1 || nameField.indexOf('scampi') != -1 || ((cookingTime > 0 && cookingTime <= 50) && dietary == 0)) {
+                    revealOrHideCard('shrimp', "block");
+                } 
+                else if (nameField.indexOf('fish') != -1 || nameField.indexOf('taco') != -1 || (cookingTime >= 20 && cookingTime <= 50) && dietary == 0) {
+                    revealOrHideCard('fish-tacos', "block");
+                }
+                else if (nameField.indexOf('chicken') != -1 || nameField.indexOf('honey') != -1 || nameField.indexOf('garlic') != -1 || 
+                    (cookingTime == "1hr" && dietary.indexOf('veg') == -1) || dietary == "gluten-free") {
+                    revealOrHideCard('honey-chicken', "block");
+                }
+                else if (nameField == '' && cookingTime == 0 && dietary == 0) {
+                    allCards("block");
+                }
+             }
+
+             function revealOrHideCard(card_id, state) {
+                var x = document.getElementById(card_id);
+                x.style.display = state;
+             }
+            
+        </script>
+        <style>
+        .recipe-cards {
+            overflow: auto;
+            white-space: nowrap;
+        }
+        .recipe-cards .card {
+            width: 25vw;
+            height: 15vh;
+            float:left;
+            border:2px solid lightsteelblue;
+            box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        .recipe-cards .card-title {
+            font-size:2vw;
+            color:lightsteelblue;
+        }
+        .recipe-cards .card .btn {
+            background-color:lightsteelblue;
+            border:black;
+            font-size: 2vw;
+        } 
+
+        .categories .card {
+            width:28vw;
+            height:10vh;
+            box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            display: inline-flex;
+            border: 1px solid black;
+            margin: 1px;
+            justify-content: center;
+        }
+
+        .color1 { background-color: lightsteelblue; }
+        .color2 { background-color: paleturquoise; }
+        .color3 { background-color: peachpuff; }
+        .float-child { float: left; }
+
+        .this-button .btn-default {
+            background-color: peachpuff;
+            border: 1px solid black;
+        }
+
+        .categories { margin-top: 15% }
+        
+        /* .carousel-control-prev, 
+        .carousel-control-next {
+            width: 50px;
+            height: 28vh;
+            background-color: white;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
+        } */
+
+        .scrollmenu {
+            overflow: auto;
+            white-space: nowrap;
+        }
+        .scrollmenu::-webkit-scrollbar { background-color:white; }
+        </style>
+    </head>
+    <body class="text-center">
+        <!-- Return to Recipes -->
+        <a href="phone-recipes.html">
+        <div class="this-button"><button class="btn-default float-child rounded m-2">Back to Recipes</button></div>
+        </a>
+        <div class="container pb-2" style="clear:both"><h1>Search Recipes</h1></div>
+        
+        <!-- Search and Filters -->
+        <div class="container d-flex">
+            <div class="input-group rounded">
+                <input type="search" class="form-control rounded" id="recipeName" placeholder="Search by Name" aria-label="Search"
+                  aria-describedby="search-addon"/>
+                <div class="m-3 ms-5"> or </div>
+            </div>
+        </div>
+
+        <div class="">
+            <!-- <div class="justify-content-between"> or </div> -->
+            <select class="form-select d-flex m-2 float-child" style="width:350px; margin: auto" id="cookingTime">
+                <option selected value="0">Cooking Time</option>
+                <option value="10">10 min or less</option>
+                <option value="20">20 min or less</option>
+                <option value="30">30 min or less</option>
+                <option value="40">40 min or less</option>
+                <option value="50">50 min or less</option>
+                <option value="1hr">1-1.5 hours</option>
+                <option value="plus">> 1.5 hours</option>
+            </select>
+            <!-- <div class="justify-content-between"> -->
+            <select class="form-select d-flex m-2 float-child" style="width:350px; margin: auto" id="restrictions">
+                <option selected value="0">Dietary Restrictions</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="vegan">Vegan</option>
+                <option value="gluten-free">Gluten-Free</option>
+            </select>
+            <!-- <select class="form-select d-flex ms-5 float-child" style="width:650px" id="ingredients">
+                <option selected value="0">% of Ingredients in Inventory</option>
+                <option value="1">100% of Ingredients</option>
+                <option value="2">90% of Ingredients</option>
+                <option value="3">80% of Ingredients</option>
+                <option value="4">70% of Ingredients</option>
+                <option value="5">60% of Ingredients</option>
+                <option value="6">50% of Ingredients</option>
+                <option value="7">40% of Ingredients</option>
+                <option value="8">30% of Ingredients</option>
+                <option value="9">20% of Ingredients</option>
+                <option value="10">10% of Ingredients</option>
+            </select> -->
+         </div>
+         <div style="clear:both">
+            <div class="this-button"><button class="btn-default ms-5 float-child rounded p-2" onclick="getSearch()" style="width: 100px">Search</button></div>
+            <div class="this-button"><button class="btn-default ms-5 float-child rounded p-2" onclick="allCards('block')" style= "width:100px">Show All</button></div>
+         </div>
+
+        <!-- Individual Recipe Card -->
+        <div class="recipe-cards" style="clear:both">
+            <div class="float-child ms-4 mt-4" id="results"><h5>Most Relevant Results</h5></div>
+            <div style="clear:both"></div>
+            <div class="card col-lg-12 m-3 flex-grow-1" id="mushroom">
+                <img class="card-img-top" src="../src/recipes/pics/mushroom-soup.jpg">
+                <div class="card-body">
+                    <h5 class="card-title text-justify">Creamy Mushroom Soup</h5>
+                    <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
+                </div>
+            </div>
+            <div class="card col-lg-12 m-3 flex-grow-1" id="shrimp">
+                <img class="card-img-top" src="../src/recipes/pics/shrimp-scampi.jpg">
+                <div class="card-body">
+                    <h5 class="card-title text-justify">Classic Shrimp Scampi</h5>
+                    <a href="shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
+                </div>
+            </div>
+            <div class="card col-lg-12 m-3" id="fish-tacos">
+                <img class="card-img-top" src="../src/recipes/pics/fish-tacos.jpg">
+                <div class="card-body">
+                    <h5 class="card-title text-justify">Grilled Fish Tacos</h5>
+                    <a href="shrimp-scampi-recipe.html" class="btn">Look at Recipe</a>
+                </div>
+            </div>
+            <div class="card col-lg-12 m-3 flex-grow-1" id="honey-chicken">
+                <img class="card-img-top" src="../src/recipes/pics/honey-chicken.jpg">
+                <div class="card-body">
+                    <h5 class="card-title text-justify">Honey Garlic Chicken</h5>
+                    <a href="mushroom-recipe.html" class="btn">Look at Recipe</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recipe Category Cards -->
+        <div class="categories" style="clear:both"> 
+            <div class="mt-5">
+                <h2>Categories</h2>
+                <div id="carousel1" class="carousel slide col-lg-12" data-bs-touch="false" data-bs-interval="false">
+                    <div class="scrollmenu carousel-inner active col-lg-3 text-center">
+                        <div class="carousel-item active">
+                            <div class="cards">
+                                <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Mexican</h3></div>
+                                <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Asian</h3></div>
+                                <div class="card col-lg-12 m-2 color3"><h3 class="card-title text-justify">Breakfast</h3></div>
+                                <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Desserts</h3></div>
+                                <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Salads</h3></div>
+                                <div class="card col-lg-12 m-2 color3"><h3 class="card-title text-justify">Cocktails</h3></div>
+                                <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Chicken</h3></div>
+                                <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Vegan</h3></div>
+                                <div class="card col-lg-12 m-2 color3"><h3 class="card-title text-justify">Indian</h3></div>
+                                <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Soups</h3></div>
+                                <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Southern</h3></div>
+                                <div class="card col-lg-12 m-2 color3"><h3 class="card-title text-justify">Greek</h3></div>
+                                <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Seafood</h3></div>
+                                <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Mexican</h3></div>
+                            </div>
+                        </div>
+                        <!-- <div class="carousel-item">
+                            <div class="cards">
+                                <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Chicken</h3></div>
+                                <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Vegan</h3></div>
+                                <div class="card col-lg-12 m-2 color3"><h3 class="card-title text-justify">Indian</h3></div>
+                                <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Soups</h3></div>
+                                <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Southern</h3></div>
+                                <div class="card col-lg-12 m-2 color3"><h3 class="card-title text-justify">Greek</h3></div>
+                                <div class="card col-lg-12 m-2 color1"><h3 class="card-title text-justify">Seafood</h3></div>
+                                <div class="card col-lg-12 m-2 color2"><h3 class="card-title text-justify">Mexican</h3></div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <!-- <button class="carousel-control-prev d-flex" type="button" data-bs-target="#carousel1" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next d-flex" type="button" data-bs-target="#carousel1" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button> -->
+                </div>
+            </div>
+         </div>
+        
+        <!-- Nav Bar -->
+        <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./index.html"> <i class="fas fa-home large_icon"></i> <br> Home </a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./groceries/groceries.html"> <i class="fas fa-list-alt large_icon"></i> <br> Lists</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./inventory/inventory.html"> <i class="fas fa-shopping-basket large_icon"></i> <br> Inventory</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./recipes/recipe.html"> <i class="fas fa-book large_icon"></i> <br> Recipes</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./settings.html"> <i class="fas fa-wrench large_icon"></i><br> Settings</a>
+        </nav>
+    
+    </body>
+    
+</html>

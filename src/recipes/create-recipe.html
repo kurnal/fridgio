@@ -6,37 +6,16 @@
         <link href="../../fontawesome/css/all.css" rel="stylesheet">
         <script type = "text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
         <script type = "text/javascript" src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script type="text/javascript" src="../../bootstrap/js/popper.min.js"></script>
+        <link rel="stylesheet" href="recipes.css">
         <title> Create Recipe Page </title>
         <style>
             form .btn, .this-button .btn {
                 border: 1px solid black;
-                background-color:lightgray;
+                background-color:peachpuff;
             }
-
-            .card {
-            width: 12vw;
-            height: 30vh;
-            margin-top: auto;
-            margin-bottom:auto;
-            box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            display: inline-flex;
-            margin: 1px;
-            border:2px solid lightsteelblue;
-            }
-
-            .float-child { float: left; }
-            .recipe-card { border: 1px solid gray; }
-            #fullCard img { width: 18vw; }
-            .close-button {
-                clear:both; 
-                float:right; 
-                background-color:lightsteelblue;
-                border: 1px solid gray;
-             }
         </style>
         <script> 
-            window.onload = function()
+            function load()
             {
                 closeCard();
                 let curr = window.localStorage.getItem('RECIPE_CARDS')
@@ -46,16 +25,18 @@
                     let recipeCards = JSON.parse(curr)
                     recipeCards.items.forEach(el => {
                         $("#recipeCards").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" + 
-                        "onclick=\"showRecipe('" + el.name + "','" + el.prepTime + "','" + el.cookTime + "','" + el.dietary + "','" + el.ingredients + "')\">" + 
+                        "onclick=\"showRecipe('" + el.name + "','" + el.prep + "','" + el.cooking + "','" + el.dietary + "','" + el.ingredients + "')\">" + 
                        "<div class=\"card col-lg-12 m-2\">" + 
                         "<img class=\"card-img-top\" src=\"pics/food-background.jpeg\">" + 
                         "<div class=\"card-body\">" +
-                            "<h5 class=\"card-title text-wrap text-center\">" + el.name + "</h5>" +     
+                            "<h5 class=\"card-title text-wrap text-center\">" + el.name + "</h5>" +    
                         "</div></div></button>"
+                        // "<button onclick=\"del('" + el['name'] + "','" + el.uuid + ");\"><i class='fas fa-trash'></i></button>"
                     );
                     })
                 }
             };
+            
 
               function addRecipeCard() {
                 // check if all fields are correct
@@ -71,28 +52,28 @@
                     let uuid = Math.floor(Math.random() * 9999999999);
                     let recipeCards = JSON.parse(window.localStorage.getItem('RECIPE_CARDS'))
                     recipeName = document.getElementById('recipeName').value;
-                    prep = document.getElementById('prepTime').value;
-                    cook = document.getElementById('cookingTime').value;
+                    prepTime = document.getElementById('prepTime').value;
+                    cookTime = document.getElementById('cookingTime').value;
                     rCategory = document.getElementById('recipeCategory').value;
                     dietaryRes = document.getElementById('dietaryRestriction').value;
                     ing = document.getElementById('ingredients').value;
                     var ingred = ing.split(",");
                     recipeCards["items"].push({
-                        uuid: uuid, name: recipeName, recipeImage: "pics/food-background-jpeg", prep: prep, cooking: cook, category: rCategory, dietary: dietaryRes, ingredients: ingred
+                        uuid: uuid, name: recipeName, recipeImage: "pics/food-background.jpeg", prep: prepTime, cooking: cookTime, category: rCategory, dietary: dietaryRes, ingredients: ingred
                     })
                     window.localStorage.setItem('RECIPE_CARDS', JSON.stringify(recipeCards))
                     window.localStorage.setItem(String(uuid), JSON.stringify({ items: ["Recipe"] }))
 
                     // Append product to the table
                     $("#recipeCards").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" + 
-                        "onclick=\"showRecipe('" + recipeName + "','" + prep + "','" + cook + "','" + dietaryRes + "','" + ingred + "')\">" + 
+                        "onclick=\"showRecipe('" + recipeName + "','" + prepTime + "','" + cookTime + "','" + dietaryRes + "','" + ingred + "')\">" + 
                         "<div class=\"card col-lg-12 m-2\">" + 
                         "<img class=\"card-img-top\" src=\"pics/food-background.jpeg\">" + 
                         "<div class=\"card-body\">" +
                             "<h5 class=\"card-title text-wrap text-center\">" + recipeName + "</h5>" +     
-                        "</div></div></button>"
+                        "</div></div></button>" 
+                        // "<button onclick=\"del('" + el['name'] + "');\"><i class='fas fa-trash'></i></button>"
                     );
-                    
                     document.getElementById('recipeName').value = "";
                     document.getElementById('prepTime').value = "";
                     document.getElementById('cookingTime').value = "";
@@ -100,7 +81,6 @@
                     document.getElementById('recipeCategory').value="N/A"
                     document.getElementById('ingredients').value = "";
                 }
-                
              }  
 
              function showRecipe(name, prep, cooking, dietary, ingred) {
@@ -110,7 +90,7 @@
                 img.src = "pics/food-background.jpeg";
                 var src = document.getElementById("recipeImg");
                 src.appendChild(img);
-                document.getElementById("dietaryRestriction").innerHTML = "Dietary Restriction: " + dietary;
+                document.getElementById("dietary").innerHTML = "Dietary Restriction: " + dietary;
 
                 thisList = ["<b> Ingredients </b>"];
                 var list = document.getElementById("ingred");
@@ -121,7 +101,9 @@
                 list.innerHTML = thisList.join('');
                 
                 total = parseInt(prep) + parseInt(cooking);
-                document.getElementById("time").innerHTML = "<b> Prep Time: </b>" + prep + " mins" + "<br>" + "<b> Cooking Time: </b> " + cooking + " mins" + "<br>" + "<b> Total Time: </b>" + total + " mins";
+                document.getElementById("time").innerHTML = 
+                    "<b> Prep Time: </b>" + prep + " mins" + "<br>" + "<b> Cooking Time: </b> " + 
+                    cooking + " mins" + "<br>" + "<b> Total Time: </b>" + total + " mins";
 
                 var x = document.getElementById("fullCard");
                 x.style.display = "block";
@@ -130,32 +112,30 @@
             function closeCard() {
                 var x = document.getElementById("fullCard");
                 x.style.display = "none";
-                // document.getElementById("recipeImg").innerHTML = "";
+                document.getElementById("recipeImg").innerHTML = "";
             }
+
         </script>
     </head>
-    <body>
+    <body onload="load()">
         <a href="recipe.html">
             <div class="this-button">
                 <button class="btn float-child rounded m-2">Back to Recipes</button>
             </div>
         </a>
-        <h1 class="text-center" style="clear:both;color:lightsteelblue;font-size:2.5vw">Create Recipe</h1>
+        <h1 class="text-center" style="clear:both;color:lightsteelblue;font-size:4vw">Create Recipe</h1>
         <form id="myform">
-
-            <div class="card h-50 text-justify text-center" id ="fullCard" style="left:30%; right:30%; width: 40%; background-color:white; z-index: 1; position:absolute; box-shadow: 0 3px 5px 0 darkgray, 0 6px 20px 0 darkgray;">
+            <div class="card text-justify pb-4 text-center" id ="fullCard" style="height:auto; left:30%; right:30%; width: 40%; background-color:white; z-index: 1; position:absolute; box-shadow: 0 3px 5px 0 darkgray, 0 6px 20px 0 darkgray;">
                 <h2 class="card-title p-4" id="recipeTitle" style="font-size: 2vw"></h2>
                 <div class="card-img img-fluid w-50 float-child" style="text-align:right">
                     <div id="recipeImg"></div>
+                    <div id="dietary" style="text-align:center" class="ms-4, mt-2"></div>
                 </div>
-                
                 <div class="card-body w-50 float-child" style="margin:auto; width:40%">
-                    <div class="text-justify" id ="time"></div>
-                    <br>
-                    <div class="mt-3 text-justify" id="ingred"></div>
+                    <div class="text-justify" id ="time"></div><br>
+                    <div class="mt-2 text-justify" id="ingred"></div>
                 </div>
-                
-                <button class= "rounded me-4 close-button" onclick="closeCard()">Close</button>
+                <button class= "rounded me-5 close-button" onclick="closeCard()">Close</button>
             </div>
 
             <div class="container" style="margin:auto">
@@ -215,10 +195,10 @@
         
 
         <div class="this-button" style="clear:both">
-                <button type="button" class="d-flex btn ps-5 pe-5" style="margin:auto" onclick="addRecipeCard();">Submit</button>
+                <button type="button" class="d-flex btn ps-5 pe-5" style="margin:auto" onclick="addRecipeCard();">Add Recipe</button>
         </div> 
 
-        <div id="recipeCards" class="m-5">
+        <div id="recipeCards" class="ms-3">
             <h5 class=m-2>My recipes</h5>
         </div>
 
