@@ -8,6 +8,10 @@
     border:1px solid lightsteelblue;
 }
 
+html {
+    margin-bottom: 20%; 
+}
+
 .card-title {
     font-size: 15px;
     color:black;
