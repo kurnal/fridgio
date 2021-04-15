@@ -127,6 +127,9 @@
                     "<div><input id=\"" + (groceryList["items"].length - 1) + "\" onclick=\"toggleGroceryItem(this.id)\" class=\"form-check-input\" type=\"checkbox\" id=\"flexCheckDefault\" />" +
                     "<label class=\"form-check-label\" for=\"flexCheckDefault\">" + name + "</label></div><div onclick=\"deleteGroceryItem(" + (groceryList["items"].length - 1) + ")\"><i class='fas fa-trash'></i></div></div>"
                 );
+
+                $('#submitForm')[0].reset();
+
             }
 
             function deleteGroceryItem(id) {
@@ -168,7 +171,7 @@
                         <h5 class="modal-title" id="exampleModalLabel">Name Grocery List</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form class="modal-body">
+                    <form id="submitForm" class="modal-body">
                         <div class="input-group mb-3">
                             <input id="itemName" type="text" class="form-control" placeholder="Item Name"
                                 aria-label="Name" aria-describedby="basic-addon1">

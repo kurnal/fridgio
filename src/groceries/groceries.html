@@ -52,6 +52,7 @@
                 "<div><h6 class=\"font-weight-bold mb-0\"><a class=\"text-dark\" id=\"" + uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + name + "')\">" + name + "</a>" + "</h6>" +
                 "<small class=\"text-muted\">" + "Items: 0" + "</small>" + "</div><div onclick=\"deleteGroceryList(" + (groceryLists["items"].length - 1) + "," + uuid + ")\"><i class='fas fa-trash'></i></div></div>"
             );
+            $('#submitForm')[0].reset();
         }
 
         function openGroceryList(uuid, name) {
@@ -108,7 +109,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Name Grocery List</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form class="modal-body">
+                <form id="submitForm" class="modal-body">
                     <div class="input-group mb-3">
                         <input id="nameGroceryList" type="text" class="form-control" placeholder="Grocery List Name"
                             aria-label="Name" aria-describedby="basic-addon1">
