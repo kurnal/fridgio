@@ -12,168 +12,162 @@
       <script type = "text/javascript" src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
       <script type = "text/javascript" src="../../jquery-ui/jquery-ui.min.js"></script>
       
-      <script> 
+      <script>
 
-      $(function() {
+        $(function () {
           let curr = window.localStorage.getItem('INVENTORY')
-            if (curr == null) {
-                window.localStorage.setItem('INVENTORY', JSON.stringify({ items: [] }))
-            }
-          
+          if (curr == null) {
+            window.localStorage.setItem('INVENTORY', JSON.stringify({ items: [] }))
+          }
+    
           let inventory = JSON.parse(window.localStorage.getItem('INVENTORY'))
-
+    
           availableTags = []
           inventory.items.forEach(el => availableTags.push(el.name));
           console.log(availableTags)
-          $( "#search-bar" ).autocomplete({
+          $("#search-bar").autocomplete({
             source: availableTags
           });
-      });
-
-
-      function setCategory(a) { 
-        let curr = window.localStorage.getItem('CATEGORY')        
-        window.localStorage.setItem('CATEGORY', JSON.stringify(a)) 
-      }
+        });
     
-      window.addEventListener("load", () => {
-        document.querySelector("#default-inven").addEventListener("click", e => {
+    
+        function setCategory(a) {
+          let curr = window.localStorage.getItem('CATEGORY')
+          window.localStorage.setItem('CATEGORY', JSON.stringify(a))
+        }
+    
+        window.addEventListener("load", () => {
+          document.querySelector("#default-inven").addEventListener("click", e => {
             setCategory(0)
+          });
         });
-      });
-      window.addEventListener("load", () => {
-        document.querySelector("#protein").addEventListener("click", e => {
+        window.addEventListener("load", () => {
+          document.querySelector("#protein").addEventListener("click", e => {
             setCategory(1)
+          });
         });
-      });
-
-      window.addEventListener("load", () => {
+    
+        window.addEventListener("load", () => {
           document.querySelector("#veggie").addEventListener("click", e => {
             setCategory(2)
           });
-      });
-
-      window.addEventListener("load", () => {
+        });
+    
+        window.addEventListener("load", () => {
           document.querySelector("#fruit").addEventListener("click", e => {
             setCategory(3)
           });
-      });
-
-      window.addEventListener("load", () => {
+        });
+    
+        window.addEventListener("load", () => {
           document.querySelector("#grain").addEventListener("click", e => {
             setCategory(4)
           });
-      });
-    </script>
-
-    <style>
+        });
+      </script>
     
+      <style>
 
-      body {
-        font-family:'SanFrancisco';
-      }
-
-      .panel-heading {
-        font-size: 1.5vw
-      }
-      
-      /* Remove the jumbotron's default bottom margin */ 
-      .jumbotron {
-        margin-bottom: 0;
-      }
+        body {
+          font-family: 'SanFrancisco';
+        }
     
-      /* Add a gray background color and some padding to the footer */
-      footer {
-        background-color: #f2f2f2;
-        padding: 25px;
-      }
-
-      .border-rad {
-        border-radius: 20px
-      }
-
-      .panel {
-            /* float:left; */
-            border:2px solid lightsteelblue;
-            box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      }
-    </style>
+        .panel-heading {
+          font-size: 1.5vw
+        }
+    
+        /* Remove the jumbotron's default bottom margin */
+        .jumbotron {
+          margin-bottom: 0;
+        }
+    
+        /* Add a gray background color and some padding to the footer */
+        footer {
+          background-color: #f2f2f2;
+          padding: 25px;
+        }
+    
+        .border-rad {
+          border-radius: 20px
+        }
+    
+        .panel {
+          /* float:left; */
+          border: 2px solid lightsteelblue;
+          box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+      </style>
     </head>
-
-  <body class = "text-center">
-
-    <div class="jumbotron">
-      <div class="container text-center">
-        <h1 class="text-center p-3" style="font-size: 4vw; color:lightsteelblue">Inventory</h1>   
-        <div class="input-group rounded">
-          <input type="search" class="form-control rounded" placeholder="Search" id = "search-bar" aria-label="Search"
-            aria-describedby="search-addon" />
-          <span class="input-group-text border-0" id="search-addon">
-            <i class="fas fa-search"></i>
-          </span>
+    
+    <body class="text-center">
+    
+      <div class="jumbotron">
+        <div class="container text-center">
+          <h1 class="text-center p-3" style="font-size: 4vw; color:lightsteelblue">Inventory</h1>
+          <div class="input-group rounded">
+            <input type="search" class="form-control rounded" placeholder="Search" id="search-bar" aria-label="Search"
+              aria-describedby="search-addon" />
+            <span class="input-group-text border-0" id="search-addon" >
+              <a href = ./inventory_list.html> <i class="fas fa-search"></i> </a>
+            </span> 
+          </div>
         </div>
+      </div><br>
+    
+      <div class="d-flex justify-content-center">
+        <a href="./inventory_list.html"><button class="flex-grow-1 p-1 m-2 rounded" style="font-size:3vw"
+            id="default-inven">View Full Inventory List</button></a>
       </div>
-    </div><br>
-
-    <div class="d-flex justify-content-center">
-      <a href = "./inventory_list.html"><button class="flex-grow-1 p-1 m-2 rounded" style="font-size:1vw" id = "default-inven">View Full Inventory List</button></a>
-    </div>
-
-
-    <div class="container">    
-      <div class="row">
-        <div class="col">
-          <div class="panel panel-primary border-rad">
-            <div class="panel-heading">PROTEINS</div>
-            <div class="panel-body"><a href="inventory_list.html" id = "protein"><img src="../../images/meat.png" class="img-fluid" style="width:50%; height:50%" alt="Image"></a></div>
-          </div>
-        </div>
-        <div class="col"> 
-          <div class="panel panel-primary border-rad">
-            <div class="panel-heading">VEGETABLES</div>
-            <div class="panel-body"><a href="inventory_list.html" id = "veggie"><img src="../../images/veggie.png" class="img-fluid" style="width:50%" alt="Image"></a></div>
-          </div>
-        </div>
-      
-          <!-- <div class="button-container">
-            <div class="button-center">
-              <button type="button" class="btn btn-secondary"><i class="fas fa-plus"></i></button>
+    
+      <div class="d-flex align-items-center justify-content-center">
+        <div style="width:60%; height:60%">
+          <div class="h-100 w-100 justify-content-center">
+            <div class="row align-items-center" style = "margin-top:10px">
+              <div class="col align-items-center">
+                <div class="panel panel-primary border-rad">
+                  <div class="panel-heading">PROTEINS</div>
+                  <div class="panel-body"><a href="./inventory_list.html" id="protein"><img src="../../images/meat.png"
+                        class="img-fluid" style="width:50%; height:50%" alt="Image"></a></div>
+                </div>
+              </div>
+              <br></br>
             </div>
-          </div> -->
-          <!-- <div class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle flex-grow-1" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-              Sort By
-            </a>
-            
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <li><a class="dropdown-item" href="#">Expiration Date</a></li>
-              <li><a class="dropdown-item" href="#">Quantity</a></li>
-              <li><a class="dropdown-item" href="#">A-Z</a></li>
-            </ul>
-          </div> -->
-        
-      </div>
-    </div><br>
 
-    <div class="container">    
-      <div class="row">
-        <div class="col">
-          <div class="panel panel-primary border-rad">
-            <div class="panel-heading">FRUITS</div>
-            <div class="panel-body"><a href="inventory_list.html" id = "fruit"><img src="../../images/fruit.png" class="img-fluid" style="width:50%" alt="Image"></a></div>
+            <div class="row align-items-center" style = "margin-top:10px">
+              <div class="col align-items-center">
+                <div class="panel panel-primary border-rad">
+                  <div class="panel-heading">VEGETABLES</div>
+                  <div class="panel-body"><a href="inventory_list.html" id="veggie"><img src="../../images/veggie.png"
+                        class="img-fluid" style="width:50%; height:50%" alt="Image"></a></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row align-items-center" style = "margin-top:10px">
+              <div class="col align-items-center">
+                <div class="panel panel-primary border-rad">
+                  <div class="panel-heading">FRUITS</div>
+                  <div class="panel-body"><a href="inventory_list.html" id="fruit"><img src="../../images/fruit.png"
+                        class="img-fluid" style="width:50%; height:50%" alt="Image"></a></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row align-items-center" style = "margin-top:10px">
+              <div class="col align-items-center">
+                <div class="panel panel-primary border-rad">
+                  <div class="panel-heading">GRAINS</div>
+                  <div class="panel-body"><a href="inventory_list.html" id="grain"><img src="../../images/grain.jpg"
+                        class="img-fluid" style="width:50%; height:50%" alt="Image"></a></div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
-        <div class="col"> 
-          <div class="panel panel-primary border-rad">
-            <div class="panel-heading">GRAINS</div>
-            <div class="panel-body"><a href="inventory_list.html" id = "grain"><img src="../../images/grain.jpg" class="img-fluid" style="width:50%" alt="Image"></a></div>
-          </div>
-        </div>
       </div>
-    </div>
-
-
-  </body>
+    
+    </body>
         
         <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
             <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./index.html"> <i class="fas fa-home large_icon"></i> <br> Home </a>

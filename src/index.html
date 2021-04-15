@@ -2,7 +2,7 @@
 
 <!DOCTYPE HTML>
     
-<html class="home">
+<html>
     <head>
         <title> FRIDGIO </title></tile>
         <meta charset="utf-8">
@@ -14,6 +14,7 @@
         <script type = "text/javascript" src="../bootstrap/js/popper.min.js"></script>    
       
         <style>
+        
          .body {
             overflow: auto;
          }
@@ -29,13 +30,8 @@
             background-color: white;
          }
          
-         .cards {
-            margin: auto;
-         }
-         
          .card {
-            width: 12vw;
-            height: 25vh;
+            width: 50%;
             float: left;
             border:2px solid lightsteelblue;
             box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -56,36 +52,17 @@
             text-decoration: none;
           }
          
-         .carousel-inner {
-            padding-left: 10%;
-            padding-right: 10%;
-         }
-         
-         .carousel-control-prev-icon,
-         .carousel-control-next-icon {
-            background-color:lightsteelblue;
-         }
-         
-         .list-group{
-            max-height: 25vh;
-            overflow:scroll;
-            border: 1px solid lightsteelblue;
+         .list-group-item {
+            text-align: center;
+            border: none; 
          }
         
-        .date-time {
-            font-size: 22px;
-            float: left;
-            text-align: left;
-        }
         
-        .text {
-            font-size: 22px;
-        }
         
         </style>
     </head>
     
-    <body class="text-center" style="background-color: lightsteelblue;">
+    <body class="text-center" style="background-color: lightsteelblue; padding-bottom: 5%;">
       <br>
       
       <div class="jumbotron" onload=display_ct();>
@@ -97,71 +74,40 @@
       
       <div class="container text-center">
          <div class="row">
-            <div class="col" style="min-height: 36vh;">
+            <div class="col">
                <div class="panel panel-primary border-rad" style="min-height: 36vh;">
-                  <div class="panel-heading date-time" id="clock"></div>
-                  <img src="../images/weather.png" class="img-fluid" alt="Image"
-                          style="max-width: 200px; width: 50%;">
-                  <p class="text"> 74° </p>
+                    <div class="panel-heading date-time" id="clock" style="text-align: left;"></div>
+                    <div class= "panel-body" style="align-items:center;">
+                        <img src="../images/weather.png" class="img-fluid" alt="Image"
+                          style="max-height: 150px; max-width: 150px;">
+                        <br>
+                        <span style="font-size: 22px;"> 74° </span>
+                    </div>
                </div>
             </div>
             
             <div class="col">
                <div class="panel panel-primary border-rad"  style="min-height: 36vh;">
                   <div class="panel-heading"><a href="recipes/recipe.html">NEW RECIPES</a></div>
-                  
-                  <div id="carousel1" class="carousel slide col-lg-12" data-bs-touch="false" data-bs-interval="false">
-                     <div class="carousel-inner text-center">
-                        <div class="carousel-item active">
-                           
+                     <div class="panel-body">
                            <div class="cards">
-                              <div class="card">
-                                 <img class="card-img-top" src="recipes/pics/mushroom-soup.jpg" alt="Card image">
+                              <div class="card"><a href="recipes/recipe.html">
+                                 <img class="card-img-top" src="recipes/pics/shrimp-scampi.jpg" alt="Card image" style="max-height: 15vh; max-width: 150px; align-self: center;">
                                  <div class="card-body">
-                                   <h5 class="card-title"><a href="recipes/mushroom-recipe.html">Creamy Mushroom Soup</a></h5>
+                                   <h5 class="card-title"><a href="recipes/recipe.html">Classic Shrimp Scampi</a></h5>
                                  </div>
-                              </div>
+                              </a></div>
+                              <div class="card"><a href="recipes/recipe.html">
+                                 <img class="card-img-top" src="recipes/pics/mushroom-soup.jpg" alt="Card image" style="max-height: 15vh; max-width: 150px; align-self: center;">
+                                 <div class="card-body">
+                                   <h5 class="card-title">Creamy Mushroom Soup</h5>
+                                 </div>
+                              </a></div>
                               
-                              <div class="card">
-                                 <img class="card-img-top" src="recipes/pics/honey-chicken.jpg" alt="Card image">
-                                 <div class="card-body">
-                                   <h5 class="card-title"><a href="recipes/recipe.html">Honey Garlic Chicken</a></h5>
-                                 </div>
-                              </div>
                            </div>
-                           
-                       </div>
-                        
-                       <div class="carousel-item">
-                         <div class="cards">
-                              <div class="card">
-                                 <img class="card-img-top" src="recipes/pics/fish-tacos.jpg" alt="Card image">
-                                 <div class="card-body">
-                                   <h5 class="card-title"><a href="recipes/recipe.html">Grilled Fish Tacos</a></h5>
-                                 </div>
-                              </div>
-                              
-                              <div class="card">
-                                 <img class="card-img-top" src="recipes/pics/shrimp-scampi.jpg" alt="Card image">
-                                 <div class="card-body">
-                                   <h5 class="card-title"><a href="recipes/shrimp-scampi-recipe.html">Classic Shrimp Scampi</a></h5>
-                                 </div>
-                              </div>
-                           </div>
-                       </div>
-                       
-                       
                      </div>
-                     <button class="carousel-control-prev" type="button" data-bs-target="#carousel1" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden"></span>
-                     </button>
-                     <button class="carousel-control-next" type="button" data-bs-target="#carousel1" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden"></span>
-                     </button>
                   </div>
-                  
+                       
                </div>       
             </div>
             
@@ -173,36 +119,53 @@
       <div class="container">
          <div class="row">
             <div class="col">
-               <div class="panel panel-primary border-rad" style="min-height: 36vh;">
-                  <div class="panel-heading"><a href="groceries/groceries.html">UPDATE GROCERY LISTS</a></div>
+               <div class="panel panel-primary border-rad" style="min-height: 36vh;"><a href="groceries/groceries.html">
+                  <div class="panel-heading">UPDATE GROCERY LISTS</div>
                   <div class="panel-body">
                     <img src="../images/list.png" class="img-fluid" alt="Image"
-                         style="max-height: 25vh; max-width: 200px; width: 50%; padding-top: 5%;">
+                         style="max-height: 25vh; max-width: 150px; padding-top: 5%;">
                   </div>
-               </div>
+               </a></div>
             </div>
             
             <div class="col">
-               <div class="panel panel-primary border-rad" style="min-height: 36vh;">
-                  <div class="panel-heading"><a href="inventory/inventory.html">YOU'RE LOW ON:</a></div>
+               <div class="panel panel-primary border-rad" style="min-height: 36vh;"><a href="inventory/inventory_list.html">
+                  <div class="panel-heading">YOU'RE LOW ON:</div>
                   <div class="panel-body">
-                    <ul class="list-group">
-                        <li class="list-group-item">Tomatoes</li>
-                        <li class="list-group-item">Broccoli</li>
-                        <li class="list-group-item">Oat milk</li>
-                        <li class="list-group-item">Grapes</li>
-                        <li class="list-group-item">Cheese</li>
-                        <li class="list-group-item">Olives</li>
-                        <li class="list-group-item">Argulua</li>
-                        <li class="list-group-item">Diet coke</li>
-
-                    </ul>
+                    <div class="container">
+                        <div class="row" style="border: 1px solid lightsteelblue; overflow: scroll; max-height: 25vh;">
+                          <div class="col-sm" style="width: 50%;">
+                            <ul class="list-group">
+                                <li class="list-group-item">Carrot</li>
+                                <li class="list-group-item">Rice</li>
+                                <li class="list-group-item">Orange</li>
+                                <li class="list-group-item">Apple</li>
+                                <li class="list-group-item">Banana</li>
+                                <li class="list-group-item">Chicken</li>
+                                <li class="list-group-item">Broccoli</li>
+                            </ul>
+                          </div>
+                          <div class="col-sm" style="width: 50%; float: left;">
+                            <ul class="list-group">
+                                <li class="list-group-item">1</li>
+                                <li class="list-group-item">1 lb</li>
+                                <li class="list-group-item">1</li>
+                                <li class="list-group-item">1</li>
+                                <li class="list-group-item">2</li>
+                                <li class="list-group-item">2 lbs</li>
+                                <li class="list-group-item">2</li>
+                            </ul>
+                          </div>
+                          
+                        </div>
+                    </div>
+                    
                   </div>
-               </div>
+               </a></div>
             </div>
          </div>
-      </div>
-        
+       </div>
+
       </body>
     
     <script type="text/javascript">
@@ -210,16 +173,25 @@
     
         function clock() {
             var date = new Date();
-            var day = date.getDay();
+            var dayName = date.getDay();
             var hours = date.getHours();
             var minutes = date.getMinutes();
             var seconds = date.getSeconds();
-        
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+            var timeOfDay = "am";
+            
             // Array of days.
             var weekday = ['Sunday', 'Monday', 'Tuesday',
                 'Wednesday', 'Thursday', 'Friday', 'Saturday'
             ];
-            clockElement.innerHTML = weekday[day] + "<br>" + hours + ":" + minutes + ":" + seconds;
+            if (hours > 12) {
+                hours -= 12;
+                timeOfDay = "pm";
+            } else if (hours == 0) {
+                hours += 12;
+            }
+            clockElement.innerHTML = weekday[dayName] + " " + month + "/" + day + "<br>" + hours + ":" + minutes + ":" + seconds + timeOfDay;
         }
     
         setInterval(clock, 1000);
