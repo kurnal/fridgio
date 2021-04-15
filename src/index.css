@@ -4,6 +4,11 @@
     src: url('../SanFranciscoFont-master/SanFranciscoText-Regular.otf');
  } 
 
+@font-face {
+  font-family: SanFranciscoBold; 
+  src: url('../SanFranciscoFont-master/SanFranciscoDisplay-Semibold.otf');
+} 
+
 .large_icon{
     font-size:5vw;
  }
@@ -49,7 +54,7 @@ nav{
 
 .itemRecipes {
   overflow-x: scroll;
-  overflow-y: hidden;m
+  overflow-y: hidden;
   white-space: nowrap;
   width: 70%;
   height: auto;
