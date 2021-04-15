@@ -127,9 +127,8 @@
                     "<div><input id=\"" + (groceryList["items"].length - 1) + "\" onclick=\"toggleGroceryItem(this.id)\" class=\"form-check-input\" type=\"checkbox\" id=\"flexCheckDefault\" />" +
                     "<label class=\"form-check-label\" for=\"flexCheckDefault\">" + name + "</label></div><div onclick=\"deleteGroceryItem(" + (groceryList["items"].length - 1) + ")\"><i class='fas fa-trash'></i></div></div>"
                 );
-
+                
                 $('#submitForm')[0].reset();
-
             }
 
             function deleteGroceryItem(id) {
@@ -157,11 +156,14 @@
 
     <body onload="loaded();" class="container align-items-center">
         <div class="text-center d-flex align-items-center justify-content-between mb-3">
-            <button type="button" style="color: black; background-color: peachpuff; border: black; border-width: 1;" class="d-flex btn btn-primary m-3 align-self-end"><a style="color:white;text-decoration:none;" href="./groceries.html">
+            <button type="button" style="color: black; background-color: peachpuff; border: black; border-width: 1;"
+                class="d-flex btn btn-primary m-3 align-self-end"><a style="color:white;text-decoration:none;"
+                    href="./groceries.html">
                     Back</a></button>
             <h1 id="title" class="text-center m-3"> </h1>
-            <button type="button" style="color: white; background-color: steelblue; border: black; border-width: 1;" class="d-flex btn btn-primary m-3 align-self-end" data-bs-toggle="modal"
-                data-bs-target="#add">Add Item</button>
+            <button type="button" style="color: white; background-color: steelblue; border: black; border-width: 1;"
+                class="d-flex btn btn-primary m-3 align-self-end" data-bs-toggle="modal" data-bs-target="#add">Add
+                Item</button>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -171,7 +173,7 @@
                         <h5 class="modal-title" id="exampleModalLabel">Name Grocery List</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form id="submitForm" class="modal-body">
+                    <form id="form" class="modal-body">
                         <div class="input-group mb-3">
                             <input id="itemName" type="text" class="form-control" placeholder="Item Name"
                                 aria-label="Name" aria-describedby="basic-addon1">
@@ -202,23 +204,20 @@
             </div>
         </div>
 
-        <div id="divGroceryList" class="align-items-center">
-            <ul id="groceryList" class="list-group list-group-flush w-75">
+        <div class="d-flex align-items-center justify-content-center w-100">
+            <div id="divGroceryList" style="width:75%;" class="align-items-center">
+                <ul id="groceryList" class="list-group list-group-flush w-75">
 
-            </ul>
+                </ul>
+            </div>
         </div>
 
         <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
-                href="../index.html"> <i class="fas fa-home"></i> Home </a>
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
-                href="../groceries/groceries.html"> <i class="fas fa-list-alt"></i> Grocery Lists </a>
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
-                href="../inventory/inventory.html"> <i class="fas fa-shopping-basket"></i> Inventory </a>
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
-                href="../recipes/recipe.html"> <i class="fas fa-book"></i> Recipes </a>
-            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
-                href="../settings.html"> <i class="fas fa-wrench"></i> Settings</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../index.html"> <i class="fas fa-home large_icon"></i> <br> Home </a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../groceries/groceries.html"> <i class="fas fa-list-alt large_icon"></i> <br> Lists</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../inventory/inventory.html"> <i class="fas fa-shopping-basket large_icon"></i> <br> Inventory</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../recipes/recipe.html"> <i class="fas fa-book large_icon"></i> <br> Recipes</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../settings.html"> <i class="fas fa-wrench large_icon"></i><br> Settings</a>
         </nav>
 
         <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>

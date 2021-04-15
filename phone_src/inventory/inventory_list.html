@@ -5,7 +5,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-      <link rel="stylesheet" href="./index.css">
+      <link rel="stylesheet" href="../index.css">
       <link rel="stylesheet" href="../../bootstrap-table-master/dist/bootstrap-table.min.css">
       <link href="../../fontawesome/css/all.css" rel="stylesheet">
       <script type = "text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
@@ -35,12 +35,14 @@
     </script>
     <script>
 
-        $(document).ready(function () {
-          $('#demolist a').on('click', function () {
-            $('#dropdownMenuLink').html($(this).text() + ' <span class="caret"></span>');
-            $('#dropdownMenuLink').val($(this).data('value'));
-          });
-        });
+        function populate() {
+          let curr = window.localStorage.getItem('INVENTORY')
+            
+          window.localStorage.setItem('INVENTORY', JSON.stringify({"items":[{"name":"Banana","qty":"2","expdate":"05-16-2021","category":"Fruits "},{"name":"Carrot","qty":"1","expdate":"05-31-2021","category":"Vegetables "},{"name":"Chicken","qty":"2 lbs","expdate":"05-12-2021","category":"Proteins "},{"name":"Potato","qty":"5 lbs","expdate":"06-24-2022","category":"Other "},{"name":"Rice","qty":"1 lb","expdate":"05-28-2023","category":"Grains "},{"name":"Steak","qty":"3 lbs","expdate":"05-01-2021","category":"Proteins "},{"name":"Orange","qty":"1","expdate":"06-22-2021","category":"Fruits"},{"name":"Apple","qty":"1","expdate":"5-27-2021","category":"Fruits"},{"name":"Broccoli","qty":"2","expdate":"04-22-2021","category":"Vegetables"}]}))
+            
+
+            update();
+        }
 
         function sort_order() {
 
@@ -264,8 +266,6 @@
             b = b.qty.replace(/[^0-9]/g, '')
             return b-a
           }); 
-
-          console.log(inventory)
           
           str_inventory = JSON.stringify(inventory)
           
@@ -284,27 +284,36 @@
             
             let inventory = JSON.parse(window.localStorage.getItem('INVENTORY'))
 
+            var e = document.getElementById("demolist")
+
             item = document.getElementById("item").value
             qty = document.getElementById("qty").value
             expdate = document.getElementById("expdate").value
-            category = document.getElementById("dropdownMenuLink").text
+            category = e.options[e.selectedIndex].text
 
 
-
+            
             entry = {}
-            entry["name"] = item
-            entry["qty"] = qty
-            entry["expdate"] = expdate
+            entry["name"] = item.trim() 
+            entry["qty"] = qty.trim()
+            entry["expdate"] = expdate.trim()
             entry['category'] = category 
             
-            console.log(inventory)
-
-            if (!(entry in inventory['items'])) {
+            
+            names = []  
+            inventory.items.forEach(el => names.push(el.name));
+            console.log(names.includes(item))
+            if ((names.includes(item))) {
+              window.alert("You have already added this item!")
+            } else {
               inventory['items'].push(entry)
             }
+        
 
             str_inventory = JSON.stringify(inventory)
             window.localStorage.setItem('INVENTORY', str_inventory)
+
+            update();
         }
 
         function openGroceryList(uuid) {
@@ -380,37 +389,14 @@
       
         <br> 
 
-        <div class='container'> <h1 class="text-center" style="font-size: 4vw; color:lightsteelblue;clear:left"> Inventory List </h1> </div>
-    
+        <div class='container'> <h1 class="text-center" style="font-size: 4vw; color:lightsteelblue;clear:left;font-family:SanFranciscoBold"> Inventory List </h1> </div>
+        <br></br>
+        <div class = border-bottom>
+          <button class="btn-primary btn" onclick="populate();">Populate Inventory with Sample Data!</button> <br></br>
+        </div>
 
-        
+        <br></br>
 
-        <form class = "container" onsubmit="return add(); return update()">
-          <button type = "submit" class="btn-primary btn">Add New Item</button> <br></br> 
-          <label for="item">Item:</label>
-          <input type="text" id="item" name="item" placeholder = "ex. Chicken" required>
-          <label for="qty">Quantity:</label>
-          <input type="text" id="qty" name="qty" placeholder = "ex. 2 lbs" required>
-          <label for="expdate">Expiration Date:</label>
-          <input type="text" id="expdate" name="expdate" placeholder = MM-DD-YYYY required>
-
-      
-          <a class="btn btn-sm dropdown-toggle flex-grow-1" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            Food Group
-          </a>
-          
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="demolist">
-            <li><a class="dropdown-item" href="#">Proteins</a></li>
-            <li><a class="dropdown-item" href="#">Vegetables</a></li>
-            <li><a class="dropdown-item" href="#">Fruits</a></li>
-            <li><a class="dropdown-item" href="#">Grains</a></li>
-            <li><a class="dropdown-item" href="#">Other</a></li>
-          </ul>
-
-          
-        </form>
-
-        <br> </br>
         <div class="col-sm-2 sidenav">
           <!-- <div class="button-container">
             <div class="button-center">
@@ -445,15 +431,17 @@
           </thead>
           <tbody>
           </tbody>
-        </table>     
+        </table>
+      
+      
   </body>
 
   <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
-    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../index.html"> <i class="fas fa-home"></i> Home </a>
-    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../groceries/groceries.html"> <i class="fas fa-list-alt"></i> Grocery Lists </a>
-    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../inventory/inventory.html"> <i class="fas fa-shopping-basket"></i> Inventory </a>
-    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../recipes/recipe.html"> <i class="fas fa-book"></i> Recipes </a>
-    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco" href = "../settings.html"> <i class="fas fa-wrench"></i> Settings</a>
+    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../index.html"> <i class="fas fa-home large_icon"></i> <br> Home </a>
+    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../groceries/groceries.html"> <i class="fas fa-list-alt large_icon"></i> <br> Lists</a>
+    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../inventory/inventory.html"> <i class="fas fa-shopping-basket large_icon"></i> <br> Inventory</a>
+    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../recipes/recipe.html"> <i class="fas fa-book large_icon"></i> <br> Recipes</a>
+    <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../settings.html"> <i class="fas fa-wrench large_icon"></i><br> Settings</a>
   </nav>
 
 </html>

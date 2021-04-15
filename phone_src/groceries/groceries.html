@@ -52,38 +52,10 @@
                 "<div><h6 class=\"font-weight-bold mb-0\"><a class=\"text-dark\" id=\"" + uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + name + "')\">" + name + "</a>" + "</h6>" +
                 "<small class=\"text-muted\">" + "Items: 0" + "</small>" + "</div><div onclick=\"deleteGroceryList(" + (groceryLists["items"].length - 1) + "," + uuid + ")\"><i class='fas fa-trash'></i></div></div>"
             );
-            $('#submitForm')[0].reset();
         }
 
         function openGroceryList(uuid, name) {
             window.location.href = "./grocery-list.html" + `?uuid=${uuid}&name=${name}`;
-        }
-
-        function changeGlobalUser(id) {
-            const prevUser = window.localStorage.getItem('GLOBAL_USER')
-            if (prevUser == id) {
-                return
-            }
-            window.localStorage.setItem('GLOBAL_USER', id)
-            let currBlock = document.getElementById(id)
-            let prevBlock = document.getElementById(prevUser)
-            currBlock.style.backgroundColor = "lightsteelblue"
-            prevBlock.style.backgroundColor = "white"
-            let groceryListDOM = document.getElementById("groceryListsItems")
-            groceryListDOM.remove()
-            $("#groceryLists").append("<div id=\"groceryListsItems\">")
-            let counter = 0
-            let groceryLists = JSON.parse(window.localStorage.getItem('GROCERY_LISTS'))
-            groceryLists.items.filter(el => el.owner == id).forEach(el => {
-                groceryItems = JSON.parse(window.localStorage.getItem(el.uuid))
-                $("#groceryListsItems").append("<div id=\"" + counter + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
-                    "<div><h6 class=\"font-weight-bold mb-0\"><a class=\"text-dark\" id=\"" + el.uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + el.name + "')\">" +
-                    el.name + "</a>" + "</h6>" +
-                    "<small class=\"text-muted\">" + "Items: " + groceryItems["items"].length + "</small>" + "</div><div onclick=\"deleteGroceryList(" + counter + "," + el.uuid + ")\"><i class='fas fa-trash'></i></div></div>"
-                );
-                counter += 1
-            })
-            $("#groceryLists").append("</div>")
         }
 
         function deleteGroceryList(id, uuid) {
@@ -109,7 +81,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Name Grocery List</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="submitForm" class="modal-body">
+                <form class="modal-body">
                     <div class="input-group mb-3">
                         <input id="nameGroceryList" type="text" class="form-control" placeholder="Grocery List Name"
                             aria-label="Name" aria-describedby="basic-addon1">
@@ -127,52 +99,14 @@
     </div>
 
     <div class="d-inline-flex w-100">
-        <div class="col-md-4 m-3">
-            <div class="text-center">
-                <h4 class="d-flex justify-content-between align-items-center m-3">
-                    <class="text-muted">Members</p>
-                </h4>
-            </div>
-
-            <ul class="list-group mb-3">
-                <li onclick="changeGlobalUser(this.id);" id="kurnal" style="background-color: lightsteelblue;"
-                    class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 style="color: black" class="my-0">Kurnal</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                </li>
-                <li onclick="changeGlobalUser(this.id);" id="esther"
-                    class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Esther</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                </li>
-                <li onclick="changeGlobalUser(this.id);" id="amanda"
-                    class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Amanda</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                </li>
-                <li onclick="changeGlobalUser(this.id);" id="nick"
-                    class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Nick</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                </li>
-            </ul>
-        </div>
-
-        <div id="groceryLists" class="w-100 m-4">
+        <div id="groceryLists" class="w-100">
             <div class="text-center d-flex align-items-center justify-content-between">
-                <h4 class="d-flex">
-                    <p class="text-muted">Grocery List</p>
+                <h4 class="d-flex mt-3">
+                    <p class="text-muted">Kurnal's Lists</p>
                 </h4>
-                <button style="color: white; background-color: steelblue; border: black; border-width: 1;" type="button" class="d-flex btn btn-primary m-3" data-bs-toggle="modal"
-                    data-bs-target="#add">Add Grocery List</button>
+                <button style="color: white; background-color: steelblue; border: black; border-width: 1;" type="button"
+                    class="d-flex btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#add">Add Grocery
+                    List</button>
             </div>
             <div id="groceryListsItems">
             </div>
@@ -182,16 +116,11 @@
 
 
     <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
-        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
-            href="../index.html"> <i class="fas fa-home"></i> Home </a>
-        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
-            href="../groceries/groceries.html"> <i class="fas fa-list-alt"></i> Grocery Lists </a>
-        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
-            href="../inventory/inventory.html"> <i class="fas fa-shopping-basket"></i> Inventory </a>
-        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
-            href="../recipes/recipe.html"> <i class="fas fa-book"></i> Recipes </a>
-        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
-            href="../settings.html"> <i class="fas fa-wrench"></i> Settings</a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../index.html"> <i class="fas fa-home large_icon"></i> <br> Home </a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../groceries/groceries.html"> <i class="fas fa-list-alt large_icon"></i> <br> Lists</a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../inventory/inventory.html"> <i class="fas fa-shopping-basket large_icon"></i> <br> Inventory</a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../recipes/recipe.html"> <i class="fas fa-book large_icon"></i> <br> Recipes</a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../settings.html"> <i class="fas fa-wrench large_icon"></i><br> Settings</a>
     </nav>
 
 </body>

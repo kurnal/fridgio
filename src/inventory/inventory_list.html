@@ -38,7 +38,7 @@
         function populate() {
           let curr = window.localStorage.getItem('INVENTORY')
             
-          window.localStorage.setItem('INVENTORY', JSON.stringify({"items":[{"name":"Banana","qty":"5","expdate":"05-16-2021","category":"Fruits "},{"name":"Carrot","qty":"5","expdate":"05-31-2021","category":"Vegetables "},{"name":"Chicken","qty":"2 lbs","expdate":"05-12-2021","category":"Proteins "},{"name":"Potato","qty":"5 lbs","expdate":"06-24-2022","category":"Other "},{"name":"Rice","qty":"40 lbs","expdate":"05-28-2023","category":"Grains "},{"name":"Steak","qty":"3 lbs","expdate":"05-01-2021","category":"Proteins "},{"name":"Orange","qty":"4","expdate":"06-22-2021","category":"Fruits"},{"name":"Apple","qty":"7","expdate":"5-27-2021","category":"Fruits"}]}))
+          window.localStorage.setItem('INVENTORY', JSON.stringify({"items":[{"name":"Banana","qty":"2","expdate":"05-16-2021","category":"Fruits "},{"name":"Carrot","qty":"1","expdate":"05-31-2021","category":"Vegetables "},{"name":"Chicken","qty":"2 lbs","expdate":"05-12-2021","category":"Proteins "},{"name":"Potato","qty":"5 lbs","expdate":"06-24-2022","category":"Other "},{"name":"Rice","qty":"1 lb","expdate":"05-28-2023","category":"Grains "},{"name":"Steak","qty":"3 lbs","expdate":"05-01-2021","category":"Proteins "},{"name":"Orange","qty":"1","expdate":"06-22-2021","category":"Fruits"},{"name":"Apple","qty":"1","expdate":"5-27-2021","category":"Fruits"},{"name":"Broccoli","qty":"2","expdate":"04-22-2021","category":"Vegetables"}]}))
             
 
             update();
@@ -294,9 +294,9 @@
 
             
             entry = {}
-            entry["name"] = item
-            entry["qty"] = qty
-            entry["expdate"] = expdate
+            entry["name"] = item.trim() 
+            entry["qty"] = qty.trim()
+            entry["expdate"] = expdate.trim()
             entry['category'] = category 
             
             
@@ -337,6 +337,10 @@
     </script>
 
     <style>
+
+      html {
+        margin-bottom: 38px
+      }
       
       body {
         font-family:'SanFrancisco';
@@ -389,18 +393,18 @@
       
         <br> 
 
-        <div class='container'> <h1 class="text-center" style="font-size: 4vw; color:lightsteelblue;clear:left"> Inventory List </h1> </div>
+        <div class='container'> <h1 class="text-center" style="font-size: 4vw; color:lightsteelblue;clear:left;font-family:SanFranciscoBold"> Inventory List </h1> </div>
     
         
         <form onsubmit="add()">
           <div class = "form-group">
             <button type = "submit" class="btn-primary btn">Add New Item</button> <br></br> 
             <label for="item">Item:</label>
-            <input type="text" id="item" name="item" placeholder = "ex. Chicken" required>
+            <input type="text" id="item" name="item" placeholder = "ex. Chicken" maxlength = 30>
             <label for="qty">Quantity:</label>
-            <input type="text" id="qty" name="qty" placeholder = "ex. 2 lbs" required>
+            <input type="text" id="qty" name="qty" placeholder = "ex. 2 lbs" required pattern = "[\d]+[\s]?[a-zA-Z]*">
             <label for="expdate">Expiration Date:</label>
-            <input type="text" id="expdate" name="expdate" placeholder = MM-DD-YYYY required>
+            <input type="text" id="expdate" name="expdate" placeholder = MM-DD-YYYY required pattern = "(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)[0-9]{2}">
 
           </div>
             <!-- <a class="btn btn-sm dropdown-toggle flex-grow-1" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -458,19 +462,21 @@
           </div>
         </div>
         <br> </br>
-        <table class="table" id="food">
-          <thead>
-            <tr>
-              <th scope="col">Item</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">Expiration Date</th>
-              <th scope="col">Food Group</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
+        <div class="d-flex align-items-center justify-content-center">
+          <table class="table" id="food">
+            <thead>
+              <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Expiration Date</th>
+                <th scope="col">Food Group</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
       
       
   </body>
