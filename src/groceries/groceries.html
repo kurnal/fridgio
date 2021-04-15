@@ -24,7 +24,7 @@
                 groceryLists.items.filter(el => el.owner == "kurnal").forEach(el => {
                     groceryItems = JSON.parse(window.localStorage.getItem(el.uuid))
                     $("#groceryListsItems").append("<div id=\"" + counter + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
-                        "<div><h6 class=\"font-weight-bold mb-0\"><a id=\"" + el.uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + el.name + "')\">" +
+                        "<div><h6 class=\"font-weight-bold mb-0\"><a class=\"text-dark\" id=\"" + el.uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + el.name + "')\">" +
                         el.name + "</a>" + "</h6>" +
                         "<small class=\"text-muted\">" + "Items: " + groceryItems["items"].length + "</small>" + "</div><div onclick=\"deleteGroceryList(" + counter + "," + el.uuid + ")\"><i class='fas fa-trash'></i></div></div>"
                     );
@@ -49,7 +49,7 @@
             window.localStorage.setItem('GROCERY_LISTS', JSON.stringify(groceryLists))
             window.localStorage.setItem(String(uuid), JSON.stringify({ items: [] }))
             $("#groceryListsItems").append("<div id=\"" + (groceryLists["items"].length - 1) + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
-                "<div><h6 class=\"font-weight-bold mb-0\"><a id=\"" + uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + name + "')\">" + name + "</a>" + "</h6>" +
+                "<div><h6 class=\"font-weight-bold mb-0\"><a class=\"text-dark\" id=\"" + uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + name + "')\">" + name + "</a>" + "</h6>" +
                 "<small class=\"text-muted\">" + "Items: 0" + "</small>" + "</div><div onclick=\"deleteGroceryList(" + (groceryLists["items"].length - 1) + "," + uuid + ")\"><i class='fas fa-trash'></i></div></div>"
             );
         }
@@ -76,7 +76,7 @@
             groceryLists.items.filter(el => el.owner == id).forEach(el => {
                 groceryItems = JSON.parse(window.localStorage.getItem(el.uuid))
                 $("#groceryListsItems").append("<div id=\"" + counter + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
-                    "<div><h6 class=\"font-weight-bold mb-0\"><a id=\"" + el.uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + el.name + "')\">" +
+                    "<div><h6 class=\"font-weight-bold mb-0\"><a class=\"text-dark\" id=\"" + el.uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + el.name + "')\">" +
                     el.name + "</a>" + "</h6>" +
                     "<small class=\"text-muted\">" + "Items: " + groceryItems["items"].length + "</small>" + "</div><div onclick=\"deleteGroceryList(" + counter + "," + el.uuid + ")\"><i class='fas fa-trash'></i></div></div>"
                 );
@@ -100,7 +100,6 @@
 </head>
 
 <body onload="loaded();" class="m-2">
-
     <!-- Modal -->
     <div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -171,7 +170,7 @@
                 <h4 class="d-flex">
                     <p class="text-muted">Grocery List</p>
                 </h4>
-                <button type="button" class="d-flex btn btn-primary m-3" data-bs-toggle="modal"
+                <button style="color: white; background-color: steelblue; border: black; border-width: 1;" type="button" class="d-flex btn btn-primary m-3" data-bs-toggle="modal"
                     data-bs-target="#add">Add Grocery List</button>
             </div>
             <div id="groceryListsItems">
