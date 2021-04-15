@@ -12,6 +12,8 @@
     <link href="../../fontawesome/css/all.css" rel="stylesheet">
     <script>
         function loaded() {
+            // set user to kurnal
+            window.localStorage.setItem('GLOBAL_USER', "kurnal")
             // init if localStorage variable does not exist
             let curr = window.localStorage.getItem('GROCERY_LISTS')
             if (curr == null) {
@@ -19,13 +21,14 @@
             } else {
                 let groceryLists = JSON.parse(curr)
                 let counter = 0
-                groceryLists.items.forEach(el => {
+                groceryLists.items.filter(el => el.owner == "kurnal").forEach(el => {
                     groceryItems = JSON.parse(window.localStorage.getItem(el.uuid))
-                    $("#groceryLists").append("<div id=\"" + counter + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
+                    $("#groceryListsItems").append("<div id=\"" + counter + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
                         "<div><h6 class=\"font-weight-bold mb-0\"><a id=\"" + el.uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + el.name + "')\">" +
                         el.name + "</a>" + "</h6>" +
                         "<small class=\"text-muted\">" + "Items: " + groceryItems["items"].length + "</small>" + "</div><div onclick=\"deleteGroceryList(" + counter + "," + el.uuid + ")\"><i class='fas fa-trash'></i></div></div>"
                     );
+
                     counter += 1
                 })
             }
@@ -37,14 +40,15 @@
                 window.alert("Please give your grocery list")
                 return
             }
+            const currUser = window.localStorage.getItem('GLOBAL_USER')
             let uuid = Math.floor(Math.random() * 9999999999)
             let groceryLists = JSON.parse(window.localStorage.getItem('GROCERY_LISTS'))
             groceryLists["items"].push({
-                uuid: uuid, name: name
+                uuid: uuid, owner: currUser, name: name
             })
             window.localStorage.setItem('GROCERY_LISTS', JSON.stringify(groceryLists))
             window.localStorage.setItem(String(uuid), JSON.stringify({ items: [] }))
-            $("#groceryLists").append("<div id=\"" + (groceryLists["items"].length - 1) + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
+            $("#groceryListsItems").append("<div id=\"" + (groceryLists["items"].length - 1) + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
                 "<div><h6 class=\"font-weight-bold mb-0\"><a id=\"" + uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + name + "')\">" + name + "</a>" + "</h6>" +
                 "<small class=\"text-muted\">" + "Items: 0" + "</small>" + "</div><div onclick=\"deleteGroceryList(" + (groceryLists["items"].length - 1) + "," + uuid + ")\"><i class='fas fa-trash'></i></div></div>"
             );
@@ -52,6 +56,33 @@
 
         function openGroceryList(uuid, name) {
             window.location.href = "./grocery-list.html" + `?uuid=${uuid}&name=${name}`;
+        }
+
+        function changeGlobalUser(id) {
+            const prevUser = window.localStorage.getItem('GLOBAL_USER')
+            if (prevUser == id) {
+                return
+            }
+            window.localStorage.setItem('GLOBAL_USER', id)
+            let currBlock = document.getElementById(id)
+            let prevBlock = document.getElementById(prevUser)
+            currBlock.style.backgroundColor = "lightsteelblue"
+            prevBlock.style.backgroundColor = "white"
+            let groceryListDOM = document.getElementById("groceryListsItems")
+            groceryListDOM.remove()
+            $("#groceryLists").append("<div id=\"groceryListsItems\">")
+            let counter = 0
+            let groceryLists = JSON.parse(window.localStorage.getItem('GROCERY_LISTS'))
+            groceryLists.items.filter(el => el.owner == id).forEach(el => {
+                groceryItems = JSON.parse(window.localStorage.getItem(el.uuid))
+                $("#groceryListsItems").append("<div id=\"" + counter + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
+                    "<div><h6 class=\"font-weight-bold mb-0\"><a id=\"" + el.uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + el.name + "')\">" +
+                    el.name + "</a>" + "</h6>" +
+                    "<small class=\"text-muted\">" + "Items: " + groceryItems["items"].length + "</small>" + "</div><div onclick=\"deleteGroceryList(" + counter + "," + el.uuid + ")\"><i class='fas fa-trash'></i></div></div>"
+                );
+                counter += 1
+            })
+            $("#groceryLists").append("</div>")
         }
 
         function deleteGroceryList(id, uuid) {
@@ -104,28 +135,32 @@
             </div>
 
             <ul class="list-group mb-3">
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <li onclick="changeGlobalUser(this.id);" id="kurnal" style="background-color: lightsteelblue;"
+                    class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
-                        <h6 class="my-0">Kurnal</h6>
+                        <h6 style="color: black" class="my-0">Kurnal</h6>
                         <small class="text-muted">Brief description</small>
                     </div>
                 </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <li onclick="changeGlobalUser(this.id);" id="esther"
+                    class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                         <h6 class="my-0">Esther</h6>
                         <small class="text-muted">Brief description</small>
                     </div>
                 </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <li onclick="changeGlobalUser(this.id);" id="amanda"
+                    class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                         <h6 class="my-0">Amanda</h6>
                         <small class="text-muted">Brief description</small>
                     </div>
                 </li>
-                <li class="list-group-item d-flex justify-content-between bg-light">
-                    <div class="text-success">
+                <li onclick="changeGlobalUser(this.id);" id="nick"
+                    class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
                         <h6 class="my-0">Nick</h6>
-                        <small>Brief description</small>
+                        <small class="text-muted">Brief description</small>
                     </div>
                 </li>
             </ul>
@@ -139,7 +174,8 @@
                 <button type="button" class="d-flex btn btn-primary m-3" data-bs-toggle="modal"
                     data-bs-target="#add">Add Grocery List</button>
             </div>
-
+            <div id="groceryListsItems">
+            </div>
         </div>
     </div>
 

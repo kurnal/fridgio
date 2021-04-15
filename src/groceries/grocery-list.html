@@ -124,8 +124,8 @@
                 })
                 window.localStorage.setItem(uuid, JSON.stringify(groceryList))
                 $("#groceryList").append("<div class=\"p-3 d-flex justify-content-between form-check custom-control list-group-item\">" +
-                    "<div><input id=\"" + groceryList["items"].length + "\" onclick=\"toggleGroceryItem(this.id)\" class=\"form-check-input\" type=\"checkbox\" id=\"flexCheckDefault\" />" +
-                    "<label class=\"form-check-label\" for=\"flexCheckDefault\">" + name + "</label></div><div onclick=\"deleteGroceryItem(" + groceryList["items"].length + ")\"><i class='fas fa-trash'></i></div></div>"
+                    "<div><input id=\"" + (groceryList["items"].length - 1) + "\" onclick=\"toggleGroceryItem(this.id)\" class=\"form-check-input\" type=\"checkbox\" id=\"flexCheckDefault\" />" +
+                    "<label class=\"form-check-label\" for=\"flexCheckDefault\">" + name + "</label></div><div onclick=\"deleteGroceryItem(" + (groceryList["items"].length - 1) + ")\"><i class='fas fa-trash'></i></div></div>"
                 );
             }
 
@@ -137,7 +137,7 @@
                 window.localStorage.setItem(uuid, JSON.stringify(groceryList))
                 let groceryListDOM = document.getElementById("groceryList")
                 groceryListDOM.remove()
-                $("#divGroceryList").append("<ul id=\"groceryList\" class=\"list-group list-group-flush w-75\">" + "</ul>")
+                $("#divGroceryList").append("<ul id=\"groceryList\" class=\"list-group list-group-flush w-75\">")
                 let counter = 0
                 groceryList["items"].forEach(el => {
                     $("#groceryList").append("<div class=\"p-3 d-flex justify-content-between form-check custom-control list-group-item\">" +
@@ -146,6 +146,7 @@
                     );
                     counter += 1
                 })
+                $("#divGroceryList").append("</ul>")
             }
 
         </script>
