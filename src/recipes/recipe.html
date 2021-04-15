@@ -78,10 +78,8 @@
         };
 
         function crossReferenceInventory(name, ingred) {
-            // let inventory = JSON.parse(window.localStorage.getItem('INVENTORY'))
-            // let missing = []
             const ingredients = ingred.split(",")
-            groceryList = ingredients.map(el => { return ({ name: el, quantity: parseInt(el) ? parseInt(el) : 0, group: "other", checked: false }) })
+            groceryList = ingredients.map(el => { return ({ name: el, quantity: parseInt(el) ? String(parseInt(el)) : "0", group: "other", checked: false }) })
             let uuid = Math.floor(Math.random() * 9999999999)
             let groceryLists = JSON.parse(window.localStorage.getItem('GROCERY_LISTS'))
             let currUser = window.localStorage.getItem('GLOBAL_USER')
@@ -113,7 +111,7 @@
                 "<b> Prep Time: </b>" + prep + " mins" + "<br>" +
                 "<b> Cooking Time: </b> " + cooking + " mins" + "<br>" +
                 "<b> Total Time: </b>" + total + " mins" + "<br>" + "<br>" +
-                "<button onclick=\"crossReferenceInventory('" + name + "','" + ingredients + "');\"> Make List for Missing Items </button>"
+                "<button onclick=\"crossReferenceInventory('" + name + "','" + ingredients + "');\"> Make Grocery List </button>"
 
             if (image == "pics/food-background.jpeg") {
                 document.getElementById("delete").innerHTML = "<button onclick=\"deleteRecipe('" + name + "');\"><i class='fas fa-trash'></i></button>";
