@@ -27,7 +27,7 @@
                             function(el) { 
                                 totalTime = parseInt(el.prep) + parseInt(el.cooking);
                                 if (el.name.toLowerCase().includes(nameField) && (cookingTime == 0 || totalTime <= cookingTime || (cookingTime == "1hr" && totalTime >= 60 && totalTime <= 90) 
-                                || (cookingTime == "plus" && totalTime > 90)) &&  (dietary == 0 || el.dietary.toLowerCase() == dietary)) {
+                                || (cookingTime == "plus" && totalTime > 90)) &&  (dietary == 0 || el.dietary == dietary)) {
                                     $("#results").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" + 
                                         "onclick=\"showRecipe('" + el.name + "','" + el.recipeImage + "','" + el.prep + "','" + el.cooking + "','" + el.category + "','" + el.dietary + "','" + el.ingredients + "')\">" + 
                                         "<div class=\"card col-lg-12 m-2\">" + 
@@ -116,7 +116,7 @@
         <a href="recipe.html">
         <div class="this-button"><button class="btn-default float-child rounded m-2">Back to Recipes</button></div>
         </a>
-        <div class="container pb-2" style="clear:both; font:8vw; color:blue"><h1>Search Recipes</h1></div>
+        <div class="container pb-2" style="clear:both; font:8vw; color:black"><h1>Search Recipes</h1></div>
         
         <!-- Search and Filters -->
         <div class="justify-content-between">
