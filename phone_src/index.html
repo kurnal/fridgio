@@ -10,11 +10,190 @@
         <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="./index.css">
         <link href="../fontawesome/css/all.css" rel="stylesheet">
+        
+        <style>
+        
+         .body {
+            overflow: auto;
+            padding-bottom: 20%;
+         }
+         
+         .border-rad {
+           border-radius: 20px;
+         }
+         
+         .panel {
+            border:2px solid lightsteelblue;
+            box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            padding: 5%;
+            background-color: white;
+         }
+         
+         .card {
+            width: 50%;
+            float: left;
+            border:2px solid lightsteelblue;
+            box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+         }
+         
+         .card-title {
+            font-size: 80%;
+         }
+         
+         a:link {
+            color: black;
+            text-decoration: none;
+
+          }
+          
+          a:visited {
+            color: black;
+            text-decoration: none;
+          }
+         
+         .list-group-item {
+            text-align: center;
+            border: none; 
+         }
+          
+        </style>
     </head>
     
-    <body class="home">
+    <body class="home" style="background-color: lightsteelblue;">
         
-        <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
+        <br>
+      
+      <div class="jumbotron text-center" onload=display_ct();>
+         <h1>FRIDGIO</h1>
+      </div>
+      
+      
+      <br>
+      
+      <div class="container text-center">
+         <div class="row">
+            <div class="col">
+               <div class="panel panel-primary border-rad" style="min-height: 36vh;">
+                    <div class="panel-heading date-time" id="clock" style="text-align: left;"></div>
+                    <div class= "panel-body" style="align-items:center;">
+                        <img src="../images/weather.png" class="img-fluid" alt="Image"
+                          style="max-height: 150px; max-width: 150px;">
+                        <br>
+                        <span style="font-size: 22px;"> 74° </span>
+                    </div>
+               </div>
+            </div>
+            
+            <div class="col">
+               <div class="panel panel-primary border-rad"  style="min-height: 36vh;">
+                  <div class="panel-heading" style="text-align: center;"><a href="recipes/recipe.html">NEW RECIPES</a></div>
+                     <div class="panel-body">
+                           <div class="cards">
+                              <div class="card"><a href="recipes/recipe.html">
+                                 <img class="card-img-top" src="recipes/pics/shrimp-scampi.jpg" alt="Card image" style="max-height: 15vh; max-width: 150px; align-self: center;">
+                                 <div class="card-body" style="min-height: 13vh; max-height: 14vh;">
+                                   <h5 class="card-title" style="overflow:auto;"><a href="recipes/recipe.html">Classic Shrimp Scampi</a></h5>
+                                 </div>
+                              </a></div>
+                              <div class="card"><a href="recipes/recipe.html">
+                                 <img class="card-img-top" src="recipes/pics/mushroom-soup.jpg" alt="Card image" style="max-height: 15vh; max-width: 150px; align-self: center;">
+                                 <div class="card-body" style="min-height: 13vh;">
+                                   <h5 class="card-title" style="overflow:auto;">Creamy Mushroom Soup</h5>
+                                 </div>
+                              </a></div>
+                              
+                           </div>
+                     </div>
+                  </div>
+                       
+               </div>       
+            </div>
+            
+         </div>
+      </div>
+      
+      <br>
+      
+      <div class="container">
+         <div class="row">
+            <div class="col">
+               <div class="panel panel-primary border-rad" style="min-height: 36vh;"><a href="groceries/groceries.html">
+                  <div class="panel-heading" style="text-align: center;">UPDATE GROCERY LISTS</div>
+                  <div class="panel-body text-center">
+                    <img src="../images/list.png" class="img-fluid" alt="Image"
+                         style="max-height: 20vh; max-width: 100px; padding-top: 5%;">
+                  </div>
+               </a></div>
+            </div>
+            
+            <div class="col">
+               <div class="panel panel-primary border-rad" style="min-height: 36vh;"><a href="inventory/inventory_list.html">
+                  <div class="panel-heading" style="text-align: center;">YOU'RE LOW ON:</div>
+                  <div class="panel-body">
+                    <div class="container">
+                        <div class="row" style="border: 1px solid lightsteelblue; overflow: scroll; max-height: 25vh;">
+                          <div class="col-sm" style="width: 50%; overflow: scroll;">
+                            <ul class="list-group">
+                                <li class="list-group-item">Carrot</li>
+                                <li class="list-group-item">Rice</li>
+                                <li class="list-group-item">Orange</li>
+                                <li class="list-group-item">Apple</li>
+                                <li class="list-group-item">Banana</li>
+                                <li class="list-group-item">Chicken</li>
+                                <li class="list-group-item">Broccoli</li>
+                            </ul>
+                          </div>
+                          <div class="col-sm" style="width: 50%; float: left;">
+                            <ul class="list-group">
+                                <li class="list-group-item">1</li>
+                                <li class="list-group-item">1 lb</li>
+                                <li class="list-group-item">1</li>
+                                <li class="list-group-item">1</li>
+                                <li class="list-group-item">2</li>
+                                <li class="list-group-item">2 lbs</li>
+                                <li class="list-group-item">2</li>
+                            </ul>
+                          </div>
+                          
+                        </div>
+                    </div>
+                    
+                  </div>
+               </a></div>
+            </div>
+         </div>
+       </div>
+        <script type="text/javascript">
+            var clockElement = document.getElementById('clock');
+        
+            function clock() {
+                var date = new Date();
+                var dayName = date.getDay();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var seconds = date.getSeconds();
+                var month = date.getMonth() + 1;
+                var day = date.getDate();
+                var timeOfDay = "am";
+                
+                // Array of days.
+                var weekday = ['Sunday', 'Monday', 'Tuesday',
+                    'Wednesday', 'Thursday', 'Friday', 'Saturday'
+                ];
+                if (hours > 12) {
+                    hours -= 12;
+                    timeOfDay = "pm";
+                } else if (hours == 0) {
+                    hours += 12;
+                }
+                clockElement.innerHTML = weekday[dayName] + " " + month + "/" + day + "<br>" + hours + ":" + minutes + ":" + seconds + timeOfDay;
+            }
+        
+            setInterval(clock, 1000);
+        </script>
+    
+    </body>
+      <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
             <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./index.html"> <i class="fas fa-home large_icon"></i> <br> Home </a>
             <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./groceries/groceries.html"> <i class="fas fa-list-alt large_icon"></i> <br> Lists</a>
             <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./inventory/inventory.html"> <i class="fas fa-shopping-basket large_icon"></i> <br> Inventory</a>
@@ -24,5 +203,4 @@
     
         <script type = "text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
         <script type = "text/javascript" src="../bootstrap/js/popper.min.js"></script>    
-    </body>
 </html lang="en">
