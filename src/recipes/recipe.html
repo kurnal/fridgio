@@ -84,7 +84,8 @@
             groceryList = ingredients.map(el => { return ({ name: el, quantity: parseInt(el) ? parseInt(el) : 0, group: "other", checked: false }) })
             let uuid = Math.floor(Math.random() * 9999999999)
             let groceryLists = JSON.parse(window.localStorage.getItem('GROCERY_LISTS'))
-            groceryLists["items"].push({ uuid: uuid, name: ("Items for " + name) })
+            let currUser = window.localStorage.getItem('GLOBAL_USER')
+            groceryLists["items"].push({ uuid: uuid, name: ("Items for " + name), owner: currUser ? currUser : "kurnal" })
             window.localStorage.setItem('GROCERY_LISTS', JSON.stringify(groceryLists))
             window.localStorage.setItem(String(uuid), JSON.stringify({ items: groceryList }))
         }
