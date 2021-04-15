@@ -27,7 +27,7 @@
                             function(el) {
                                 totalTime = parseInt(el.prep) + parseInt(el.cooking);
                                 if (el.name.toLowerCase().includes(nameField) && (cookingTime == 0 || totalTime <= cookingTime || (cookingTime == "1hr" && totalTime >= 60 && totalTime <= 90) 
-                                || (cookingTime == "plus" && totalTime > 90)) &&  (dietary == 0 || el.dietary.toLowerCase() == dietary)) {
+                                || (cookingTime == "plus" && totalTime > 90)) &&  (dietary == 0 || el.dietary == dietary)) {
                                     $("#results").append("<button class=\"cardButton\" style=\"border: 2px solid white; background-color: white;\"" + 
                                         "onclick=\"showRecipe('" + el.name + "','" + el.recipeImage + "','" + el.prep + "','" + el.cooking + "','" + el.category + "','" + el.dietary + "','" + el.ingredients + "')\">" + 
                                         "<div class=\"card col-lg-12 m-2\">" + 
