@@ -1,3 +1,7 @@
+body {
+    padding-bottom: 5%;
+}
+
 .card {
     width: 12vw;
     height: 31vh;
@@ -5,7 +9,7 @@
     display: inline-flex;
     margin: 1px;
     justify-content: center;
-    border:1px solid darkgray;
+    border:1px solid lightsteelblue;
 }
 
 .card-title {
@@ -13,6 +17,12 @@
     color:black;
     margin-top: auto;
     margin-bottom: auto;
+}
+
+.recipe-buttons {
+    background-color: lightsteelblue;
+    border: 1px solid black;
+    font-size: 1.4vw;
 }
 
 .this-button .btn-default {

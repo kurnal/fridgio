@@ -137,22 +137,18 @@
         }
 
     </script>
-</head>
-
-<body class="text-center">
-    <h1 class="text-center p-2" style="font-size: 4vw; color:lightsteelblue"> Recipes </h1>
-    <a href="search-recipes.html"><button class="flex-grow-1 p-1 m-2 rounded">Search Recipes</button></a>
-    <a href="create-recipe.html"><button class="flex-grow-1 p-1 m-2 rounded">Create New Recipe</button></a>
-
+  </head>
+  <body class="text-center"> 
+    <h1 class="text-center pt-2" style="font-size: 4vw; color:black"> Recipes </h1>
+    <a href="search-recipes.html"><button class="recipe-buttons flex-grow-1 p-1 m-2 rounded">Search Recipes</button></a>
+    <a href="create-recipe.html"><button class="recipe-buttons flex-grow-1 p-1 m-2 rounded">Create New Recipe</button></a
     <div class="new-recipes flex-grow-1">
         <div class="pt-3">
-            <h2 style="font-size:1.2vw">New Suggestions</h2>
+            <h2 style="font-size:1.5vw">New Suggestions</h2>
             <div class="scrollmenu">
                 <div class="cards " id="suggestions">
                     <!-- Full Recipe Card popup -->
-                    <div class="card text-justify pb-4" id="fullCard"
-                        style="height:auto; left:30%; right:30%; width: 40%; background-color:white; z-index: 1; position:absolute; box-shadow: 0 3px 5px 0 darkgray, 0 6px 20px 0 darkgray;">
-
+                    <div class="card text-justify pb-4" id ="fullCard" style="height:auto; left:30%; right:30%; width: 40%; background-color:white; z-index: 1; position:absolute; box-shadow: 0 3px 5px 0 darkgray, 0 6px 20px 0 darkgray;">
                         <div id="delete" class="ms-4 mt-4" style="text-align:left;"></div>
                         <h2 class="card-title pb-4" id="recipeTitle" style="font-size: 2vw"></h2>
                         <div class="card-img img-fluid w-50 float-child" style="text-align:right">
@@ -174,7 +170,7 @@
 
     <div class="my-recipes flex-grow-1" style="clear:both">
         <div class="pt-3">
-            <h2 style="font-size:1.2vw">My Recipes</h2>
+            <h2 style="font-size:1.5vw">My Recipes</h2>
             <div class="scrollmenu">
                 <div class="cards" id="recipeCards"></div>
             </div>

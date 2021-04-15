@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../src/index.css">
+    <link rel="stylesheet" href="../index.css">
     <link href="../../fontawesome/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="recipes.css">
     <script type="text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
@@ -125,7 +125,7 @@
     </script>
   </head>
   <body class="text-center"> 
-    <h1 class="text-center p-2 pt-4" style="font-size: 10vw; color:lightsteelblue"> Recipes </h1>
+    <h1 class="text-center pt-4" style="font-size: 10vw; color:black"> Recipes </h1>
 
     <!-- Full Recipe Card popup -->
     <div class="card text-justify pb-4" id ="fullCard" style="height:auto; left:5%; right:5%; width: 90%; background-color:white; z-index: 1; position:absolute; box-shadow: 0 3px 5px 0 darkgray, 0 6px 20px 0 darkgray;">
@@ -143,12 +143,12 @@
         <button class= "rounded me-2 mt-3 close-button" onclick="closeCard()">Close</button>
     </div>
 
-    <a href="search-recipes.html"><button class="flex-grow-1 p-1 m-2 rounded">Search Recipes</button></a>
-    <a href="create-recipe.html"><button class="flex-grow-1 p-1 m-2 rounded">Create New Recipe</button></a>
+    <a href="search-recipes.html"><button class="recipe-buttons flex-grow-1 p-1 m-2 rounded">Search Recipes</button></a>
+    <a href="create-recipe.html"><button class="recipe-buttons flex-grow-1 p-1 m-2 rounded">Create New Recipe</button></a>
 
     <div class="new-recipes flex-grow-1"> 
         <div class="pt-3">
-            <h2 style="font-size:4vw">New Suggestions</h2>
+            <h2 style="font-size:4.5vw">New Suggestions</h2>
             <div class="scrollmenu">
                 <div class="cards " id="suggestions">
                 </div>
@@ -158,7 +158,7 @@
 
     <div class="my-recipes flex-grow-1" style="clear:both"> 
         <div class="pt-3">
-            <h2 style="font-size:4vw">My Recipes</h2>
+            <h2 style="font-size:4.5vw">My Recipes</h2>
             <div class="scrollmenu">
                 <div class="cards" id="recipeCards"></div>
             </div>
@@ -168,11 +168,11 @@
     <div class="mb-5"></div>
     <!-- Nav Bar -->
     <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
-        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./index.html"> <i class="fas fa-home large_icon"></i> <br> Home </a>
-        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./groceries/groceries.html"> <i class="fas fa-list-alt large_icon"></i> <br> Lists</a>
-        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./inventory/inventory.html"> <i class="fas fa-shopping-basket large_icon"></i> <br> Inventory</a>
-        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./recipes/recipe.html"> <i class="fas fa-book large_icon"></i> <br> Recipes</a>
-        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "./settings.html"> <i class="fas fa-wrench large_icon"></i><br> Settings</a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../index.html"> <i class="fas fa-home large_icon"></i> <br> Home </a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../groceries/groceries.html"> <i class="fas fa-list-alt large_icon"></i> <br> Lists</a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../inventory/inventory.html"> <i class="fas fa-shopping-basket large_icon"></i> <br> Inventory</a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../recipes/recipe.html"> <i class="fas fa-book large_icon"></i> <br> Recipes</a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../settings.html"> <i class="fas fa-wrench large_icon"></i><br> Settings</a>
     </nav>
     
   <script type="text/javascript" src="../../bootstrap/js/popper.min.js"></script>
