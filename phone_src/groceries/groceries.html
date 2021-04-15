@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Grocery Lists</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../bootstrap-table-master/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="../index.css">
+    <link href="../../fontawesome/css/all.css" rel="stylesheet">
+    <script>
+        function loaded() {
+            // set user to kurnal
+            window.localStorage.setItem('GLOBAL_USER', "kurnal")
+            // init if localStorage variable does not exist
+            let curr = window.localStorage.getItem('GROCERY_LISTS')
+            if (curr == null) {
+                window.localStorage.setItem('GROCERY_LISTS', JSON.stringify({ items: [] }))
+            } else {
+                let groceryLists = JSON.parse(curr)
+                let counter = 0
+                groceryLists.items.filter(el => el.owner == "kurnal").forEach(el => {
+                    groceryItems = JSON.parse(window.localStorage.getItem(el.uuid))
+                    $("#groceryListsItems").append("<div id=\"" + counter + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
+                        "<div><h6 class=\"font-weight-bold mb-0\"><a class=\"text-dark\" id=\"" + el.uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + el.name + "')\">" +
+                        el.name + "</a>" + "</h6>" +
+                        "<small class=\"text-muted\">" + "Items: " + groceryItems["items"].length + "</small>" + "</div><div onclick=\"deleteGroceryList(" + counter + "," + el.uuid + ")\"><i class='fas fa-trash'></i></div></div>"
+                    );
+
+                    counter += 1
+                })
+            }
+        }
+    </script>
+    <script>
+        function appendGroceryList(name) {
+            if (name.trim() == "") {
+                window.alert("Please give your grocery list")
+                return
+            }
+            const currUser = window.localStorage.getItem('GLOBAL_USER')
+            let uuid = Math.floor(Math.random() * 9999999999)
+            let groceryLists = JSON.parse(window.localStorage.getItem('GROCERY_LISTS'))
+            groceryLists["items"].push({
+                uuid: uuid, owner: currUser, name: name
+            })
+            window.localStorage.setItem('GROCERY_LISTS', JSON.stringify(groceryLists))
+            window.localStorage.setItem(String(uuid), JSON.stringify({ items: [] }))
+            $("#groceryListsItems").append("<div id=\"" + (groceryLists["items"].length - 1) + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
+                "<div><h6 class=\"font-weight-bold mb-0\"><a class=\"text-dark\" id=\"" + uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + name + "')\">" + name + "</a>" + "</h6>" +
+                "<small class=\"text-muted\">" + "Items: 0" + "</small>" + "</div><div onclick=\"deleteGroceryList(" + (groceryLists["items"].length - 1) + "," + uuid + ")\"><i class='fas fa-trash'></i></div></div>"
+            );
+        }
+
+        function openGroceryList(uuid, name) {
+            window.location.href = "./grocery-list.html" + `?uuid=${uuid}&name=${name}`;
+        }
+
+        function deleteGroceryList(id, uuid) {
+            let groceryLists = JSON.parse(window.localStorage.getItem('GROCERY_LISTS'))
+            groceryLists["items"].splice(parseInt(id), 1)
+            window.localStorage.setItem('GROCERY_LISTS', JSON.stringify(groceryLists))
+            window.localStorage.removeItem(uuid)
+            let groceryItemDOM = document.getElementById(id)
+            groceryItemDOM.remove()
+        }
+
+    </script>
+    <script type="text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body onload="loaded();" class="m-2">
+    <!-- Modal -->
+    <div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Name Grocery List</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form class="modal-body">
+                    <div class="input-group mb-3">
+                        <input id="nameGroceryList" type="text" class="form-control" placeholder="Grocery List Name"
+                            aria-label="Name" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            onclick="appendGroceryList(self.nameGroceryList.value);">Save
+                            changes</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="d-inline-flex w-100">
+        <div id="groceryLists" class="w-100">
+            <div class="text-center d-flex align-items-center justify-content-between">
+                <h4 class="d-flex mt-3">
+                    <p class="text-muted">Kurnal's Lists</p>
+                </h4>
+                <button style="color: white; background-color: steelblue; border: black; border-width: 1;" type="button"
+                    class="d-flex btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#add">Add Grocery
+                    List</button>
+            </div>
+            <div id="groceryListsItems">
+            </div>
+        </div>
+    </div>
+
+
+
+    <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../index.html"> <i class="fas fa-home large_icon"></i> <br> Home </a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../groceries/groceries.html"> <i class="fas fa-list-alt large_icon"></i> <br> Lists</a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../inventory/inventory.html"> <i class="fas fa-shopping-basket large_icon"></i> <br> Inventory</a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../recipes/recipe.html"> <i class="fas fa-book large_icon"></i> <br> Recipes</a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../settings.html"> <i class="fas fa-wrench large_icon"></i><br> Settings</a>
+    </nav>
+
+</body>
+
+</html>

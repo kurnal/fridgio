@@ -1,0 +1,224 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Grocery Lists</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../index.css">
+    <link href="../../fontawesome/css/all.css" rel="stylesheet">
+    <script type="text/javascript" src="../../bootstrap/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+
+    <html lang="en">
+
+    <head>
+        <style>
+            .linkBackButton {
+                text-decoration: none;
+                color: "white";
+            }
+        </style>
+        <script>
+
+            function loaded() {
+                const urlParams = new URLSearchParams(window.location.search)
+                const uuid = urlParams.get('uuid')
+                const listName = urlParams.get('name')
+                const groceryList = JSON.parse(window.localStorage.getItem(uuid))
+                let counter = 0
+                let title = document.getElementById('title');
+                title.innerHTML = listName
+                groceryList.items.forEach(el => {
+                    $("#groceryList").append("<div class=\"p-3 d-flex justify-content-between form-check custom-control list-group-item\">" +
+                        "<div><input id=\"" + counter + "\" onclick=\"toggleGroceryItem(this.id)\" class=\"form-check-input\" type=\"checkbox\" id=\"flexCheckDefault\"" + ((el.checked) ? "checked" : "") + "/>" +
+                        "<label class=\"form-check-label\" for=\"flexCheckDefault\">" + el.name + "</label></div><div onclick=\"deleteGroceryItem(" + counter + ")\"><i class='fas fa-trash'></i></div></div>"
+                    );
+                    counter += 1
+                })
+            }
+
+            function toggleGroceryItem(id) {
+                const urlParams = new URLSearchParams(window.location.search)
+                const uuid = urlParams.get('uuid')
+                let groceryList = JSON.parse(window.localStorage.getItem(uuid))
+                groceryList["items"][parseInt(id)]["checked"] = !groceryList["items"][parseInt(id)]["checked"]
+                window.localStorage.setItem(uuid, JSON.stringify(groceryList))
+                const name = groceryList["items"][parseInt(id)]["name"]
+                const quantity = groceryList["items"][parseInt(id)]["quantity"]
+                const category = groceryList["items"][parseInt(id)]["group"]
+                const checked = groceryList["items"][parseInt(id)]["checked"]
+                addToInventory(name, quantity, category, checked)
+            }
+
+            function addToInventory(name, quantity, category, checked) {
+                // init if localStorage variable does not exist
+                let curr = window.localStorage.getItem('INVENTORY')
+                if (curr == null) window.localStorage.setItem('INVENTORY', JSON.stringify({ items: [] }))
+                let inventory = JSON.parse(window.localStorage.getItem('INVENTORY'))
+
+                entry = {}
+                entry["name"] = name.trim()
+                entry["qty"] = quantity.trim()
+                entry["expdate"] = "12-20-2022"
+                entry['category'] = category.trim()
+
+
+                names = []
+                inventory.items.forEach(el => names.push(el.name.trim()));
+                if (names.includes(entry["name"])) {
+                    let index = 0
+                    for (item of inventory["items"]) {
+                        if (item["name"].trim() == entry["name"].trim()) {
+                            break
+                        }
+                        index += 1
+                    }
+                    currQty = inventory["items"][index]["qty"]
+                    if (checked) {
+                        inventory["items"][index]["qty"] = parseInt(currQty) + parseInt(entry["qty"])
+                    } else {
+                        inventory["items"][index]["qty"] = parseInt(currQty) - parseInt(entry["qty"])
+                    }
+                } else {
+                    inventory["items"].push(entry)
+                }
+
+                window.localStorage.setItem('INVENTORY', JSON.stringify(inventory))
+                console.log("i made it")
+            }
+
+            function isNumeric(n) {
+                return !isNaN(parseFloat(n)) && isFinite(n);
+            }
+
+            function appendGroceryItem(name, quantity, groupDOM) {
+
+                if (name.trim() == "") {
+                    window.alert("Please give your grocery a name")
+                    return
+                }
+
+                if (!isNumeric(quantity) && parseInt(quantity) > 0) {
+                    window.alert("Please give a valid positive numeric quantity")
+                    return
+                }
+
+
+                const urlParams = new URLSearchParams(window.location.search)
+                const uuid = urlParams.get('uuid')
+                const group = groupDOM.options[groupDOM.selectedIndex].text;
+
+                if (group === "Please Select a Food Group:") {
+                    window.alert("Please select a food group.")
+                    return
+                }
+
+                let groceryList = JSON.parse(window.localStorage.getItem(uuid))
+                groceryList["items"].push({
+                    name, quantity, group, checked: false
+                })
+                window.localStorage.setItem(uuid, JSON.stringify(groceryList))
+                $("#groceryList").append("<div class=\"p-3 d-flex justify-content-between form-check custom-control list-group-item\">" +
+                    "<div><input id=\"" + (groceryList["items"].length - 1) + "\" onclick=\"toggleGroceryItem(this.id)\" class=\"form-check-input\" type=\"checkbox\" id=\"flexCheckDefault\" />" +
+                    "<label class=\"form-check-label\" for=\"flexCheckDefault\">" + name + "</label></div><div onclick=\"deleteGroceryItem(" + (groceryList["items"].length - 1) + ")\"><i class='fas fa-trash'></i></div></div>"
+                );
+            }
+
+            function deleteGroceryItem(id) {
+                const urlParams = new URLSearchParams(window.location.search)
+                const uuid = urlParams.get('uuid')
+                let groceryList = JSON.parse(window.localStorage.getItem(uuid))
+                groceryList["items"].splice(parseInt(id), 1)
+                window.localStorage.setItem(uuid, JSON.stringify(groceryList))
+                let groceryListDOM = document.getElementById("groceryList")
+                groceryListDOM.remove()
+                $("#divGroceryList").append("<ul id=\"groceryList\" class=\"list-group list-group-flush w-75\">")
+                let counter = 0
+                groceryList["items"].forEach(el => {
+                    $("#groceryList").append("<div class=\"p-3 d-flex justify-content-between form-check custom-control list-group-item\">" +
+                        "<div><input id=\"" + counter + "\" onclick=\"toggleGroceryItem(this.id)\" class=\"form-check-input\" type=\"checkbox\" id=\"flexCheckDefault\"" + ((el.checked) ? "checked" : "") + "/>" +
+                        "<label class=\"form-check-label\" for=\"flexCheckDefault\">" + el.name + "</label></div><div onclick=\"deleteGroceryItem(" + counter + ")\"><i class='fas fa-trash'></i></div></div>"
+                    );
+                    counter += 1
+                })
+                $("#divGroceryList").append("</ul>")
+            }
+
+        </script>
+    </head>
+
+    <body onload="loaded();" class="container align-items-center">
+        <div class="text-center d-flex align-items-center justify-content-between mb-3">
+            <button type="button" style="color: black; background-color: peachpuff; border: black; border-width: 1;"
+                class="d-flex btn btn-primary m-3 align-self-end"><a style="color:white;text-decoration:none;"
+                    href="./groceries.html">
+                    Back</a></button>
+            <h1 id="title" class="text-center m-3"> </h1>
+            <button type="button" style="color: white; background-color: steelblue; border: black; border-width: 1;"
+                class="d-flex btn btn-primary m-3 align-self-end" data-bs-toggle="modal" data-bs-target="#add">Add
+                Item</button>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Name Grocery List</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form class="modal-body">
+                        <div class="input-group mb-3">
+                            <input id="itemName" type="text" class="form-control" placeholder="Item Name"
+                                aria-label="Name" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group mb-3">
+                            <input id="quantity" type="number" class="form-control" placeholder="Quantity"
+                                aria-label="Quanity" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="container form-group">
+                            <select class="form-control" id="group" required>
+                                <option value="">Please Select a Food Group:</option>
+                                <option value="0">Proteins</option>
+                                <option value="1">Vegetables</option>
+                                <option value="2">Fruits</option>
+                                <option value="3">Grains</option>
+                                <option value="4">Other</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button data-bs-dismiss="modal" type="button" class="btn btn-primary"
+                                onclick="appendGroceryItem(self.itemName.value, self.quantity.value, self.group);">Save
+                                Changes</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center justify-content-center w-100">
+            <div id="divGroceryList" style="width:75%;" class="align-items-center">
+                <ul id="groceryList" class="list-group list-group-flush w-75">
+
+                </ul>
+            </div>
+        </div>
+
+        <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../index.html"> <i class="fas fa-home large_icon"></i> <br> Home </a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../groceries/groceries.html"> <i class="fas fa-list-alt large_icon"></i> <br> Lists</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../inventory/inventory.html"> <i class="fas fa-shopping-basket large_icon"></i> <br> Inventory</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../recipes/recipe.html"> <i class="fas fa-book large_icon"></i> <br> Recipes</a>
+            <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../settings.html"> <i class="fas fa-wrench large_icon"></i><br> Settings</a>
+        </nav>
+
+        <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../bootstrap/js/popper.min.js"></script>
+
+    </html>
