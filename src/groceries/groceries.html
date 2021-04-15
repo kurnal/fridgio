@@ -112,7 +112,7 @@
             window.localStorage.setItem(nUUID, list)
             $("#groceryListsItems").append("<div id=\"" + (groceryLists["items"].length - 1) + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
                 "<div><h6 class=\"font-weight-bold mb-0\"><a class=\"text-dark\" id=\"" + nUUID + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + name + "')\">" + name + "</a>" + "</h6>" +
-                "<small class=\"text-muted\">" + "Items: " + JSON.parse(list)["items"].length +  "</small>" + "</div><div class=\"d-inline-flex\"><div onclick=\"copyGroceryList('" + (groceryLists["items"].length - 1) + "','" + nUUID + "')\"><i class='fas fa-copy fa-2x m-2'></i></div><div onclick=\"deleteGroceryList(" + (groceryLists["items"].length - 1) + "," + nUUID + ")\"><i class='fas fa-trash fa-2x m-2'></i></div></div></div>"
+                "<small class=\"text-muted\">" + "Items: " + JSON.parse(list)["items"].length + "</small>" + "</div><div class=\"d-inline-flex\"><div onclick=\"copyGroceryList('" + (groceryLists["items"].length - 1) + "','" + nUUID + "')\"><i class='fas fa-copy fa-2x m-2'></i></div><div onclick=\"deleteGroceryList(" + (groceryLists["items"].length - 1) + "," + nUUID + ")\"><i class='fas fa-trash fa-2x m-2'></i></div></div></div>"
             )
         }
 
@@ -201,8 +201,6 @@
         </div>
     </div>
 
-
-
     <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
         <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
             href="../index.html"> <i class="fas fa-home"></i> Home </a>
@@ -215,7 +213,5 @@
         <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
             href="../settings.html"> <i class="fas fa-wrench"></i> Settings</a>
     </nav>
-
 </body>
-
 </html>

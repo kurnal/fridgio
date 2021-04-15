@@ -24,17 +24,16 @@
                 groceryLists.items.filter(el => el.owner == "kurnal").forEach(el => {
                     groceryItems = JSON.parse(window.localStorage.getItem(el.uuid))
                     $("#groceryListsItems").append("<div id=\"" + counter + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
-                        "<div><h6 class=\"font-weight-bold mb-0\"><a class=\"text-dark\" id=\"" + el.uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + el.name + "')\">" +
-                        el.name + "</a>" + "</h6>" +
-                        "<small class=\"text-muted\">" + "Items: " + groceryItems["items"].length + "</small>" + "</div><div onclick=\"deleteGroceryList(" + counter + "," + el.uuid + ")\"><i class='fas fa-trash'></i></div></div>"
-                    );
-
+                        "<div><h6 class=\"font-weight-bold mb-0\"><a class=\"text-dark\" id=\"" + el.uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + el.name + "')\">" + el.name + "</a>" + "</h6>" +
+                        "<small class=\"text-muted\">" + "Items: " + groceryItems["items"].length + "</small>" + "</div><div class=\"d-inline-flex\"><div onclick=\"copyGroceryList('" + counter + "','" + el.uuid + "')\"><i class='fas fa-copy fa-2x m-2'></i></div><div onclick=\"deleteGroceryList(" + counter + "," + el.uuid + ")\"><i class='fas fa-trash fa-2x m-2'></i></div></div></div>"
+                    )
                     counter += 1
                 })
             }
         }
     </script>
     <script>
+
         function appendGroceryList(name) {
             if (name.trim() == "") {
                 window.alert("Please give your grocery list")
@@ -50,12 +49,39 @@
             window.localStorage.setItem(String(uuid), JSON.stringify({ items: [] }))
             $("#groceryListsItems").append("<div id=\"" + (groceryLists["items"].length - 1) + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
                 "<div><h6 class=\"font-weight-bold mb-0\"><a class=\"text-dark\" id=\"" + uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + name + "')\">" + name + "</a>" + "</h6>" +
-                "<small class=\"text-muted\">" + "Items: 0" + "</small>" + "</div><div onclick=\"deleteGroceryList(" + (groceryLists["items"].length - 1) + "," + uuid + ")\"><i class='fas fa-trash'></i></div></div>"
-            );
+                "<small class=\"text-muted\">" + "Items: 0" + "</small>" + "</div><div class=\"d-inline-flex\"><div onclick=\"copyGroceryList('" + (groceryLists["items"].length - 1) + "','" + uuid + "')\"><i class='fas fa-copy fa-2x m-2'></i></div><div onclick=\"deleteGroceryList(" + (groceryLists["items"].length - 1) + "," + uuid + ")\"><i class='fas fa-trash fa-2x m-2'></i></div></div></div>"
+            )
+            $('#submitForm')[0].reset();
         }
 
         function openGroceryList(uuid, name) {
             window.location.href = "./grocery-list.html" + `?uuid=${uuid}&name=${name}`;
+        }
+
+        function changeGlobalUser(id) {
+            const prevUser = window.localStorage.getItem('GLOBAL_USER')
+            if (prevUser == id) {
+                return
+            }
+            window.localStorage.setItem('GLOBAL_USER', id)
+            let currBlock = document.getElementById(id)
+            let prevBlock = document.getElementById(prevUser)
+            currBlock.style.backgroundColor = "lightsteelblue"
+            prevBlock.style.backgroundColor = "white"
+            let groceryListDOM = document.getElementById("groceryListsItems")
+            groceryListDOM.remove()
+            $("#groceryLists").append("<div id=\"groceryListsItems\">")
+            let counter = 0
+            let groceryLists = JSON.parse(window.localStorage.getItem('GROCERY_LISTS'))
+            groceryLists.items.filter(el => el.owner == id).forEach(el => {
+                groceryItems = JSON.parse(window.localStorage.getItem(el.uuid))
+                $("#groceryListsItems").append("<div id=\"" + counter + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
+                    "<div><h6 class=\"font-weight-bold mb-0\"><a class=\"text-dark\" id=\"" + el.uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + el.name + "')\">" + el.name + "</a>" + "</h6>" +
+                    "<small class=\"text-muted\">" + "Items: " + groceryItems["items"].length + "</small>" + "</div><div class=\"d-inline-flex\"><div onclick=\"copyGroceryList('" + counter + "','" + el.uuid + "')\"><i class='fas fa-copy fa-2x m-2'></i></div><div onclick=\"deleteGroceryList(" + counter + "," + el.uuid + ")\"><i class='fas fa-trash fa-2x m-2'></i></div></div></div>"
+                )
+                counter += 1
+            })
+            $("#groceryLists").append("</div>")
         }
 
         function deleteGroceryList(id, uuid) {
@@ -65,6 +91,29 @@
             window.localStorage.removeItem(uuid)
             let groceryItemDOM = document.getElementById(id)
             groceryItemDOM.remove()
+        }
+
+        function copyGroceryList(counter, uuid) {
+            let groceryLists = JSON.parse(window.localStorage.getItem('GROCERY_LISTS'))
+            const list = window.localStorage.getItem(uuid)
+            const currUser = window.localStorage.getItem('GLOBAL_USER')
+            let nUUID = Math.floor(Math.random() * 9999999999)
+
+            let d = new Date();
+            let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+            let mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(d);
+            let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+
+            const name = groceryLists["items"][parseInt(counter)]["name"] + " " + `${da}-${mo}-${ye}`
+            groceryLists["items"].push({
+                uuid: nUUID, owner: currUser, name: name
+            })
+            window.localStorage.setItem('GROCERY_LISTS', JSON.stringify(groceryLists))
+            window.localStorage.setItem(nUUID, list)
+            $("#groceryListsItems").append("<div id=\"" + (groceryLists["items"].length - 1) + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
+                "<div><h6 class=\"font-weight-bold mb-0\"><a class=\"text-dark\" id=\"" + nUUID + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + name + "')\">" + name + "</a>" + "</h6>" +
+                "<small class=\"text-muted\">" + "Items: " + JSON.parse(list)["items"].length + "</small>" + "</div><div class=\"d-inline-flex\"><div onclick=\"copyGroceryList('" + (groceryLists["items"].length - 1) + "','" + nUUID + "')\"><i class='fas fa-copy fa-2x m-2'></i></div><div onclick=\"deleteGroceryList(" + (groceryLists["items"].length - 1) + "," + nUUID + ")\"><i class='fas fa-trash fa-2x m-2'></i></div></div></div>"
+            )
         }
 
     </script>
@@ -81,7 +130,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Name Grocery List</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form class="modal-body">
+                <form id="submitForm" class="modal-body">
                     <div class="input-group mb-3">
                         <input id="nameGroceryList" type="text" class="form-control" placeholder="Grocery List Name"
                             aria-label="Name" aria-describedby="basic-addon1">
@@ -102,11 +151,11 @@
         <div id="groceryLists" class="w-100">
             <div class="text-center d-flex align-items-center justify-content-between">
                 <h4 class="d-flex mt-3">
-                    <p class="text-muted">Kurnal's Lists</p>
+                    <p class="text-dark">Grocery List</p>
                 </h4>
-                <button style="color: white; background-color: steelblue; border: black; border-width: 1;" type="button"
-                    class="d-flex btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#add">Add Grocery
-                    List</button>
+                <button style="color: black; background-color: lightsteelblue; border: black;" type="button"
+                    class="d-flex btn btn-primary m-3 border border-dark" data-bs-toggle="modal"
+                    data-bs-target="#add">Add Grocery List</button>
             </div>
             <div id="groceryListsItems">
             </div>
@@ -116,11 +165,16 @@
 
 
     <nav class="navbar fixed-bottom nav-fill navbar-expand-sm navbar-dark bg-light border-top">
-        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../index.html"> <i class="fas fa-home large_icon"></i> <br> Home </a>
-        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../groceries/groceries.html"> <i class="fas fa-list-alt large_icon"></i> <br> Lists</a>
-        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../inventory/inventory.html"> <i class="fas fa-shopping-basket large_icon"></i> <br> Inventory</a>
-        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../recipes/recipe.html"> <i class="fas fa-book large_icon"></i> <br> Recipes</a>
-        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style = "font-family:SanFrancisco; font-size: 2.5vw" href = "../settings.html"> <i class="fas fa-wrench large_icon"></i><br> Settings</a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
+            href="../index.html"> <i class="fas fa-home"></i> Home </a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
+            href="../groceries/groceries.html"> <i class="fas fa-list-alt"></i> Grocery Lists </a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
+            href="../inventory/inventory.html"> <i class="fas fa-shopping-basket"></i> Inventory </a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
+            href="../recipes/recipe.html"> <i class="fas fa-book"></i> Recipes </a>
+        <a class="btn btn-default flex-grow-1" id="settings" name="settings" style="font-family:SanFrancisco"
+            href="../settings.html"> <i class="fas fa-wrench"></i> Settings</a>
     </nav>
 
 </body>
