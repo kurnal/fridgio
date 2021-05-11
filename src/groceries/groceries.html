@@ -26,7 +26,7 @@
                     groceryItems = JSON.parse(window.localStorage.getItem(el.uuid))
                     $("#groceryListsItems").append("<div id=\"" + counter + "\"class=\"d-flex justify-content-between col-lg-12 mx-auto shadow-lg p-3 mb-3\">" +
                         "<div><h6 class=\"font-weight-bold mb-0\"><a class=\"text-dark\" id=\"" + el.uuid + "\"href=\"#\" onclick=\"openGroceryList(this.id,'" + el.name + "')\">" + el.name + "</a>" + "</h6>" +
-                        "<small class=\"text-muted\">" + "Items: " + groceryLists["items"].length + "</small>" + "</div><div class=\"d-inline-flex\"><div onclick=\"copyGroceryList('" + counter + "','" + el.uuid + "')\"><i class='fas fa-copy fa-2x m-2'></i></div><div onclick=\"deleteGroceryList(" + counter + "," + el.uuid + ")\"><i class='fas fa-trash fa-2x m-2'></i></div></div></div>"
+                        "<small class=\"text-muted\">" + "Items: " + ((groceryItems) ? groceryItems["items"].length : "0") + "</small>" + "</div><div class=\"d-inline-flex\"><div onclick=\"copyGroceryList('" + counter + "','" + el.uuid + "')\"><i class='fas fa-copy fa-2x m-2'></i></div><div onclick=\"deleteGroceryList(" + counter + "," + el.uuid + ")\"><i class='fas fa-trash fa-2x m-2'></i></div></div></div>"
                     )
                     counter += 1
                 })

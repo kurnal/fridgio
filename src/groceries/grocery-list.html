@@ -36,7 +36,7 @@
                 groceryList.items.forEach(el => {
                     $("#groceryList").append("<div class=\"p-3 d-flex justify-content-between form-check custom-control list-group-item\">" +
                         "<div><input id=\"" + counter + "\" onclick=\"toggleGroceryItem(this.id)\" class=\"form-check-input\" type=\"checkbox\" id=\"flexCheckDefault\"" + ((el.checked) ? "checked" : "") + "/>" +
-                        "<label class=\"form-check-label\" for=\"flexCheckDefault\">" + el.name + "</label></div><div onclick=\"deleteGroceryItem(" + counter + ")\"><i class='fas fa-trash'></i></div></div>"
+                        "<label class=\"form-check-label\" for=\"flexCheckDefault\">" + el.name + " (" + el.quantity + ")" +  "</label></div><div onclick=\"deleteGroceryItem(" + counter + ")\"><i class='fas fa-trash'></i></div></div>"
                     );
                     counter += 1
                 })
@@ -125,7 +125,7 @@
                 window.localStorage.setItem(uuid, JSON.stringify(groceryList))
                 $("#groceryList").append("<div class=\"p-3 d-flex justify-content-between form-check custom-control list-group-item\">" +
                     "<div><input id=\"" + (groceryList["items"].length - 1) + "\" onclick=\"toggleGroceryItem(this.id)\" class=\"form-check-input\" type=\"checkbox\" id=\"flexCheckDefault\" />" +
-                    "<label class=\"form-check-label\" for=\"flexCheckDefault\">" + name + "</label></div><div onclick=\"deleteGroceryItem(" + (groceryList["items"].length - 1) + ")\"><i class='fas fa-trash'></i></div></div>"
+                    "<label class=\"form-check-label\" for=\"flexCheckDefault\">" + name + " (" + quantity + ")" + "</label></div><div onclick=\"deleteGroceryItem(" + (groceryList["items"].length - 1) + ")\"><i class='fas fa-trash'></i></div></div>"
                 );
 
                 $('#submitForm')[0].reset();
@@ -145,7 +145,7 @@
                 groceryList["items"].forEach(el => {
                     $("#groceryList").append("<div class=\"p-3 d-flex justify-content-between form-check custom-control list-group-item\">" +
                         "<div><input id=\"" + counter + "\" onclick=\"toggleGroceryItem(this.id)\" class=\"form-check-input\" type=\"checkbox\" id=\"flexCheckDefault\"" + ((el.checked) ? "checked" : "") + "/>" +
-                        "<label class=\"form-check-label\" for=\"flexCheckDefault\">" + el.name + "</label></div><div onclick=\"deleteGroceryItem(" + counter + ")\"><i class='fas fa-trash'></i></div></div>"
+                        "<label class=\"form-check-label\" for=\"flexCheckDefault\">" + el.name + "(" + el.quantity + ")" + "</label></div><div onclick=\"deleteGroceryItem(" + counter + ")\"><i class='fas fa-trash'></i></div></div>"
                     );
                     counter += 1
                 })
@@ -157,10 +157,14 @@
 
     <body onload="loaded();" class="container align-items-center">
         <div class="text-center d-flex align-items-center justify-content-between mb-3">
-            <button type="button" style="color: black; background-color: peachpuff; border: black; border-width: 1;" class="d-flex btn btn-primary m-3 align-self-end border border-dark"><a style="color:black;text-decoration:none;" href="./groceries.html">
+            <button type="button" style="color: black; background-color: peachpuff; border: black; border-width: 1;"
+                class="d-flex btn btn-primary m-3 align-self-end border border-dark"><a
+                    style="color:black;text-decoration:none;" href="./groceries.html">
                     Back</a></button>
             <h1 id="title" class="text-center m-3"> </h1>
-            <button type="button" style="color: black; background-color: lightsteelblue; border: black; border-width: 1;" class="d-flex btn btn-primary m-3 align-self-end border border-dark" data-bs-toggle="modal"
+            <button type="button"
+                style="color: black; background-color: lightsteelblue; border: black; border-width: 1;"
+                class="d-flex btn btn-primary m-3 align-self-end border border-dark" data-bs-toggle="modal"
                 data-bs-target="#add">Add Item</button>
         </div>
         <!-- Modal -->
